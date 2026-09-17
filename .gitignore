@@ -1,0 +1,8 @@
+# Godot 4+ specific ignores
+.godot/
+.vscode/
+.claude/
+/android/
+export_presets.cfg   # contém caminhos locais e às vezes credenciais de assinatura
+*.translation
+/builds/
