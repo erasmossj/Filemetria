@@ -1,9 +1,9 @@
-# Telemetria — Padrão de projeto e arquitetura
+# Filemetria — Padrão de projeto e arquitetura
 
 Estrutura de pastas adotada no projeto (Godot 4):
 
 ```
-telemetria/
+Filemetria/
 ├── .editorconfig      # raiz (obrigatório)
 ├── .gitignore         # raiz
 ├── project.godot      # raiz (obrigatório — define o projeto)
