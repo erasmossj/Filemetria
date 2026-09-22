@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dmupmkqof1scs"]
+
+[ext_resource type="Script" uid="uid://bsotg7udjrhpv" path="res://src/entities/player/player.gd" id="1_4m8ck"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yf5fn"]
+radius = 0.4
+
+[node name="Player" type="CharacterBody3D" unique_id=156449872]
+script = ExtResource("1_4m8ck")
+
+[node name="CollisionPlayer" type="CollisionShape3D" parent="." unique_id=1880344323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_g4v7s")
+
+[node name="Head" type="Node3D" parent="." unique_id=34031514]
+
+[node name="Vertical" type="Node3D" parent="Head" unique_id=84466540]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="HeadArea" type="Area3D" parent="Head/Vertical" unique_id=2054375106]
+
+[node name="CollisionHead" type="CollisionShape3D" parent="Head/Vertical/HeadArea" unique_id=120330775]
+shape = SubResource("SphereShape3D_yf5fn")
+
+[node name="Camera" type="Camera3D" parent="Head/Vertical/HeadArea" unique_id=685534190]
+near = 0.001
