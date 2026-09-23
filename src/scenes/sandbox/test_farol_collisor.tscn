@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://d3pcm2cmrnbxo"]
+
+[ext_resource type="Texture2D" uid="uid://d14vurtpr4w77" path="res://icon.svg" id="1_7uih8"]
+[ext_resource type="PackedScene" uid="uid://dmupmkqof1scs" path="res://src/entities/player/player.tscn" id="2_vm587"]
+[ext_resource type="PackedScene" uid="uid://djd0eqbol5gmn" path="res://src/entities/statics/farol/farol.tscn" id="3_vm587"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
+albedo_texture = ExtResource("1_7uih8")
+
+[node name="Sandbox" type="Node3D" unique_id=58623731]
+
+[node name="Terrain" type="CSGCombiner3D" parent="." unique_id=1857635744]
+use_collision = true
+
+[node name="Ground" type="CSGBox3D" parent="Terrain" unique_id=1802889086]
+size = Vector3(200, 1, 200)
+material = SubResource("StandardMaterial3D_g4v7s")
+
+[node name="Player" parent="." unique_id=156449872 instance=ExtResource("2_vm587")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1806719369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 200, 0)
+light_energy = 5.0
+light_angular_distance = 45.0
+
+[node name="Farol" parent="." unique_id=1479591204 instance=ExtResource("3_vm587")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.52, 1, -1.924)
+script = null

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://djd0eqbol5gmn"]
+
+[ext_resource type="PackedScene" uid="uid://de7qmpkwg2wfp" path="res://assets/models/modelo_farol/farol_ponta_verde.-colonly.glb" id="1_tve0x"]
+[ext_resource type="Script" uid="uid://di3uij7p4nkxe" path="res://src/entities/statics/farol/farol.gd" id="1_x2pk2"]
+
+[node name="Farol" type="Node3D" unique_id=1479591204]
+script = ExtResource("1_x2pk2")
+
+[node name="FarolModel" parent="." unique_id=470699983 instance=ExtResource("1_tve0x")]
