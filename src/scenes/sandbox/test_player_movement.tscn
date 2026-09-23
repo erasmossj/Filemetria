@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://d14vurtpr4w77" path="res://icon.svg" id="1_03d3p"]
 [ext_resource type="PackedScene" uid="uid://dmupmkqof1scs" path="res://src/entities/player/player.tscn" id="1_xewlf"]
+[ext_resource type="AudioStream" uid="uid://bx1i55qavhhca" path="res://assets/audio/ambient/sea_ambience.mp3" id="3_o45cf"]
+[ext_resource type="AudioStream" uid="uid://dd20cv2ofi18x" path="res://assets/audio/ambient/wind_ambience.mp3" id="4_0ffs3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4m8ck"]
 albedo_texture = ExtResource("1_03d3p")
@@ -30,3 +32,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.921, 1.5, 2.224)
 material = SubResource("StandardMaterial3D_yf5fn")
 
 [node name="Player" parent="." unique_id=156449872 instance=ExtResource("1_xewlf")]
+
+[node name="SeaAmbience" type="AudioStreamPlayer3D" parent="." unique_id=1540517351]
+stream = ExtResource("3_o45cf")
+autoplay = true
+
+[node name="WindAmbience" type="AudioStreamPlayer3D" parent="." unique_id=1451509403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.30801, 0, 19.649883)
+stream = ExtResource("4_0ffs3")
+autoplay = true
