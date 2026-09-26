@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cs73ayg2hg6by"]
+
+[ext_resource type="PackedScene" path="res://src/entities/environment/sunset_lighting/sunset_lighting.tscn" id="1_r8hut"]
+[ext_resource type="PackedScene" uid="uid://dmupmkqof1scs" path="res://src/entities/player/player.tscn" id="2_hh5lq"]
+[ext_resource type="PackedScene" uid="uid://djd0eqbol5gmn" path="res://src/entities/statics/Farol/farol.tscn" id="3_xh2ks"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_huv7l"]
+albedo_color = Color(0.62, 0.58, 0.5, 1)
+roughness = 0.9
+
+[node name="Sandbox" type="Node3D" unique_id=2026155738]
+
+[node name="SunsetLighting" parent="." unique_id=1313130001 instance=ExtResource("1_r8hut")]
+
+[node name="Player" parent="." unique_id=156449872 instance=ExtResource("2_hh5lq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="Ground" type="CSGBox3D" parent="." unique_id=745006540]
+use_collision = true
+size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_huv7l")
+
+[node name="Farol" parent="." unique_id=1760984746 instance=ExtResource("3_xh2ks")]

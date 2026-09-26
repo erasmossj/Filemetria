@@ -8,6 +8,7 @@
 radius = 0.4
 
 [node name="Player" type="CharacterBody3D" unique_id=156449872]
+collision_layer = 4
 script = ExtResource("1_4m8ck")
 
 [node name="CollisionPlayer" type="CollisionShape3D" parent="." unique_id=1880344323]
