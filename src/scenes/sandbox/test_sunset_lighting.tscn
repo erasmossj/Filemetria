@@ -1,0 +1,44 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://src/entities/environment/sunset_lighting/sunset_lighting.tscn" id="1_light"]
+[ext_resource type="PackedScene" uid="uid://dmupmkqof1scs" path="res://src/entities/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://cgdgdebpiwuug" path="res://assets/models/modelo_farol/farol_ponta_verde.blend" id="3_farol"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ground"]
+albedo_color = Color(0.62, 0.58, 0.5, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lodo_proxy"]
+albedo_color = Color(0.07, 0.075, 0.06, 1)
+roughness = 0.2
+
+[node name="TestSunsetLighting" type="Node3D" unique_id=1313131001]
+
+[node name="SunsetLighting" parent="." unique_id=1313131002 instance=ExtResource("1_light")]
+
+[node name="Ground" type="CSGBox3D" parent="." unique_id=1313131003]
+use_collision = true
+size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_ground")
+
+[node name="Farol" parent="." unique_id=1313131004 instance=ExtResource("3_farol")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -12)
+
+[node name="LodoProxyAto1" type="CSGBox3D" parent="." unique_id=1313131005]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.6, -4)
+size = Vector3(3, 0.2, 2)
+material = SubResource("StandardMaterial3D_lodo_proxy")
+
+[node name="LodoProxyAto2" type="CSGCylinder3D" parent="." unique_id=1313131006]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -4)
+radius = 1.5
+height = 0.2
+material = SubResource("StandardMaterial3D_lodo_proxy")
+
+[node name="LodoProxyAto3" type="CSGBox3D" parent="." unique_id=1313131007]
+transform = Transform3D(0.866, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866, 6, 0.6, -4)
+size = Vector3(2.5, 0.2, 3.5)
+material = SubResource("StandardMaterial3D_lodo_proxy")
+
+[node name="Player" parent="." unique_id=1313131008 instance=ExtResource("2_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 6)
