@@ -25,4 +25,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 shape = SubResource("SphereShape3D_yf5fn")
 
 [node name="Camera" type="Camera3D" parent="Head/Vertical/HeadArea" unique_id=685534190]
+current = true
 near = 0.001

@@ -20,8 +20,22 @@ ambient_light_color = Color(0.56, 0.62, 0.74, 1)
 ambient_light_sky_contribution = 0.7
 ambient_light_energy = 1.25
 reflected_light_source = 2
-tonemap_mode = 2
-tonemap_exposure = 1.0
+tonemap_mode = 3
+tonemap_exposure = 0.9
+tonemap_white = 6.0
+ssao_enabled = true
+ssao_radius = 3.0
+ssao_intensity = 3.0
+ssao_power = 1.5
+ssao_detail = 0.5
+ssao_light_affect = 0.2
+fog_enabled = true
+fog_mode = 0
+fog_light_color = Color(0.78, 0.7, 0.66, 1)
+fog_light_energy = 1.0
+fog_sun_scatter = 0.15
+fog_density = 0.002
+fog_sky_affect = 0.0
 
 [node name="SunsetLighting" type="Node3D" unique_id=1313130001]
 
