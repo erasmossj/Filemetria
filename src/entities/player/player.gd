@@ -15,6 +15,8 @@ extends CharacterBody3D
 var cam_ver = 0.0
 var cam_is_mov_now = false
 var mouse_mode_captured = false
+@onready var raycast : RayCast3D = $Head/Vertical/RayCast3D
+@onready var ps = $Head/Vertical/PointSystem
 
 func _ready() -> void:
 	## Captura o mouse.
@@ -66,5 +68,9 @@ func _physics_process(delta: float) -> void:
 		velocity.y += FLY_VELOCITY
 	elif Input.is_action_pressed("fly_down"):
 		velocity.y -= FLY_VELOCITY
+	
+	## Verificar colisão do RayCast
+	if Input.is_action_just_pressed("left_click_mouse") and raycast.is_colliding():
+		ps.call_system(raycast.get_collision_point())
 
 	move_and_slide()
