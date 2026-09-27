@@ -1,0 +1,22 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" id="Color" path="./metal_limpo_color.jpg"]
+[ext_resource type="Texture2D" id="Metalness" path="./metal_limpo_metalness.jpg"]
+[ext_resource type="Texture2D" id="Displacement" path="./metal_limpo_height.jpg"]
+[ext_resource type="Texture2D" id="Roughness" path="./metal_limpo_roughness.jpg"]
+[ext_resource type="Texture2D" id="NormalGL" path="./metal_limpo_normal.jpg"]
+[resource]
+albedo_texture = ExtResource("Color")
+metallic_texture = ExtResource("Metalness")
+metallic = 1.0
+metallic_texture_channel = 4
+roughness_texture = ExtResource("Roughness")
+roughness_texture_channel = 4
+normal_texture = ExtResource("NormalGL")
+normal_enabled = true
+heightmap_texture = ExtResource("Displacement")
+heightmap_scale = 1.0
+heightmap_enabled = false
+uv1_scale = Vector3(1, 1, 1)
+uv1_triplanar = true
+uv1_world_triplanar = true
