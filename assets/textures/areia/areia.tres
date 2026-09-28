@@ -1,0 +1,22 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" id="Color" path="./areia_color.jpg"]
+[ext_resource type="Texture2D" id="AmbientOcclusion" path="./areia_ao.jpg"]
+[ext_resource type="Texture2D" id="Displacement" path="./areia_height.jpg"]
+[ext_resource type="Texture2D" id="Roughness" path="./areia_roughness.jpg"]
+[ext_resource type="Texture2D" id="NormalGL" path="./areia_normal.jpg"]
+[resource]
+albedo_texture = ExtResource("Color")
+ao_enabled = true
+ao_texture = ExtResource("AmbientOcclusion")
+ao_texture_channel = 4
+roughness_texture = ExtResource("Roughness")
+roughness_texture_channel = 4
+normal_texture = ExtResource("NormalGL")
+normal_enabled = true
+heightmap_texture = ExtResource("Displacement")
+heightmap_scale = 1.0
+heightmap_enabled = false
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true
+uv1_world_triplanar = true
