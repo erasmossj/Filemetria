@@ -38,7 +38,7 @@ transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, -0.1)
 texture = ExtResource("2_vt6n5")
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Vertical" unique_id=526878805]
-target_position = Vector3(0, 0, -1.5)
+target_position = Vector3(0, 0, -2)
 collide_with_areas = true
 
 [node name="PointSystem" type="Node3D" parent="Head/Vertical" unique_id=2129182904]

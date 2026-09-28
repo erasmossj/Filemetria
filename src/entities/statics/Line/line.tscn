@@ -27,3 +27,7 @@ mesh = SubResource("CylinderMesh_g4v7s")
 [node name="LineCollision" type="CollisionShape3D" parent="Area3D" unique_id=1750069419]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 shape = SubResource("CylinderShape3D_g4v7s")
+
+[node name="LineLenghtLabel" type="Label3D" parent="Area3D" unique_id=877581872]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.15, 0)
+layers = 4
