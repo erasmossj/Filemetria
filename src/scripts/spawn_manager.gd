@@ -16,10 +16,14 @@ func spawn_entity(entity : PackedScene, spawn_position : Vector3, entity_length 
 		## −Z do nó passa a apontar para o destino.
 		new_entity.look_at(destiny, up)
 
-		## Estica só no eixo Z (o comprimento); X e Y ficam 1 para não engrossar.
+		## A própria reta ajusta o comprimento da malha e do colisor.
 		new_entity.set_length(entity_length)
 
 	return new_entity
+
+func remove_entity(entity : Node3D):
+	if is_instance_valid(entity):
+		entity.queue_free()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

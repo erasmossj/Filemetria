@@ -16,12 +16,12 @@ roughness = 0.9
 [node name="Player" parent="." unique_id=156449872 instance=ExtResource("2_xyal0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
 
-[node name="Ground" type="CSGBox3D" parent="." unique_id=1292599753]
+[node name="Ground" type="CSGBox3D" parent="." unique_id=1292599753 groups=["Cenário"]]
 use_collision = true
 size = Vector3(100, 1, 100)
 material = SubResource("StandardMaterial3D_ykdqr")
 
-[node name="Farol" parent="." unique_id=1760984746 instance=ExtResource("3_gav7g")]
+[node name="Farol" parent="." unique_id=1760984746 groups=["Monumentos"] instance=ExtResource("3_gav7g")]
 ato = 2
 
 [node name="SpawnManager" parent="." unique_id=199291268 instance=ExtResource("4_xyal0")]

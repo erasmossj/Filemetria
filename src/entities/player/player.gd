@@ -19,7 +19,9 @@ var mouse_mode_captured = false
 @onready var ps = $Head/Vertical/PointSystem
 
 func _ready() -> void:
-	## Captura o mouse.
+	#################################################################################################
+	## Captura do mouse.
+	#################################################################################################
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	## Seta variáveis importantes para o controle da captura do mouse
@@ -27,14 +29,18 @@ func _ready() -> void:
 	cam_is_mov_now = true
 
 func _input(event: InputEvent) -> void:
-	# Rotaciona o Player na direção do Mouse.
+	#################################################################################################
+	## Rotacão do Player na direção do Mouse.
+	#################################################################################################
 	if event is InputEventMouseMotion and cam_is_mov_now:
 		rotate_y(deg_to_rad(-event.relative.x * MOUSE_SENSITIVITY))
 		cam_ver -= deg_to_rad(event.relative.y * MOUSE_SENSITIVITY)
 		cam_ver = clamp(cam_ver, deg_to_rad(LIMIT_DOWN), deg_to_rad(LIMIT_UP))
 		$Head/Vertical.rotation.x = cam_ver
 	
-	# Libera o mouse ao apertar ESC.
+	#################################################################################################
+	## Libera o cursor ao pressionar ESC
+	#################################################################################################
 	if event.is_action_pressed("pause"):
 		if mouse_mode_captured:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -53,7 +59,9 @@ func _physics_process(delta: float) -> void:
 	## Ajuste na velocidade de y para impedir que o player voe pro infinito e além.
 	velocity.y = 0
 	
+	#################################################################################################
 	## Input de direção.
+	#################################################################################################
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
@@ -63,14 +71,37 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	
+	#################################################################################################
 	## Input de voo.
+	#################################################################################################
 	if Input.is_action_pressed("fly_up"):
 		velocity.y += FLY_VELOCITY
 	elif Input.is_action_pressed("fly_down"):
 		velocity.y -= FLY_VELOCITY
 	
-	## Verificar colisão do RayCast
-	if Input.is_action_just_pressed("left_click_mouse") and raycast.is_colliding():
-		ps.call_system(raycast.get_collision_point())
+	#################################################################################################
+	## Sistema de Pontos e Linhas
+		## Verificar ações que não precisam de colisão 
+		## Verificar colisão do RayCast
+	#################################################################################################
+	if Input.is_action_just_pressed("cancel_line"):	
+		ps.cancel_line()
+	if Input.is_action_just_pressed("undo_line"):
+		ps.clear_lines()
+	elif Input.is_action_just_pressed("clear_lines", true):
+		ps.undo_last_line()
+	
+	raycast.force_raycast_update()
+	var collider: Node = raycast.get_collider() if raycast.is_colliding() else null
+
+	if collider:
+		var target: Node = collider.owner if collider.owner else collider
+
+		if Input.is_action_just_pressed("left_click_mouse"):
+			if collider is not Area3D:
+				ps.add_point(raycast.get_collision_point())
+		elif Input.is_action_just_pressed("right_click_mouse"):
+			if target.is_in_group("Iteráveis"):
+				ps.remove_point(target)
 
 	move_and_slide()
