@@ -9,10 +9,8 @@ O jogador ancora dois pontos em superfícies com colisão e o jogo traça uma re
 | Clique esquerdo | `left_click_mouse` | `add_point(posição)` | Ancora o ponto A; se já houver um A, fecha a reta no ponto B |
 | Clique direito | `right_click_mouse` | `remove_point(ponto)` | Apaga o ponto mirado e a reta a que ele pertence |
 | Q | `cancel_line` | `cancel_line()` | Cancela a reta em andamento (apaga o ponto A) |
-| E | `clear_lines` | `undo_last_line()` | Desfaz a última reta fechada |
-| Ctrl + E | `undo_line` | `clear_lines()` | Apaga todas as retas e a reta em andamento |
-
-Os nomes das ações de E e Ctrl + E estão trocados em relação às funções que chamam (ver [Pontos de atenção](#pontos-de-atenção)). O comportamento no jogo está correto.
+| E | `undo_line` | `undo_last_line()` | Desfaz a última reta fechada |
+| Ctrl + E | `clear_lines` | `clear_lines()` | Apaga todas as retas e a reta em andamento |
 
 ## Visão geral
 
@@ -173,7 +171,6 @@ O **Point** não tem script: é uma esfera vermelha de raio 0,05 (malha e coliso
 
 - **O raio não acerta o Farol:** `farol.gd` coloca os `StaticBody3D` das cascas só na camada de colisão 2, e o `RayCast3D` enxerga só a camada 1 (máscara padrão). Hoje só é possível marcar pontos no chão. Superfícies curvas (Atos 2 e 3) estão em discussão em um card próprio.
 - **Reta dentro de superfície curva:** uma reta entre dois pontos de um cilindro passa por dentro dele e fica escondida pela malha do Farol. A forma de exibir está em aberto.
-- **Nomes das ações trocados:** no Input Map, `clear_lines` é o E e `undo_line` é o Ctrl + E, o inverso das funções que chamam. Funciona porque o `player.gd` está trocado na mesma medida, mas confunde quem ler.
 - **Caminho fixo até o SpawnManager:** `$"../../../../SpawnManager"` exige o Player na raiz da cena e um SpawnManager irmão dele. A cena principal (`test_player_movement.tscn`) não tem SpawnManager: rodando com F5, o primeiro clique dá erro.
 - **Nomes internos da reta:** `line.gd` procura `$Area3D/LineMesh` e `$Area3D/LineCollision`. Renomear esses nós quebra o `_ready`.
 - **Raio do ponto repetido:** `POINT_RADIUS` em `line.gd` precisa acompanhar o raio definido em `point.tscn`.

@@ -86,9 +86,9 @@ func _physics_process(delta: float) -> void:
 	#################################################################################################
 	if Input.is_action_just_pressed("cancel_line"):	
 		ps.cancel_line()
-	if Input.is_action_just_pressed("undo_line"):
+	if Input.is_action_just_pressed("clear_lines"):
 		ps.clear_lines()
-	elif Input.is_action_just_pressed("clear_lines", true):
+	elif Input.is_action_just_pressed("undo_line", true):
 		ps.undo_last_line()
 	
 	raycast.force_raycast_update()
