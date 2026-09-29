@@ -27,6 +27,9 @@ func _ready() -> void:
 	## Seta variáveis importantes para o controle da captura do mouse
 	mouse_mode_captured = true
 	cam_is_mov_now = true
+	
+	## Torna o raycast vísivel na camada do Lodo.
+	raycast.set_collision_mask_value(2, true)
 
 func _input(event: InputEvent) -> void:
 	#################################################################################################

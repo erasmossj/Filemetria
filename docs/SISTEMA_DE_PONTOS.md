@@ -17,10 +17,10 @@ O jogador ancora dois pontos em superfícies com colisão e o jogo traça uma re
 ```mermaid
 flowchart LR
     Player["<b>Player</b><br/>player.gd<br/>lê input e raycast"]
-    RayCast["<b>RayCast3D</b><br/>filho de Head/Vertical<br/>1,5 m para −Z (a mira)"]
+    RayCast["<b>RayCast3D</b><br/>filho de Head/Vertical<br/>2 m para −Z (a mira)"]
     PointSystem["<b>PointSystem</b><br/>point_system.gd, no Player<br/>guarda o A pendente<br/>e a lista de retas"]
     SpawnManager["<b>SpawnManager</b><br/>spawn_manager.gd, na cena<br/>cria e remove entidades"]
-    Point["<b>Point</b><br/>point.tscn, sem script<br/>esfera de raio 0,05"]
+    Point["<b>Point</b><br/>point.gd + point.tscn<br/>esfera de raio 0,05<br/>+ medida na tela"]
     Line["<b>Line</b><br/>line.gd + line.tscn<br/>cilindro deitado no eixo Z"]
 
     Player -- "1. force_raycast_update<br/>get_collider" --> RayCast
@@ -76,7 +76,7 @@ Cada item de `lines` guarda a reta, seus dois pontos e o comprimento:
 **`add_point(point_position)`** — clique esquerdo.
 
 - Sem A pendente: cria o ponto, guarda como A e liga `has_a_point`.
-- Com A pendente: calcula o comprimento L entre A e B. Se L ≤ `MIN_LINE_LENGTH` (B em cima de A), ignora o clique e A continua esperando. Senão, cria o ponto B e a reta no ponto médio M, adiciona o registro ao fim de `lines` e zera o estado de reta em andamento.
+- Com A pendente: calcula o comprimento L entre A e B. Se L ≤ `MIN_LINE_LENGTH` (B em cima de A), ignora o clique e A continua esperando. Senão, cria o ponto B, escreve a medida no label dele (`HUD/PointLabel`, formato `"%.2fm"`, ex.: `2.35m`), cria a reta no ponto médio M, adiciona o registro ao fim de `lines` e zera o estado de reta em andamento.
 
 **`cancel_line()`** — Q. Se houver A pendente, apaga o ponto e zera `has_a_point` e `point_a`. Sem A, não faz nada.
 
@@ -89,7 +89,7 @@ Cada item de `lines` guarda a reta, seus dois pontos e o comprimento:
 - Se `point` for o A pendente, equivale a `cancel_line()`.
 - Senão, procura em `lines` o registro com esse ponto como A ou B e apaga a reta **e os dois pontos**. Não sobra ponto solto na cena.
 
-**`get_last_line_length()`** — devolve o comprimento da última reta fechada, em metros (0 se não houver). É o ponto de entrada para a futura exibição em `Label3D`; o comprimento de qualquer reta também está em `lines[i]["length"]`.
+**`get_last_line_length()`** — devolve o comprimento da última reta fechada, em metros (0 se não houver). O label do ponto B não usa esta função (recebe o texto direto em `add_point`); ela fica para quem precisar do valor fora do PointSystem. O comprimento de qualquer reta também está em `lines[i]["length"]`.
 
 ### Matemática da reta
 
@@ -148,7 +148,33 @@ Line (Node3D, line.gd)
 - **`set_length(length)`:** a malha recebe o comprimento inteiro, de centro a centro dos pontos. O colisor recebe `length − 2 × POINT_RADIUS` (mínimo 0,01), para terminar na superfície de cada ponto e não bloquear o clique direito neles.
 - **Por que não usar `scale`:** o Jolt não aceita escala não uniforme em cilindros e troca por outra escala, deixando o colisor do tamanho errado.
 
-O **Point** não tem script: é uma esfera vermelha de raio 0,05 (malha e colisor) dentro de uma `Area3D`, com o nó raiz no grupo `Iteráveis`.
+A estrutura de `point.tscn`:
+
+```text
+Point (Node3D, point.gd, grupo Iteráveis)
+├── PointArea (Area3D)
+│   ├── PointMesh (MeshInstance3D, SphereMesh, raio 0,05, vermelha)
+│   └── PointCollision (CollisionShape3D, SphereShape3D, raio 0,05)
+└── HUD (CanvasLayer)
+    └── PointLabel (Label, fonte 20, contorno preto, começa invisível)
+```
+
+### Label da medida
+
+A medida da reta aparece acima do ponto B como um `Label` 2D numa `CanvasLayer`, não como `Label3D`. Assim o texto é desenhado **por cima** da geometria próxima (a própria reta, o chão, a esfera) sem precisar de No Depth Test, que faria a medida aparecer através das paredes do Farol. O texto também fica com tamanho constante na tela, legível a qualquer distância.
+
+Todo frame, `point.gd` faz em `_process`:
+
+1. Pega a câmera ativa (`get_viewport().get_camera_3d()`) e calcula o alvo: posição global do ponto + `LABEL_OFFSET` (0,15 m para cima).
+2. **Esconde o label** se o texto estiver vazio (ponto A e pontos sem reta), se não houver câmera, se o alvo estiver atrás da câmera (`is_position_behind`) ou se estiver oculto.
+3. **Oclusão:** `_oculto()` lança um raio (`PhysicsRayQueryParameters3D`) da câmera até o alvo com a máscara `OCLUSAO_MASK` = camadas 1 e 2 (chão e cascas do Farol). Se acertar algo, tem parede no caminho e o label some. Áreas (pontos e retas) não entram na checagem, e o Player (camada 4) também não.
+4. Senão, mostra o label e o posiciona com `cam.unproject_position(alvo)`, deslocado por `label.size * (0,5; 1)` para ficar centralizado na horizontal e logo acima do ponto.
+
+| Membro | Tipo | Papel |
+| --- | --- | --- |
+| `LABEL_OFFSET` | const Vector3 | `(0, 0,15, 0)`, altura do texto acima do centro do ponto |
+| `OCLUSAO_MASK` | const int | `0b11`, camadas que escondem o label |
+| `label` | Label | `$HUD/PointLabel` |
 
 ## Tabela de chamadas
 
@@ -162,7 +188,9 @@ O **Point** não tem script: é uma esfera vermelha de raio 0,05 (malha e coliso
 | Player | `ps.remove_point()` | nó `Point` | clique direito em um ponto |
 | PointSystem | `sp.spawn_entity()` | `POINT_SCENE`, posição | ponto A ou B |
 | PointSystem | `sp.spawn_entity()` | `LINE_SCENE`, M, L, B | segundo clique, se L > 0,001 |
+| PointSystem | `point_b.get_node("HUD/PointLabel").text = ...` | L formatado | segundo clique, depois de criar B |
 | Godot | `Line._ready()` | — | durante o `add_child` da reta |
+| Godot | `Point._process()` | — | todo frame, para cada ponto na cena |
 | SpawnManager | `new_entity.look_at()` | B, up | só com comprimento e destino |
 | SpawnManager | `new_entity.set_length()` | L | só com comprimento e destino |
 | PointSystem | `sp.remove_entity()` | reta ou ponto | cancelar, desfazer, apagar todas, remover ponto |
@@ -175,5 +203,9 @@ O **Point** não tem script: é uma esfera vermelha de raio 0,05 (malha e coliso
 - **Nomes internos da reta:** `line.gd` procura `$Area3D/LineMesh` e `$Area3D/LineCollision`. Renomear esses nós quebra o `_ready`.
 - **Raio do ponto repetido:** `POINT_RADIUS` em `line.gd` precisa acompanhar o raio definido em `point.tscn`.
 - **`set_length` obrigatório:** qualquer cena passada ao `spawn_entity` com comprimento e destino precisa ter esse método.
-- **Troca de ato não limpa a cena:** pontos e retas de um ato continuam visíveis quando o `ato` do Farol muda.
-- **Alcance de 1,5 m:** o jogador precisa estar a menos de 1,5 m da superfície para marcar um ponto.
+- **Troca de ato não limpa a cena:** pontos, retas e medidas de um ato continuam visíveis quando o `ato` do Farol muda.
+- **Alcance de 2 m:** o jogador precisa estar a menos de 2 m da superfície para marcar um ponto (`target_position` do `RayCast3D`).
+- **Caminho fixo do label:** `point_system.gd` e `point.gd` procuram `HUD/PointLabel`. Renomear ou mover esses nós quebra os dois.
+- **Máscara de oclusão manual:** `OCLUSAO_MASK` em `point.gd` precisa acompanhar as camadas de física. Se o Lodo ou outro cenário sólido ganhar uma camada nova, ela tem que entrar na máscara, senão a medida aparece através dele.
+- **Um raio por ponto por frame:** a oclusão custa um `intersect_ray` por ponto visível. Tranquilo para dezenas de pontos; se a cena chegar a centenas, vale checar a cada poucos frames.
+- **Física em thread separada:** a consulta de oclusão roda em `_process`, o que funciona com a física na thread principal (padrão). Se "Run on Separate Thread" for ligado nas configurações de física, mover a checagem para `_physics_process`.

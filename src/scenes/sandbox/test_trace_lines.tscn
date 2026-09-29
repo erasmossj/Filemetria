@@ -22,6 +22,5 @@ size = Vector3(100, 1, 100)
 material = SubResource("StandardMaterial3D_ykdqr")
 
 [node name="Farol" parent="." unique_id=1760984746 groups=["Monumentos"] instance=ExtResource("3_gav7g")]
-ato = 2
 
 [node name="SpawnManager" parent="." unique_id=199291268 instance=ExtResource("4_xyal0")]

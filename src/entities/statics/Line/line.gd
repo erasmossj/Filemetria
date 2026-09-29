@@ -17,6 +17,3 @@ func set_length(length: float) -> void:
 	mesh_instance.mesh.height = length
 	## O colisor desconta um raio de ponto em cada ponta, para não cobrir os pontos.
 	collision.shape.height = max(length - 2.0 * POINT_RADIUS, 0.01)
-
-func set_label(length_string: String) -> void:
-	$Area3D/LineLenghtLabel.text = length_string + "m"

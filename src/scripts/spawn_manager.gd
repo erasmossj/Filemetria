@@ -18,9 +18,6 @@ func spawn_entity(entity : PackedScene, spawn_position : Vector3, entity_length 
 
 		## A própria reta ajusta o comprimento da malha e do colisor.
 		new_entity.set_length(entity_length)
-		
-		## Adiciona o tamanho da reta na Label
-		new_entity.set_label("%.2f" % entity_length)
 
 	return new_entity
 
