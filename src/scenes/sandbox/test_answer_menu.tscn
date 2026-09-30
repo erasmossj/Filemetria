@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bcllowkvbuyq0"]
+
+[ext_resource type="PackedScene" path="res://src/entities/environment/sunset_lighting/sunset_lighting.tscn" id="1_ie0oj"]
+[ext_resource type="PackedScene" uid="uid://cwwwebeco2qyb" path="res://src/ui/AnswerMenu/answer_menu.tscn" id="2_7ot0a"]
+[ext_resource type="PackedScene" uid="uid://cxhaf7js1wsci" path="res://src/entities/environment/SpawnManager/spawn_manager.tscn" id="2_q3cru"]
+[ext_resource type="PackedScene" uid="uid://djd0eqbol5gmn" path="res://src/entities/statics/Farol/farol.tscn" id="3_7ot0a"]
+[ext_resource type="PackedScene" uid="uid://dmupmkqof1scs" path="res://src/entities/player/player.tscn" id="4_hhtid"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4us2b"]
+albedo_color = Color(0.62, 0.58, 0.5, 1)
+roughness = 0.9
+
+[node name="Sandbox" type="Node3D" unique_id=1901396532]
+
+[node name="SunsetLighting" parent="." unique_id=1313130001 instance=ExtResource("1_ie0oj")]
+
+[node name="Ground" type="CSGBox3D" parent="." unique_id=1137359592 groups=["Cenário"]]
+use_collision = true
+size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_4us2b")
+
+[node name="AnswerMenu" parent="." unique_id=352973012 instance=ExtResource("2_7ot0a")]
+
+[node name="SpawnManager" parent="." unique_id=199291268 instance=ExtResource("2_q3cru")]
+
+[node name="Farol" parent="." unique_id=1760984746 instance=ExtResource("3_7ot0a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+
+[node name="Player" parent="." unique_id=156449872 instance=ExtResource("4_hhtid")]
