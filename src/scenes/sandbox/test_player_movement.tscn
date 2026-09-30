@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dmupmkqof1scs" path="res://src/entities/player/player.tscn" id="1_xewlf"]
 [ext_resource type="AudioStream" uid="uid://bx1i55qavhhca" path="res://assets/audio/ambient/sea_ambience.mp3" id="3_o45cf"]
 [ext_resource type="AudioStream" uid="uid://dd20cv2ofi18x" path="res://assets/audio/ambient/wind_ambience.mp3" id="4_0ffs3"]
+[ext_resource type="PackedScene" path="res://src/scenes/sandbox/test_sunset_lighting.tscn" id="5_jh8lk"]
+[ext_resource type="PackedScene" path="res://src/entities/environment/sunset_lighting/sunset_lighting.tscn" id="5_xtn8v"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4m8ck"]
 albedo_texture = ExtResource("1_03d3p")
@@ -20,15 +22,18 @@ albedo_texture = ExtResource("1_03d3p")
 use_collision = true
 
 [node name="Ground" type="CSGBox3D" parent="CSGCombiner3D" unique_id=641943968]
+visible = false
 size = Vector3(100, 1, 100)
 material = SubResource("StandardMaterial3D_4m8ck")
 
 [node name="Box" type="CSGBox3D" parent="CSGCombiner3D" unique_id=2128260898]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.161, 1, 0)
+visible = false
 material = SubResource("StandardMaterial3D_g4v7s")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=1694055397]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.921, 1.5, 2.224)
+visible = false
 material = SubResource("StandardMaterial3D_yf5fn")
 
 [node name="Player" parent="." unique_id=156449872 instance=ExtResource("1_xewlf")]
@@ -41,3 +46,8 @@ autoplay = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.30801, 0, 19.649883)
 stream = ExtResource("4_0ffs3")
 autoplay = true
+
+[node name="TestSunsetLighting" parent="." unique_id=1313131001 instance=ExtResource("5_jh8lk")]
+transform = Transform3D(0.98639464, -0.13612482, 0.092171475, 0.1427941, 0.98726803, -0.07008302, -0.0814579, 0.08229108, 0.99327374, 9.373222, -29.085974, 10.776513)
+
+[node name="SunsetLighting" parent="." unique_id=1313130001 instance=ExtResource("5_xtn8v")]
