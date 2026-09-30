@@ -17,17 +17,17 @@ enum AnswerResult { CORRECT, RETRY, FAIL }
 @export_range(0.0, 10.0, 0.05) var fail_margin := 1.0
 
 @onready var ans = $"CanvasLayer/MenuHolder/AnswerTextEdit"
-@onready var ans_btn : Button = $"CanvasLayer/MenuHolder/AnswerButton"
+## O CanvasLayer não herda a visibilidade do Control pai, então é ele que precisa ser escondido.
+@onready var layer : CanvasLayer = $"CanvasLayer"
 
 var _number_regex := RegEx.new()
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Aceita "." ou "," como separador decimal. O sinal de menos é capturado
 	# para que valores negativos sejam reconhecidos e bloqueados.
 	_number_regex.compile("-?\\d+(?:[.,]\\d+)?")
-	ans_btn.pressed.connect(_on_answer_button_pressed)
+	layer.visible = false
 
 
 func _analyse_answer(usr_ans : float) -> AnswerResult:
@@ -65,3 +65,21 @@ func _on_answer_button_pressed() -> void:
 			answer_retry.emit()
 		AnswerResult.FAIL:
 			answer_failed.emit()
+
+# Usa _input (e não _unhandled_input) porque o TextEdit consumiria o Tab antes
+# de o evento chegar aqui.
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("answer_menu"):
+		_set_menu_open(!layer.visible)
+		get_viewport().set_input_as_handled()
+
+
+func _set_menu_open(open: bool) -> void:
+	layer.visible = open
+	if open:
+		ans.grab_focus()
+	else:
+		ans.release_focus()
+	
+	## Libera o mouse e trava o player enquanto o menu estiver aberto.
+	get_tree().call_group("Player", "set_input_locked", open)

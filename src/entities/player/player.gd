@@ -15,6 +15,8 @@ extends CharacterBody3D
 var cam_ver = 0.0
 var cam_is_mov_now = false
 var mouse_mode_captured = false
+## Quando true (ex.: menu de resposta aberto), o player ignora movimento, câmera e cliques.
+var input_locked = false
 @onready var raycast : RayCast3D = $Head/Vertical/RayCast3D
 @onready var ps = $Head/Vertical/PointSystem
 
@@ -32,6 +34,9 @@ func _ready() -> void:
 	raycast.set_collision_mask_value(2, true)
 
 func _input(event: InputEvent) -> void:
+	if input_locked:
+		return
+	
 	#################################################################################################
 	## Rotacão do Player na direção do Mouse.
 	#################################################################################################
@@ -61,6 +66,10 @@ func _physics_process(delta: float) -> void:
 	
 	## Ajuste na velocidade de y para impedir que o player voe pro infinito e além.
 	velocity.y = 0
+	
+	if input_locked:
+		velocity = Vector3.ZERO
+		return
 	
 	#################################################################################################
 	## Input de direção.
@@ -108,3 +117,12 @@ func _physics_process(delta: float) -> void:
 				ps.remove_point(target)
 
 	move_and_slide()
+
+#################################################################################################
+## Trava/destrava o player (chamado pelo grupo "Player", ex.: AnswerMenu).
+#################################################################################################
+func set_input_locked(locked: bool) -> void:
+	input_locked = locked
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if locked else Input.MOUSE_MODE_CAPTURED)
+	mouse_mode_captured = !locked
+	cam_is_mov_now = !locked
