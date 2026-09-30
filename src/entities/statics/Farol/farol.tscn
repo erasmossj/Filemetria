@@ -2,8 +2,176 @@
 
 [ext_resource type="Script" uid="uid://bx4nt88f1mn23" path="res://src/entities/statics/Farol/farol.gd" id="1_qpqou"]
 [ext_resource type="PackedScene" uid="uid://ylbbd1g2gdof" path="res://assets/models/modelo_farol/farol_ponta_verde_oficial.glb" id="2_hup2p"]
+[ext_resource type="Material" path="res://assets/textures/reboco/reboco.tres" id="3_reboco"]
+[ext_resource type="Material" path="res://assets/textures/pedra/pedra.tres" id="4_pedra"]
+[ext_resource type="Material" path="res://assets/textures/metal/metal_limpo.tres" id="5_metal_limpo"]
+[ext_resource type="Material" path="res://assets/textures/metal/metal_enferrujado.tres" id="6_metal_enferrujado"]
+[ext_resource type="Material" path="res://assets/textures/reboco/reboco_vermelho.tres" id="7_reboco_vermelho"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_faixa_1"]
+top_radius = 0.7718
+bottom_radius = 0.7779
+height = 0.5444
+radial_segments = 64
+rings = 1
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_faixa_2"]
+top_radius = 0.7595
+bottom_radius = 0.7658
+height = 0.5444
+radial_segments = 64
+rings = 1
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_faixa_3"]
+top_radius = 0.7473
+bottom_radius = 0.7536
+height = 0.5444
+radial_segments = 64
+rings = 1
+cap_top = false
+cap_bottom = false
 
 [node name="Farol" type="Node3D" unique_id=1760984746]
 script = ExtResource("1_qpqou")
 
 [node name="farol_ponta_verde_oficial" parent="." unique_id=1874372509 instance=ExtResource("2_hup2p")]
+
+[node name="Base_Concreto" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("4_pedra")
+
+[node name="Base_concreto_001" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("4_pedra")
+
+[node name="Base_concreto_002" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("4_pedra")
+
+[node name="Base_concreto_003" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("4_pedra")
+
+[node name="Base_concreto_004" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("4_pedra")
+
+[node name="Cilindro" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("3_reboco")
+
+[node name="Cilindro_001" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("3_reboco")
+
+[node name="Cilindro_002" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_003" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_004" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_005" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_006" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_007" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_008" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_009" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_010" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_011" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_012" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_013" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_014" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cilindro_015" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("6_metal_enferrujado")
+
+[node name="Cone" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("5_metal_limpo")
+
+[node name="Corpo_Farol" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("3_reboco")
+
+[node name="Cubo" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("3_reboco")
+
+[node name="Cubo_001" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("3_reboco")
+
+[node name="Cubo_002" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("3_reboco")
+
+[node name="Cubo_003" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("3_reboco")
+
+[node name="Cubo_004" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("3_reboco")
+
+[node name="Cubo_005" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("3_reboco")
+
+[node name="Cubo_006" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("3_reboco")
+
+[node name="Cubo_007" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("3_reboco")
+
+[node name="Cubo_008" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("3_reboco")
+
+[node name="Esfera UV" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("5_metal_limpo")
+
+[node name="Esfera UV_001" parent="farol_ponta_verde_oficial"]
+surface_material_override/0 = ExtResource("5_metal_limpo")
+
+[node name="FaixasVermelhas" type="Node3D" parent="." unique_id=1313131009]
+
+[node name="FaixaBase" type="CSGCombiner3D" parent="FaixasVermelhas" unique_id=1313131010]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7833, 0)
+
+[node name="Anel" type="CSGCylinder3D" parent="FaixasVermelhas/FaixaBase" unique_id=1313131014]
+radius = 0.8009
+height = 0.4544
+sides = 64
+material = ExtResource("7_reboco_vermelho")
+
+[node name="RecortePorta" type="CSGBox3D" parent="FaixasVermelhas/FaixaBase" unique_id=1313131015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7874, 0, 0)
+operation = 2
+size = Vector3(0.4499, 0.4949, 0.6884)
+material = ExtResource("3_reboco")
+
+[node name="Faixa1" type="MeshInstance3D" parent="FaixasVermelhas" unique_id=1313131011]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8124, 0)
+mesh = SubResource("CylinderMesh_faixa_1")
+surface_material_override/0 = ExtResource("7_reboco_vermelho")
+
+[node name="Faixa2" type="MeshInstance3D" parent="FaixasVermelhas" unique_id=1313131012]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8765, 0)
+mesh = SubResource("CylinderMesh_faixa_2")
+surface_material_override/0 = ExtResource("7_reboco_vermelho")
+
+[node name="Faixa3" type="MeshInstance3D" parent="FaixasVermelhas" unique_id=1313131013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.9428, 0)
+mesh = SubResource("CylinderMesh_faixa_3")
+surface_material_override/0 = ExtResource("7_reboco_vermelho")
+
+[editable path="farol_ponta_verde_oficial"]
