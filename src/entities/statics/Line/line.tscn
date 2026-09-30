@@ -1,8 +1,22 @@
 [gd_scene format=3 uid="uid://dets33swp31in"]
 
 [ext_resource type="Script" uid="uid://bi3axdtj2n4uc" path="res://src/entities/statics/Line/line.gd" id="1_oa4lp"]
+[ext_resource type="Shader" path="res://src/entities/statics/Line/line_glow_mask.gdshader" id="2_mask"]
+[ext_resource type="Shader" path="res://src/entities/statics/Line/line_glow_outline.gdshader" id="3_outline"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glow_outline"]
+render_priority = 127
+shader = ExtResource("3_outline")
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width_px = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glow_mask"]
+render_priority = 126
+next_pass = SubResource("ShaderMaterial_glow_outline")
+shader = ExtResource("2_mask")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pg2yv"]
+next_pass = SubResource("ShaderMaterial_glow_mask")
 albedo_color = Color(0, 0, 1, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_g4v7s"]
