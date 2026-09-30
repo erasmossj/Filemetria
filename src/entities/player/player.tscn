@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dmupmkqof1scs"]
 
 [ext_resource type="Script" uid="uid://bsotg7udjrhpv" path="res://src/entities/player/player.gd" id="1_4m8ck"]
+[ext_resource type="Texture2D" uid="uid://cpdbtjc2ml6uu" path="res://assets/sprites/CrossHair.svg" id="2_vt6n5"]
+[ext_resource type="Script" uid="uid://dhok0vnq03id3" path="res://src/scripts/point_system.gd" id="3_muk8e"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 
@@ -28,3 +30,16 @@ shape = SubResource("SphereShape3D_yf5fn")
 [node name="Camera" type="Camera3D" parent="Head/Vertical/HeadArea" unique_id=685534190]
 current = true
 near = 0.001
+
+[node name="Aim" type="Node3D" parent="Head/Vertical/HeadArea/Camera" unique_id=412451815]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, -0.1)
+
+[node name="CrossHair" type="Sprite3D" parent="Head/Vertical/HeadArea/Camera/Aim" unique_id=1865107375]
+texture = ExtResource("2_vt6n5")
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Vertical" unique_id=526878805]
+target_position = Vector3(0, 0, -2)
+collide_with_areas = true
+
+[node name="PointSystem" type="Node3D" parent="Head/Vertical" unique_id=2129182904]
+script = ExtResource("3_muk8e")

@@ -26,3 +26,4 @@ A documentação do projeto está na pasta [`docs/`](docs):
 
 - [`ARQUITETURA.md`](docs/ARQUITETURA.md) — estrutura de pastas e organização do projeto.
 - [`CONVENCOES_E_BOAS_PRATICAS.md`](docs/CONVENCOES_E_BOAS_PRATICAS.md) — convenções de código, cenas e configuração do projeto.
+- [`SISTEMA_DE_PONTOS.md`](docs/SISTEMA_DE_PONTOS.md) — como o PointSystem e o SpawnManager criam, ligam e apagam pontos e retas.

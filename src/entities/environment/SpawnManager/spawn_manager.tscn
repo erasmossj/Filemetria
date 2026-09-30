@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cxhaf7js1wsci"]
+
+[ext_resource type="Script" uid="uid://ntvd0ct53844" path="res://src/scripts/spawn_manager.gd" id="1_lscjs"]
+
+[node name="SpawnManager" type="Node3D" unique_id=199291268]
+script = ExtResource("1_lscjs")
