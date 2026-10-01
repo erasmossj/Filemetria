@@ -49,3 +49,4 @@ layout_mode = 2
 text = "Enviar"
 
 [connection signal="pressed" from="CanvasLayer/MenuHolder/AnswerButton" to="." method="_on_answer_button_pressed"]
+[connection signal="text_changed" from="CanvasLayer/MenuHolder/AnswerTextEdit" to="." method="_on_answer_text_edit_text_changed"]

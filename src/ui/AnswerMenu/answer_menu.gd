@@ -20,13 +20,8 @@ enum AnswerResult { CORRECT, RETRY, FAIL }
 ## O CanvasLayer não herda a visibilidade do Control pai, então é ele que precisa ser escondido.
 @onready var layer : CanvasLayer = $"CanvasLayer"
 
-var _number_regex := RegEx.new()
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Aceita "." ou "," como separador decimal. O sinal de menos é capturado
-	# para que valores negativos sejam reconhecidos e bloqueados.
-	_number_regex.compile("-?\\d+(?:[.,]\\d+)?")
 	layer.visible = false
 
 
@@ -41,16 +36,20 @@ func _analyse_answer(usr_ans : float) -> AnswerResult:
 
 
 func _on_answer_button_pressed() -> void:
-	if ans.text.strip_edges().is_empty():
+	var usr_text : String = ans.text
+	
+	# Enviar sempre limpa o campo e fecha o menu, seja qual for a entrada ou o resultado.
+	ans.clear()
+	_set_menu_open(false)
+	
+	if usr_text.is_empty():
 		return
 	
-	var resultado := _number_regex.search(ans.text)
-	if resultado == null:
-		return
+	# O campo só contém dígitos e no máximo um separador (ver _filter_number),
+	# então basta normalizar a vírgula. ",5" vira 0.5 e "5," vira 5.
+	var usr_num : float = usr_text.replace(",", ".").to_float()
 	
-	var usr_num := resultado.get_string().replace(",", ".").to_float()
-	
-	# Negativo ou zero é entrada inválida: não submete nem conta como erro
+	# Zero (ou só o separador) é entrada inválida: não submete nem conta como erro
 	if usr_num <= 0.0:
 		return
 	
@@ -65,6 +64,36 @@ func _on_answer_button_pressed() -> void:
 			answer_retry.emit()
 		AnswerResult.FAIL:
 			answer_failed.emit()
+
+
+## Mantém no campo apenas dígitos e um único separador decimal ("," ou ".").
+func _filter_number(text : String) -> String:
+	var filtered := ""
+	var has_separator := false
+	for c in text:
+		if c >= "0" and c <= "9":
+			filtered += c
+		elif (c == "," or c == ".") and not has_separator:
+			filtered += c
+			has_separator = true
+	return filtered
+
+
+func _on_answer_text_edit_text_changed() -> void:
+	var filtered := _filter_number(ans.text)
+	if filtered == ans.text:
+		return
+	
+	# Posição absoluta do cursor no texto antigo, para reposicioná-lo depois
+	# de descartar os caracteres inválidos.
+	var caret_index : int = ans.get_caret_column()
+	for i in ans.get_caret_line():
+		caret_index += ans.get_line(i).length() + 1
+	var new_caret := _filter_number(ans.text.substr(0, caret_index)).length()
+	
+	ans.text = filtered
+	ans.set_caret_line(0)
+	ans.set_caret_column(new_caret)
 
 # Usa _input (e não _unhandled_input) porque o TextEdit consumiria o Tab antes
 # de o evento chegar aqui.
