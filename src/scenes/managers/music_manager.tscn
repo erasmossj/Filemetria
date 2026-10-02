@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://4do3y8g7n3g2"]
+
+[ext_resource type="AudioStream" uid="uid://bfkj3fr1fptvi" path="res://assets/audio/music/phase_01_music.mp3" id="1_ck2kx"]
+
+[node name="MusicManager" type="Node" unique_id=1330681635]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=1782577364]
+stream = ExtResource("1_ck2kx")
+volume_db = -16.0
+autoplay = true
+bus = &"Music"
