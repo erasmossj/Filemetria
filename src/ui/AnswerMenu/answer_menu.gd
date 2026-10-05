@@ -13,7 +13,8 @@ enum AnswerResult { CORRECT, RETRY, FAIL }
 @export var correct_ans := 0.0
 ## Erro relativo máximo para contar como acerto (0.10 = 10%).
 @export_range(0.0, 1.0, 0.01) var hit_margin := 0.10
-## Erro relativo acima do qual o chute é um erro grosseiro (1.0 = 100%).
+## Erro acima do qual o chute é um erro grosseiro, nos dois sentidos.
+## 1.0 = 100%: grosseiro acima do dobro ou abaixo da metade do gabarito.
 @export_range(0.0, 10.0, 0.05) var fail_margin := 1.0
 
 @onready var ans = $"CanvasLayer/MenuHolder/AnswerTextEdit"
@@ -30,7 +31,12 @@ func _analyse_answer(usr_ans : float) -> AnswerResult:
 	
 	if rel_error <= hit_margin:
 		return AnswerResult.CORRECT
-	if rel_error <= fail_margin:
+
+	# O erro relativo comum nunca passa de 100% para chutes abaixo do gabarito,
+	# então o erro grosseiro compara pela razão, que vale nos dois sentidos:
+	# com fail_margin = 1.0, é grosseiro chutar mais que o dobro ou menos que a metade.
+	var fator := maxf(usr_ans, correct_ans) / minf(usr_ans, correct_ans)
+	if fator - 1.0 <= fail_margin:
 		return AnswerResult.RETRY
 	return AnswerResult.FAIL
 
