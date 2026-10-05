@@ -199,11 +199,11 @@ Todo frame, `point.gd` faz em `_process`:
 
 - **O raio não acerta o Farol:** `farol.gd` coloca os `StaticBody3D` das cascas só na camada de colisão 2, e o `RayCast3D` enxerga só a camada 1 (máscara padrão). Hoje só é possível marcar pontos no chão. Superfícies curvas (Atos 2 e 3) estão em discussão em um card próprio.
 - **Reta dentro de superfície curva:** uma reta entre dois pontos de um cilindro passa por dentro dele e fica escondida pela malha do Farol. A forma de exibir está em aberto.
-- **Caminho fixo até o SpawnManager:** `$"../../../../SpawnManager"` exige o Player na raiz da cena e um SpawnManager irmão dele. A cena principal (`test_player_movement.tscn`) não tem SpawnManager: rodando com F5, o primeiro clique dá erro.
+- **Caminho fixo até o SpawnManager:** `$"../../../../SpawnManager"` exige o Player na raiz da cena e um SpawnManager irmão dele. O sandbox `test_player_movement.tscn` não tem SpawnManager: rodando essa cena, o primeiro clique dá erro. As cenas de ato (`src/scenes/fase_um/`), incluindo a cena principal `ato_1_farol.tscn`, já têm o SpawnManager.
 - **Nomes internos da reta:** `line.gd` procura `$Area3D/LineMesh` e `$Area3D/LineCollision`. Renomear esses nós quebra o `_ready`.
 - **Raio do ponto repetido:** `POINT_RADIUS` em `line.gd` precisa acompanhar o raio definido em `point.tscn`.
 - **`set_length` obrigatório:** qualquer cena passada ao `spawn_entity` com comprimento e destino precisa ter esse método.
-- **Troca de ato não limpa a cena:** pontos, retas e medidas de um ato continuam visíveis quando o `ato` do Farol muda.
+- **Troca de ato em runtime não limpa a cena:** mudar o `ato` do Farol com a cena rodando deixa os pontos, as retas e as medidas do ato anterior visíveis. Nas fases isso não acontece, porque cada ato é uma cena própria (ver [ESTRUTURA_DE_FASES.md](ESTRUTURA_DE_FASES.md)).
 - **Alcance de 2 m:** o jogador precisa estar a menos de 2 m da superfície para marcar um ponto (`target_position` do `RayCast3D`).
 - **Caminho fixo do label:** `point_system.gd` e `point.gd` procuram `HUD/PointLabel`. Renomear ou mover esses nós quebra os dois.
 - **Máscara de oclusão manual:** `OCLUSAO_MASK` em `point.gd` precisa acompanhar as camadas de física. Se o Lodo ou outro cenário sólido ganhar uma camada nova, ela tem que entrar na máscara, senão a medida aparece através dele.

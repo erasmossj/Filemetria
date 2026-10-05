@@ -1,0 +1,43 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://cqehhoqod8i33" path="res://src/scenes/fase_um/fase_farol.gd" id="1_fase"]
+[ext_resource type="PackedScene" path="res://src/entities/environment/sunset_lighting/sunset_lighting.tscn" id="2_luz"]
+[ext_resource type="PackedScene" uid="uid://djd0eqbol5gmn" path="res://src/entities/statics/Farol/farol.tscn" id="3_farol"]
+[ext_resource type="PackedScene" uid="uid://cxhaf7js1wsci" path="res://src/entities/environment/SpawnManager/spawn_manager.tscn" id="4_spawn"]
+[ext_resource type="PackedScene" uid="uid://dmupmkqof1scs" path="res://src/entities/player/player.tscn" id="5_player"]
+[ext_resource type="PackedScene" uid="uid://cwwwebeco2qyb" path="res://src/ui/AnswerMenu/answer_menu.tscn" id="6_menu"]
+[ext_resource type="PackedScene" path="res://src/ui/ResultScreen/result_screen.tscn" id="7_result"]
+[ext_resource type="Material" path="res://assets/textures/areia/areia.tres" id="8_areia"]
+[ext_resource type="AudioStream" uid="uid://bx1i55qavhhca" path="res://assets/audio/ambient/sea_ambience.mp3" id="9_mar"]
+[ext_resource type="AudioStream" uid="uid://dd20cv2ofi18x" path="res://assets/audio/ambient/wind_ambience.mp3" id="10_vento"]
+
+[node name="Fase" type="Node3D"]
+script = ExtResource("1_fase")
+
+[node name="SunsetLighting" parent="." instance=ExtResource("2_luz")]
+
+[node name="Ground" type="CSGBox3D" parent="." groups=["Cenário"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(100, 1, 100)
+material = ExtResource("8_areia")
+
+[node name="Farol" parent="." groups=["Monumentos"] instance=ExtResource("3_farol")]
+
+[node name="SpawnManager" parent="." instance=ExtResource("4_spawn")]
+
+[node name="Player" parent="." instance=ExtResource("5_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="AnswerMenu" parent="." instance=ExtResource("6_menu")]
+
+[node name="ResultScreen" parent="." instance=ExtResource("7_result")]
+
+[node name="SeaAmbience" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_mar")
+autoplay = true
+
+[node name="WindAmbience" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.30801, 0, 19.649883)
+stream = ExtResource("10_vento")
+autoplay = true

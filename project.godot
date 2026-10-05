@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Filemetria"
-run/main_scene="uid://bhx2rrrxd36jm"
+run/main_scene="res://src/scenes/fase_um/ato_1_farol.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

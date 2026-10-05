@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cjeyjiasmu3q7"]
+
+[ext_resource type="PackedScene" path="res://src/scenes/fase_um/fase_base_farol.tscn" id="1_base"]
+
+[node name="Ato2" unique_id=284082763 instance=ExtResource("1_base")]
+ato = 2
+gabarito = 27.72
+proxima_fase = "uid://s5nnnywxlalw"
