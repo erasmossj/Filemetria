@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+## Emitido quando o ESC pausa (paused = true) ou retoma o jogo. A fase usa para parar o cronômetro.
+signal pause_toggled(paused: bool)
+
 ## Constantes do Player
 @export_category("Player Settings")
 @export var SPEED = 5.0
@@ -17,6 +20,8 @@ var cam_is_mov_now = false
 var mouse_mode_captured = false
 ## Quando true (ex.: menu de resposta aberto), o player ignora movimento, câmera e cliques.
 var input_locked = false
+## True enquanto o jogo está pausado pelo ESC (cursor liberado).
+var paused_by_escape = false
 @onready var raycast : RayCast3D = $Head/Vertical/RayCast3D
 @onready var ps = $Head/Vertical/PointSystem
 
@@ -57,7 +62,9 @@ func _input(event: InputEvent) -> void:
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			mouse_mode_captured = !mouse_mode_captured
-			cam_is_mov_now = !cam_is_mov_now			
+			cam_is_mov_now = !cam_is_mov_now
+		paused_by_escape = !mouse_mode_captured
+		pause_toggled.emit(paused_by_escape)
 
 func _physics_process(delta: float) -> void:
 	## Provavelmente não existirá gravidade no projeto, mas deixarei comentado.
@@ -126,3 +133,8 @@ func set_input_locked(locked: bool) -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if locked else Input.MOUSE_MODE_CAPTURED)
 	mouse_mode_captured = !locked
 	cam_is_mov_now = !locked
+	
+	## Fechar o menu recaptura o cursor, então também encerra uma pausa feita antes de abri-lo.
+	if not locked and paused_by_escape:
+		paused_by_escape = false
+		pause_toggled.emit(false)

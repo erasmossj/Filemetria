@@ -20,7 +20,8 @@ Qualquer mudança comum aos atos (iluminação, posição do player, chão) é f
 | `ato` | int (1 a 3) | Repassado para `Farol.ato`. O Lodo de cada ato está dentro do `.glb` do Farol, e o Farol liga só o do ato ativo |
 | `gabarito` | float | Área da casca de Lodo do ato em m². Repassado para `AnswerMenu.correct_ans` |
 | `proxima_fase` | caminho `.tscn` | Cena carregada no acerto. Vazio: emite `fase_concluida` |
-| `primeiro_ato` | caminho `.tscn` | Cena carregada no erro grosseiro. Padrão: `ato_1_farol.tscn` |
+| `primeiro_ato` | caminho `.tscn` | Cena carregada no erro grosseiro e no tempo esgotado. Padrão: `ato_1_farol.tscn` |
+| `tempo_total` | float (segundos) | Tempo da fase somando os 3 atos. Padrão: 300 (5 minutos). Só o Ato 1 lê esse valor, ao zerar o cronômetro |
 
 Os caminhos usam `@export_file` (texto) e não `PackedScene`. Um export `PackedScene` carrega a cena apontada junto, e uma cadeia que volta para o início (ato 3 → menu → ato 1) viraria referência circular.
 
@@ -59,10 +60,23 @@ Qualquer outro valor é "Tente novamente!". O erro grosseiro compara pela razão
 | `answer_correct` | "Correto!" / "Você conseguiu recuperar a área com sucesso!" (verde) | `change_scene_to_file(proxima_fase)`, ou emite `fase_concluida` se for o último ato |
 | `answer_retry` | "Tente novamente!" (vermelho) | Nada: o jogador tenta de novo no mesmo ato |
 | `answer_failed` | "Tente novamente..." / "Dessa vez do começo... Ok?" (vermelho) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
+| `Cronometro.tempo_esgotado` | "Tempo esgotado!" / "Dessa vez do começo... Ok?" (vermelho) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
 
 A tela de resultado é `src/ui/ResultScreen/result_screen.tscn`: fundo cinza transparente (o mesmo do AnswerMenu) numa `CanvasLayer` de camada 2, acima do menu e das medidas. Fica visível por `duracao` segundos (2,5 por padrão) e some sozinha. Os textos ficam em constantes no topo de `result_screen.gd`.
 
-No acerto e no erro grosseiro, a troca de cena só acontece depois que a tela some. Nesse intervalo a fase trava o Player (`input_locked`) e desliga o AnswerMenu, para o jogador não andar, marcar pontos nem responder de novo. No acerto do último ato não há troca de cena, então nada é travado.
+No acerto, no erro grosseiro e no tempo esgotado, a troca de cena só acontece depois que a tela some. Nesse intervalo a fase trava o Player (`input_locked`), desliga o AnswerMenu e pausa o cronômetro, para o jogador não andar, marcar pontos nem responder de novo, e para o tempo não esgotar no meio de uma troca já decidida. No acerto do último ato não há troca de cena: só o cronômetro para.
+
+## Cronômetro (CG-37)
+
+O tempo corre direto pelos 3 atos. Como cada ato é uma cena própria, o tempo restante fica no autoload `Cronometro` (`src/scripts/cronometro.gd`), que sobrevive ao `change_scene_to_file`.
+
+- **Ato 1** chama `Cronometro.iniciar(tempo_total)`: zera a contagem. Toda derrota volta para o Ato 1, então reiniciar a fase sempre reinicia o tempo.
+- **Atos 2 e 3** chamam `Cronometro.continuar()`, que retoma de onde o ato anterior pausou. Se a cena de um desses atos for aberta direto pelo editor, o cronômetro está zerado e é iniciado com o `tempo_total` daquela cena.
+- **Tempo esgotado:** o autoload emite `tempo_esgotado` e a fase mostra a tela "Tempo esgotado!" antes de voltar ao Ato 1.
+- **Pausa com ESC:** o ESC (ação `pause`) já liberava o cursor. Agora o Player também emite `pause_toggled(paused)`, e a fase pausa o cronômetro ou o retoma de onde parou. Abrir e fechar o menu de resposta durante a pausa recaptura o cursor, então fechar o menu também encerra a pausa e o tempo volta a correr.
+- **Cronômetro encerrado:** depois de uma troca de cena já decidida ou do acerto do último ato, sair da pausa não retoma o tempo.
+
+O HUD é `src/ui/TimerHud/timer_hud.tscn`, instanciado na `fase_base_farol.tscn`: ícone de relógio e tempo em `mm:ss`, num painel cinza transparente de cantos arredondados, centralizado no topo da tela. O tempo é arredondado para cima, então a contagem começa em 05:00 e só mostra 00:00 quando acaba. O ícone é o `clock` do Lucide (ver [ICON_SOURCES.md](ICON_SOURCES.md)).
 
 ## Por que uma cena por ato
 
@@ -74,10 +88,12 @@ O CG-36 pedia a troca de ato "sem recarregar a cena". A troca de cena foi escolh
 
 ## Pontos de atenção
 
-- **Estado entre atos:** `change_scene_to_file` destrói tudo. Pontuação, tentativas ou tempo acumulados entre atos precisam de um autoload em `src/scripts/`.
+- **Estado entre atos:** `change_scene_to_file` destrói tudo. Pontuação ou tentativas acumuladas entre atos precisam de um autoload em `src/scripts/`, como o `Cronometro` já faz com o tempo.
 - **Chão com o topo em y = 0:** o `Ground` da base é um `CSGBox3D` de 1 m de altura, deslocado para y = −0,5. O Farol foi modelado com a base em y = 0. Com a caixa centrada na origem, o topo ficava em y = 0,5 e enterrava os 0,48 m de baixo do Lodo do Ato 1: a área visível caía para 5,37 m² e o gabarito de 6,59 m² não batia. Os pés do Player também ficam em y = 0.
 - **Textura do chão:** o `Ground` usa `assets/textures/areia/areia.tres` (triplanar em coordenadas de mundo, então o tamanho da caixa não estica a textura).
 - **Faixa vermelha da base escondida sob o Lodo:** o anel `FaixasVermelhas/FaixaBase` (raio 0,8009) fica por fora da casca de Lodo dos Atos 2 e 3, que nessa altura está só 4,5 mm para fora do corpo. Ele apareceria por cima do Lodo, então `farol.gd` esconde a faixa no Ato 2 e, no Ato 3, liga o `RecorteLodoAto3`, que tira a metade x > 0 (a parte coberta pelo Lodo). As outras três faixas e a pedra do Ato 1 ficam por baixo das cascas. Se a casca ou a faixa mudarem, rever essa regra.
 - **Gabarito acompanha o modelo:** se a casca de Lodo mudar no Blender, o `gabarito` do ato precisa ser recalculado.
-- **Nós com nome fixo:** `fase_farol.gd` procura `$Farol`, `$AnswerMenu` e `$ResultScreen` na raiz. Renomear esses nós na base quebra o `_ready`.
+- **Reinício recarrega a cena:** o CG-37 pede que o reinício não recarregue a cena inteira. Ele segue a decisão do CG-36 e troca de cena para o Ato 1, que zera cronômetro, retas, medidas e Lodo de uma vez.
+- **Pausa só do tempo:** o ESC para o cronômetro, mas não o jogo. Com o cursor liberado, o Player ainda anda e marca pontos com clique, então dá para medir com o tempo parado.
+- **Nós com nome fixo:** `fase_farol.gd` procura `$Farol`, `$Player`, `$AnswerMenu` e `$ResultScreen` na raiz. Renomear esses nós na base quebra o `_ready`.
 - **`fase_concluida` sem ouvinte:** ainda não há tela de fim de fase. O sinal existe para quem for implementá-la.

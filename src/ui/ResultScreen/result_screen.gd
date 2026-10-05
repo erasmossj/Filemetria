@@ -5,6 +5,7 @@ const SUBTITULO_ACERTO := "Você conseguiu recuperar a área com sucesso!"
 const TITULO_ERRO := "Tente novamente!"
 const TITULO_ERRO_GROSSEIRO := "Tente novamente..."
 const SUBTITULO_ERRO_GROSSEIRO := "Dessa vez do começo... Ok?"
+const TITULO_TEMPO_ESGOTADO := "Tempo esgotado!"
 
 @export var cor_acerto := Color(0.3, 0.9, 0.4)
 @export var cor_erro := Color(0.95, 0.3, 0.3)
@@ -23,7 +24,7 @@ func _ready() -> void:
 	_layer.visible = false
 
 
-## As três funções esperam a tela sumir: use com await para agir depois dela.
+## As funções mostrar_* esperam a tela sumir: use com await para agir depois dela.
 func mostrar_acerto() -> void:
 	await _mostrar(TITULO_ACERTO, SUBTITULO_ACERTO, cor_acerto)
 
@@ -34,6 +35,10 @@ func mostrar_erro() -> void:
 
 func mostrar_erro_grosseiro() -> void:
 	await _mostrar(TITULO_ERRO_GROSSEIRO, SUBTITULO_ERRO_GROSSEIRO, cor_erro)
+
+
+func mostrar_tempo_esgotado() -> void:
+	await _mostrar(TITULO_TEMPO_ESGOTADO, SUBTITULO_ERRO_GROSSEIRO, cor_erro)
 
 
 func _mostrar(titulo: String, subtitulo: String, cor: Color) -> void:
