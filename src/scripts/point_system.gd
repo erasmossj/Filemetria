@@ -36,7 +36,7 @@ func add_point(point_position: Vector3) -> void:
 
 	var point_b: Node3D = sp.spawn_entity(POINT_SCENE, point_position)
 	
-	var label_point_b = point_b.get_node("HUD/PointLabel")
+	var label_point_b = point_b.get_node("HUD/LabelGroup/PointLabel")
 	label_point_b.text = "%.2f" % length + "m"
 	
 	var midpoint := point_a_position.lerp(point_position, 0.5)
