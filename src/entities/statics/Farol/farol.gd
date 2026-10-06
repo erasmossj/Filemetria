@@ -8,6 +8,13 @@ const CAMADA_CASCAS := 2
 		if is_node_ready():
 			_aplicar_ato()
 
+## A faixa vermelha da base fica por fora da casca de Lodo dos Atos 2 e 3 (o Lodo está
+## a 4,5 mm do corpo nessa altura) e apareceria por cima dela. Onde o Lodo do ato cobre
+## a faixa, ela é escondida: o Lodo é opaco, então o resultado visual é o mesmo.
+@onready var _faixa_base: CSGCombiner3D = $FaixasVermelhas/FaixaBase
+## No Ato 3, o Lodo cobre a base só na metade x > 0 do corpo.
+@onready var _recorte_lodo_ato_3: CSGBox3D = $FaixasVermelhas/FaixaBase/RecorteLodoAto3
+
 @onready var _atos: Array[Node3D] = [
 	$farol_ponta_verde_oficial/ato_1,
 	$farol_ponta_verde_oficial/ato_2,
@@ -26,6 +33,9 @@ func _aplicar_ato() -> void:
 		var ativo := i == ato - 1
 		_atos[i].process_mode = Node.PROCESS_MODE_INHERIT if ativo else Node.PROCESS_MODE_DISABLED
 		_atos[i].visible = ativo
+
+	_faixa_base.visible = ato != 2
+	_recorte_lodo_ato_3.visible = ato == 3
 
 
 func _configurar_camada(no: Node) -> void:

@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cbcg5kkjhjw8r"]
+
+[ext_resource type="Script" uid="uid://bhmqb4qaqdeu2" path="res://src/ui/ResultScreen/result_screen.gd" id="1_result"]
+
+[node name="ResultScreen" type="Control" unique_id=263193493]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_result")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2116073920]
+layer = 2
+
+[node name="Fundo" type="ColorRect" parent="CanvasLayer" unique_id=1781539354]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.44705883, 0.44705883, 0.44705883, 0.5764706)
+
+[node name="Textos" type="VBoxContainer" parent="CanvasLayer" unique_id=636409972]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="Titulo" type="Label" parent="CanvasLayer/Textos" unique_id=1755462628]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 56
+horizontal_alignment = 1
+
+[node name="Subtitulo" type="Label" parent="CanvasLayer/Textos" unique_id=503570878]
+custom_minimum_size = Vector2(1152, 24)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+autowrap_mode = 3
