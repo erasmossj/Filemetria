@@ -11,8 +11,16 @@ signal fase_concluida
 @export_file("*.tscn") var proxima_fase := ""
 ## Cena carregada no erro grosseiro: reiniciar a fase volta ao Ato 1 (CG-36).
 @export_file("*.tscn") var primeiro_ato := "uid://c0o36thse02tt"  # ato_1_farol.tscn
+## Tempo total da fase em segundos, somando os 3 atos (CG-37). Só é lido no Ato 1,
+## que zera o cronômetro; os outros atos continuam a contagem de onde ela parou.
+@export_range(1, 3600, 1, "suffix:s") var tempo_total := 300.0
+
+## True quando o cronômetro não pode mais voltar a correr nesta cena: troca de cena
+## já decidida ou último ato concluído. Sair da pausa do ESC não o retoma.
+var _cronometro_encerrado := false
 
 @onready var _farol = $Farol
+@onready var _player = $Player
 @onready var _answer_menu = $AnswerMenu
 @onready var _result_screen = $ResultScreen
 
@@ -24,9 +32,18 @@ func _ready() -> void:
 	_answer_menu.answer_retry.connect(_result_screen.mostrar_erro)
 	_answer_menu.answer_failed.connect(_on_answer_failed)
 
+	# Tempo zerado: a cena de um ato foi aberta direto pelo editor, sem passar pelo Ato 1.
+	if ato == 1 or Cronometro.tempo_restante <= 0.0:
+		Cronometro.iniciar(tempo_total)
+	else:
+		Cronometro.continuar()
+	Cronometro.tempo_esgotado.connect(_on_tempo_esgotado)
+	_player.pause_toggled.connect(_on_player_pause_toggled)
+
 
 func _on_answer_correct() -> void:
 	if proxima_fase.is_empty():
+		_encerrar_cronometro()
 		_result_screen.mostrar_acerto()
 		fase_concluida.emit()
 		return
@@ -41,8 +58,29 @@ func _on_answer_failed() -> void:
 	get_tree().change_scene_to_file(primeiro_ato)
 
 
+func _on_player_pause_toggled(paused: bool) -> void:
+	if paused:
+		Cronometro.pausar()
+	elif not _cronometro_encerrado:
+		Cronometro.continuar()
+
+
+func _on_tempo_esgotado() -> void:
+	_travar_jogo()
+	await _result_screen.mostrar_tempo_esgotado()
+	get_tree().change_scene_to_file(primeiro_ato)
+
+
 ## Enquanto a tela de resultado antecede a troca de cena, o player fica parado
 ## e o menu de resposta não abre. Não mexe no mouse, que continua capturado.
+## O cronômetro também para: o tempo da tela não conta, e ele não pode esgotar
+## no meio de uma troca de cena já decidida.
 func _travar_jogo() -> void:
+	_encerrar_cronometro()
 	get_tree().set_group("Player", "input_locked", true)
 	_answer_menu.process_mode = Node.PROCESS_MODE_DISABLED
+
+
+func _encerrar_cronometro() -> void:
+	_cronometro_encerrado = true
+	Cronometro.pausar()

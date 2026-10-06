@@ -1,0 +1,59 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/TimerHud/timer_hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" path="res://assets/sprites/clock.svg" id="2_relogio"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 8.0
+bg_color = Color(0.44705883, 0.44705883, 0.44705883, 0.5764706)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[node name="TimerHud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hud")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Painel" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+
+[node name="Conteudo" type="HBoxContainer" parent="CanvasLayer/Painel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="Relogio" type="TextureRect" parent="CanvasLayer/Painel/Conteudo"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_relogio")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tempo" type="Label" parent="CanvasLayer/Painel/Conteudo"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 32
+text = "00:00"
