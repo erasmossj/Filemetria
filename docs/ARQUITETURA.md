@@ -20,6 +20,7 @@ Filemetria/
     ├── scenes/        # cenas e fases
     │   └── sandbox/   # cenas de teste manual (não entram no export)
     ├── scripts/       # scripts em GDScript (.gd)
+    ├── shaders/       # shaders reutilizáveis (.gdshader), ex.: glow/
     ├── tiles/         # tilemaps
     └── ui/            # interface do jogador
 ```
