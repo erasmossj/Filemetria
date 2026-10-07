@@ -33,4 +33,5 @@ As ações `ui_up`, `ui_down`, `ui_left` e `ui_right` são as padrão do Godot p
 - **E com `exact_match`:** o `player.gd` checa o E com `exact_match = true`, então segurar qualquer modificador, inclusive o Shift de descer, impede o desfazer.
 - **Esc pausa só o tempo:** o jogo continua rodando. Com o cursor liberado o Player ainda anda e marca pontos (ver [ESTRUTURA_DE_FASES.md](ESTRUTURA_DE_FASES.md#cronômetro-cg-37)).
 - **Clique com o mouse capturado:** durante o jogo o cursor fica preso no centro, então o botão "Calcular área" só é clicável com o cursor livre (Esc ou menu aberto). O Tab funciona sempre.
-- **Alcance da mira:** 2 m. Mais longe que isso, o clique não marca ponto (ver [SISTEMA_DE_PONTOS.md](SISTEMA_DE_PONTOS.md#pontos-de-atenção)).
+- **Alcance da mira:** sem limite prático. O raio vai até o `far` da câmera (4000 m), então qualquer superfície visível aceita ponto (ver [SISTEMA_DE_PONTOS.md](SISTEMA_DE_PONTOS.md#pontos-de-atenção)).
+- **Altura do Player:** a câmera fica a 1,45 m do chão, e a cápsula de colisão tem 1,45 m de altura, com os pés em y = 0.

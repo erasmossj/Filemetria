@@ -19,7 +19,7 @@ A lista completa de teclas está em [CONTROLES.md](CONTROLES.md).
 ```mermaid
 flowchart LR
     Player["<b>Player</b><br/>player.gd<br/>lê input e raycast"]
-    RayCast["<b>RayCast3D</b><br/>filho de Head/Vertical<br/>2 m para −Z (a mira)"]
+    RayCast["<b>RayCast3D</b><br/>filho de Head/Vertical<br/>até o far da câmera, para −Z (a mira)"]
     PointSystem["<b>PointSystem</b><br/>point_system.gd, no Player<br/>guarda o A pendente<br/>e a lista de retas"]
     SpawnManager["<b>SpawnManager</b><br/>spawn_manager.gd, na cena<br/>cria e remove entidades"]
     Point["<b>Point</b><br/>point.gd + point.tscn<br/>esfera de raio 0,05<br/>+ medida na tela"]
@@ -95,7 +95,7 @@ Cada item de `lines` guarda a reta, seus dois pontos e o comprimento:
 
 **`get_line_lengths()`** — devolve os comprimentos de todas as retas fechadas, em ordem de criação e com precisão completa.
 
-**Sinal `lines_changed(lengths)`** — emitido com `get_line_lengths()` sempre que uma reta é fechada (`add_point`) ou apagada (`undo_last_line`, `remove_point`, `clear_lines`). Cancelar a reta em andamento não emite. A fase liga esse sinal ao HUD, que lista as retas (ver [HUD.md](HUD.md)).
+**Sinal `lines_changed(lengths)`** — emitido com `get_line_lengths()` sempre que uma reta é fechada (`add_point`) ou apagada (`undo_last_line`, `remove_point`, `clear_lines`). Cancelar a reta em andamento não emite. A fase liga esse sinal ao HUD e ao menu de chute, que listam as retas (ver [HUD.md](HUD.md)).
 
 **`get_last_line_length()`** — devolve o comprimento da última reta fechada, em metros (0 se não houver). O label do ponto B não usa esta função (recebe o texto direto em `add_point`); ela fica para quem precisar do valor fora do PointSystem. O comprimento de qualquer reta também está em `lines[i]["length"]`.
 
@@ -216,7 +216,7 @@ Todo frame, `point.gd` faz em `_process`:
 - **Raio do ponto repetido:** `POINT_RADIUS` em `line.gd` precisa acompanhar o raio definido em `point.tscn`.
 - **`set_length` obrigatório:** qualquer cena passada ao `spawn_entity` com comprimento e destino precisa ter esse método.
 - **Troca de ato em runtime não limpa a cena:** mudar o `ato` do Farol com a cena rodando deixa os pontos, as retas e as medidas do ato anterior visíveis. Nas fases isso não acontece, porque cada ato é uma cena própria (ver [ESTRUTURA_DE_FASES.md](ESTRUTURA_DE_FASES.md)).
-- **Alcance de 2 m:** o jogador precisa estar a menos de 2 m da superfície para marcar um ponto (`target_position` do `RayCast3D`).
+- **Alcance sem limite:** o `_ready` do Player troca o `target_position` do `RayCast3D` por `(0, 0, −camera.far)`, então o jogador marca pontos em qualquer superfície que a câmera enxerga. O valor de 2 m que está na cena é sobrescrito. Se o `far` da câmera diminuir, o alcance diminui junto.
 - **Caminho fixo do label:** `point_system.gd` e `point.gd` procuram `HUD/LabelGroup/PointLabel`. Renomear ou mover esses nós quebra os dois.
 - **Máscara de oclusão manual:** `OCLUSAO_MASK` em `point.gd` precisa acompanhar as camadas de física. Se outro cenário sólido ganhar uma camada nova, ela tem que entrar na máscara, senão a medida aparece através dele.
 - **Um raio por ponto por frame:** a oclusão custa um `intersect_ray` por ponto visível. Tranquilo para dezenas de pontos; se a cena chegar a centenas, vale checar a cada poucos frames.

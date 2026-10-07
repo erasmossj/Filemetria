@@ -20,6 +20,7 @@ A legibilidade sobre o cenário vem dos cartões brancos opacos (96%) com sombra
 flowchart LR
     Fase["fase_farol.gd"] -- "configurar(ato, TOTAL_ATOS, objetivo)" --> Hud
     PS["PointSystem"] -- "lines_changed(lengths)" --> Hud
+    PS -- "lines_changed(lengths)" --> Menu
     Cron["Cronometro (autoload)"] -. "tempo_restante / tempo_total<br/>(lido no _process)" .-> Hud
     Hud -- "calcular_area_pressionado" --> Fase
     Fase -- "toggle_menu()" --> Menu["AnswerMenu"]
@@ -38,6 +39,17 @@ Com `tempo_restante <= limite_urgente` (30 s por padrão, export do HUD), a lant
 
 A ação `show_controls` (F1) mostra o painel **enquanto estiver pressionada**. O painel escurece o cenário, mas fica por baixo do resto do HUD, então o tempo continua visível. O jogo não pausa. As linhas do painel ficam nas constantes `CONTROLES_ESQUERDA` e `CONTROLES_DIREITA` de `hud.gd`. Se uma tecla mudar no Input Map, atualize essas constantes e o [CONTROLES.md](CONTROLES.md).
 
+## Menu de chute (CG-47)
+
+O menu de chute (`src/ui/AnswerMenu/answer_menu.tscn`) segue a opção **B — Faixa + cartão** do Figma ([arquivo](https://www.figma.com/design/YNWQ3GGnIpmGdkyudYHVpA), "Tela de envio — Opção B"), no mesmo padrão do cartão de Objetivo:
+
+- Faixa vermelha "SUA RESPOSTA" com a calculadora e cartão branco com a pergunta, o campo (Bebas, borda vermelha com foco) e o botão "ENVIAR".
+- "SUAS RETAS": as mesmas retas do HUD, em chips, para o jogador não precisar fechar o menu para consultar as medidas. Acima de `max_retas_visiveis` (6), as mais antigas viram "+N". A fase liga o `lines_changed` do PointSystem a `mostrar_retas()`; na sandbox `test_answer_menu.tscn` a lista fica em "nenhuma ainda".
+- Rodapé com a tecla Tab (fecha) e a dica dos decimais.
+- O botão "ENVIAR" não pega o foco (`focus_mode = 0`), então o cursor continua no campo depois do clique.
+
+**Aviso de resposta inválida:** opção **B — Faixa vermelha** do mesmo arquivo. Enviar o campo vazio ou só com `,` ou `.` mostra, acima do cartão, o aviso "DIGITE UM NÚMERO" com o ícone de alerta; enviar zero (`0`, `0,0`, `0.000…`) mostra "A ÁREA PRECISA SER MAIOR QUE 0". Os textos ficam nas constantes `AVISO_*` de `answer_menu.gd`. Ele some depois de `duracao_aviso` segundos (2 por padrão), quando o jogador volta a digitar ou quando o menu fecha. Enviar de novo reinicia a contagem, sem empilhar avisos. O aviso fica sempre no layout, só transparente, para o menu não pular quando ele aparece. O sinal `answer_invalid` continua sendo emitido, para quem mais quiser reagir (um som, por exemplo).
+
 ## Camadas de desenho
 
 CanvasLayers com o mesmo `layer` não têm ordem garantida entre si, então cada uma tem a sua:
@@ -46,7 +58,7 @@ CanvasLayers com o mesmo `layer` não têm ordem garantida entre si, então cada
 | --- | --- | --- |
 | 1 | `point.tscn` (rótulo da medida) | Fica atrás de toda a interface |
 | 2 | `hud.tscn` | O escurecimento do F1 cobre os rótulos das medidas |
-| 3 | `answer_menu.tscn` | O menu de chute fica sobre o HUD |
+| 3 | `answer_menu.tscn` | O menu de chute e o aviso dele ficam sobre o HUD |
 | 4 | `result_screen.tscn` | O resultado fica sobre tudo |
 
 ## Medidas

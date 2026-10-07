@@ -54,9 +54,9 @@ A documentação do projeto está na pasta [`docs/`](docs).
 
 **Jogo**
 
-- [`ESTRUTURA_DE_FASES.md`](docs/ESTRUTURA_DE_FASES.md) — uma cena por ato, gabarito das áreas, menu de chute e cronômetro.
+- [`ESTRUTURA_DE_FASES.md`](docs/ESTRUTURA_DE_FASES.md) — uma cena por ato, gabarito das áreas, menu de chute, respostas inválidas, telas de resultado e cronômetro.
 - [`SISTEMA_DE_PONTOS.md`](docs/SISTEMA_DE_PONTOS.md) — como o PointSystem e o SpawnManager criam, ligam e apagam pontos e retas.
-- [`HUD.md`](docs/HUD.md) — elementos do HUD da fase, de onde vêm os dados e camadas de desenho.
+- [`HUD.md`](docs/HUD.md) — elementos do HUD da fase, menu de chute e aviso de resposta inválida, de onde vêm os dados e camadas de desenho.
 - [`CONTROLES.md`](docs/CONTROLES.md) — ações do Input Map e onde cada uma é lida.
 - [`TRANSFORMACOES.md`](docs/TRANSFORMACOES.md) — translação, rotação e escala no código, com as matrizes (requisito AB1, CG-22).
 

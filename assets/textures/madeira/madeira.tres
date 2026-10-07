@@ -1,22 +1,22 @@
-[gd_resource type="StandardMaterial3D" format=3]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dgtvmiyl81ngx"]
 
-[ext_resource type="Texture2D" id="Color" path="./madeira_color.jpg"]
-[ext_resource type="Texture2D" id="AmbientOcclusion" path="./madeira_ao.jpg"]
-[ext_resource type="Texture2D" id="Displacement" path="./madeira_height.jpg"]
-[ext_resource type="Texture2D" id="Roughness" path="./madeira_roughness.jpg"]
-[ext_resource type="Texture2D" id="NormalGL" path="./madeira_normal.jpg"]
+[ext_resource type="Texture2D" uid="uid://bi5bxqea3tylf" path="res://assets/textures/madeira/madeira_ao.jpg" id="AmbientOcclusion"]
+[ext_resource type="Texture2D" uid="uid://i6joac7pw4ua" path="res://assets/textures/madeira/madeira_color.jpg" id="Color"]
+[ext_resource type="Texture2D" uid="uid://ln0ggstxt3hd" path="res://assets/textures/madeira/madeira_height.jpg" id="Displacement"]
+[ext_resource type="Texture2D" uid="uid://cq45qrnha2x4l" path="res://assets/textures/madeira/madeira_normal.jpg" id="NormalGL"]
+[ext_resource type="Texture2D" uid="uid://vus7rcumgc5d" path="res://assets/textures/madeira/madeira_roughness.jpg" id="Roughness"]
+
 [resource]
 albedo_texture = ExtResource("Color")
+roughness_texture = ExtResource("Roughness")
+roughness_texture_channel = 4
+normal_enabled = true
+normal_texture = ExtResource("NormalGL")
 ao_enabled = true
 ao_texture = ExtResource("AmbientOcclusion")
 ao_texture_channel = 4
-roughness_texture = ExtResource("Roughness")
-roughness_texture_channel = 4
-normal_texture = ExtResource("NormalGL")
-normal_enabled = true
-heightmap_texture = ExtResource("Displacement")
 heightmap_scale = 1.0
-heightmap_enabled = false
+heightmap_texture = ExtResource("Displacement")
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 uv1_world_triplanar = true

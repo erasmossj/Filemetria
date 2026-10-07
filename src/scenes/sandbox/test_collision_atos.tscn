@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cs73ayg2hg6by"]
 
-[ext_resource type="PackedScene" path="res://src/entities/environment/sunset_lighting/sunset_lighting.tscn" id="1_r8hut"]
+[ext_resource type="PackedScene" uid="uid://drpr67gjmlqyu" path="res://src/entities/environment/sunset_lighting/sunset_lighting.tscn" id="1_r8hut"]
 [ext_resource type="PackedScene" uid="uid://dmupmkqof1scs" path="res://src/entities/player/player.tscn" id="2_hh5lq"]
 [ext_resource type="PackedScene" uid="uid://djd0eqbol5gmn" path="res://src/entities/statics/Farol/farol.tscn" id="3_xh2ks"]
 
