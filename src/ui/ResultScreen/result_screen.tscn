@@ -1,6 +1,28 @@
 [gd_scene format=3 uid="uid://cbcg5kkjhjw8r"]
 
 [ext_resource type="Script" uid="uid://bhmqb4qaqdeu2" path="res://src/ui/ResultScreen/result_screen.gd" id="1_result"]
+[ext_resource type="FontFile" path="res://assets/fonts/bebas_neue/bebas_neue_regular.ttf" id="2_bebas"]
+[ext_resource type="FontFile" path="res://assets/fonts/barlow/barlow_semibold.ttf" id="3_barlow_semibold"]
+[ext_resource type="Texture2D" path="res://assets/sprites/renda_file/formal_invitation.svg" id="4_renda"]
+[ext_resource type="Texture2D" path="res://assets/sprites/renda_file/lisbon.svg" id="5_lisbon"]
+[ext_resource type="Texture2D" path="res://assets/sprites/circle_check.svg" id="6_icone"]
+
+[sub_resource type="FontVariation" id="FontVariation_bebas"]
+base_font = ExtResource("2_bebas")
+spacing_glyph = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_faixa"]
+bg_color = Color(0.18039216, 0.60784316, 0.34117648, 0.97)
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 18
+shadow_offset = Vector2(0, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_canto"]
+bg_color = Color(1, 1, 1, 0.14)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="ResultScreen" type="Control" unique_id=263193493]
 layout_mode = 3
@@ -24,27 +46,168 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.44705883, 0.44705883, 0.44705883, 0.5764706)
 
-[node name="Textos" type="VBoxContainer" parent="CanvasLayer" unique_id=636409972]
+[node name="Faixa" type="Panel" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -87.0
+offset_bottom = 111.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_faixa")
+
+[node name="RendaTopo" type="TextureRect" parent="CanvasLayer/Faixa"]
+unique_name_in_owner = true
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("4_renda")
+expand_mode = 1
+stretch_mode = 1
+flip_v = true
+
+[node name="RendaBase" type="TextureRect" parent="CanvasLayer/Faixa"]
+unique_name_in_owner = true
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("4_renda")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="FileteTopo" type="ColorRect" parent="CanvasLayer/Faixa"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 10.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.85)
+
+[node name="FileteBase" type="ColorRect" parent="CanvasLayer/Faixa"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -11.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.85)
+
+[node name="CantoEsquerdo" type="Panel" parent="CanvasLayer/Faixa"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 34.0
+offset_top = -48.0
+offset_right = 130.0
+offset_bottom = 48.0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_canto")
+
+[node name="Lisbon" type="TextureRect" parent="CanvasLayer/Faixa/CantoEsquerdo"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+texture = ExtResource("5_lisbon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CantoDireito" type="Panel" parent="CanvasLayer/Faixa"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -48.0
+offset_right = -34.0
+offset_bottom = 48.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_canto")
+
+[node name="Lisbon" type="TextureRect" parent="CanvasLayer/Faixa/CantoDireito"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_lisbon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Conteudo" type="VBoxContainer" parent="CanvasLayer/Faixa"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
 alignment = 1
 
-[node name="Titulo" type="Label" parent="CanvasLayer/Textos" unique_id=1755462628]
+[node name="TituloLinha" type="HBoxContainer" parent="CanvasLayer/Faixa/Conteudo"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 56
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_constants/separation = 13
+
+[node name="Icone" type="TextureRect" parent="CanvasLayer/Faixa/Conteudo/TituloLinha"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("6_icone")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Titulo" type="Label" parent="CanvasLayer/Faixa/Conteudo/TituloLinha"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_bebas")
+theme_override_font_sizes/font_size = 90
+text = "Correto!"
+uppercase = true
+
+[node name="Subtitulo" type="Label" parent="CanvasLayer/Faixa/Conteudo"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.92)
+theme_override_fonts/font = ExtResource("3_barlow_semibold")
+theme_override_font_sizes/font_size = 22
+text = "Você conseguiu recuperar a área com sucesso!"
 horizontal_alignment = 1
 
-[node name="Subtitulo" type="Label" parent="CanvasLayer/Textos" unique_id=503570878]
-custom_minimum_size = Vector2(1152, 24)
+[node name="ChipsMargem" type="MarginContainer" parent="CanvasLayer/Faixa/Conteudo"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 1
-autowrap_mode = 3
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_constants/margin_top = 8
+
+[node name="Chips" type="HBoxContainer" parent="CanvasLayer/Faixa/Conteudo/ChipsMargem"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8

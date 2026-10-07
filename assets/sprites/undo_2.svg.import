@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccvkfolnkx6cj"
-path="res://.godot/imported/circle_alert.svg-0d428a73104dc852e795ebed6503bcd2.ctex"
+uid="uid://dj61emrro6rke"
+path="res://.godot/imported/undo_2.svg-6123efe868e52f1cb85241a3504ba4db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/circle_alert.svg"
-dest_files=["res://.godot/imported/circle_alert.svg-0d428a73104dc852e795ebed6503bcd2.ctex"]
+source_file="res://assets/sprites/undo_2.svg"
+dest_files=["res://.godot/imported/undo_2.svg-6123efe868e52f1cb85241a3504ba4db.ctex"]
 
 [params]
 

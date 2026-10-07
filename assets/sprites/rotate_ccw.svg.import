@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccvkfolnkx6cj"
-path="res://.godot/imported/circle_alert.svg-0d428a73104dc852e795ebed6503bcd2.ctex"
+uid="uid://qbftcmj1x7q8"
+path="res://.godot/imported/rotate_ccw.svg-8d8a5c297d59e235bea210e0184e4723.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/circle_alert.svg"
-dest_files=["res://.godot/imported/circle_alert.svg-0d428a73104dc852e795ebed6503bcd2.ctex"]
+source_file="res://assets/sprites/rotate_ccw.svg"
+dest_files=["res://.godot/imported/rotate_ccw.svg-8d8a5c297d59e235bea210e0184e4723.ctex"]
 
 [params]
 

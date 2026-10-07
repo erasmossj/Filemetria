@@ -36,6 +36,8 @@ const FONTE_NUMERO := preload("res://assets/fonts/barlow/barlow_bold.ttf")
 ## Quantas retas aparecem no cartão. As mais antigas viram um "+N".
 @export_range(1, 30) var max_retas_visiveis := 6
 
+## Último chute válido enviado, em m². A fase mostra o valor na tela de resultado.
+var ultima_resposta := 0.0
 ## Conta as exibições do aviso para que o timer de uma exibição antiga não esconda a atual.
 var _aviso_exibicao := 0
 
@@ -93,6 +95,7 @@ func _on_answer_button_pressed() -> void:
 	# então basta normalizar a vírgula. ",5" vira 0.5 e "5," vira 5.
 	# Zero é submetido e cai em _analyse_answer como um chute qualquer.
 	var usr_num : float = usr_text.replace(",", ".").to_float()
+	ultima_resposta = usr_num
 	
 	if correct_ans <= 0.0:
 		push_error("AnswerMenu: correct_ans precisa ser maior que 0.")

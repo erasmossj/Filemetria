@@ -14,6 +14,9 @@
 | Clique | `assets/sprites/mouse_pointer_click.svg` | Controle "marcar ponto" | [Lucide - mouse-pointer-click](https://lucide.dev/icons/mouse-pointer-click) (lucide-static v1.52.0) | Lucide Contributors | ISC |
 | Mouse | `assets/sprites/mouse.svg` | Controle "apagar ponto" | [Lucide - mouse](https://lucide.dev/icons/mouse) (lucide-static v1.52.0) | Lucide Contributors | ISC |
 | Alerta | `assets/sprites/circle_alert.svg` | Aviso "Digite um número" do menu de chute | [Lucide - circle-alert](https://lucide.dev/icons/circle-alert) (lucide-static v1.52.0) | Lucide Contributors | ISC |
+| Acerto | `assets/sprites/circle_check.svg` | Tela de acerto | [Lucide - circle-check](https://lucide.dev/icons/circle-check) (lucide-static v1.52.0) | Lucide Contributors | ISC |
+| Tentar de novo | `assets/sprites/rotate_ccw.svg` | Tela de resposta errada | [Lucide - rotate-ccw](https://lucide.dev/icons/rotate-ccw) (lucide-static v1.52.0) | Lucide Contributors | ISC |
+| Recomeçar | `assets/sprites/undo_2.svg` | Telas de erro grosseiro e de tempo esgotado | [Lucide - undo-2](https://lucide.dev/icons/undo-2) (lucide-static v1.52.0) | Lucide Contributors | ISC |
 
 ## Mira
 
@@ -29,6 +32,6 @@ Padrões do Hero Patterns em `assets/sprites/renda_file/`, extraídos do pacote 
 
 | Padrão | Arquivo | Uso no HUD | Source | Author | License |
 |---|---|---|---|---|---|
-| Lisbon | `assets/sprites/renda_file/lisbon.svg` | Cantos do painel de controles | [Hero Patterns](https://heropatterns.com) | Steve Schoger | CC BY 4.0 |
-| Formal Invitation | `assets/sprites/renda_file/formal_invitation.svg` | Rendas acima e abaixo do painel de controles | [Hero Patterns](https://heropatterns.com) | Steve Schoger | CC BY 4.0 |
+| Lisbon | `assets/sprites/renda_file/lisbon.svg` | Cantos do painel de controles e pontas da faixa das telas de resultado | [Hero Patterns](https://heropatterns.com) | Steve Schoger | CC BY 4.0 |
+| Formal Invitation | `assets/sprites/renda_file/formal_invitation.svg` | Rendas acima e abaixo do painel de controles e da faixa das telas de resultado | [Hero Patterns](https://heropatterns.com) | Steve Schoger | CC BY 4.0 |
 | Graph Paper | `assets/sprites/renda_file/graph_paper.svg` | Malha no fundo do painel de controles | [Hero Patterns](https://heropatterns.com) | Steve Schoger | CC BY 4.0 |

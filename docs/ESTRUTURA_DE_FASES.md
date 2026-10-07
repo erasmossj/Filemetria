@@ -60,15 +60,24 @@ O campo não aceita sinal de menos, então não há chute negativo. O chute **0*
 
 | Sinal | Tela de resultado | O que a fase faz depois |
 | --- | --- | --- |
-| `answer_correct` | "Correto!" / "Você conseguiu recuperar a área com sucesso!" (verde) | `change_scene_to_file(proxima_fase)`, ou emite `fase_concluida` se for o último ato |
-| `answer_retry` | "Tente novamente!" (vermelho) | Nada: o jogador tenta de novo no mesmo ato |
-| `answer_failed` | "Tente novamente..." / "Dessa vez do começo... Ok?" (vermelho) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
+| `answer_correct` | "Correto!" / "Você conseguiu recuperar a área com sucesso!" (faixa verde) | `change_scene_to_file(proxima_fase)`, ou emite `fase_concluida` se for o último ato |
+| `answer_retry` | "Tente novamente!" / "Quase lá: confira as medidas e calcule de novo." (faixa vermelho-escura) | Nada: o jogador tenta de novo no mesmo ato |
+| `answer_failed` | "Tente novamente..." / "Dessa vez do começo... Ok?" (faixa escura, renda vermelha) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
 | `answer_invalid` | Nenhuma: o próprio menu mostra o aviso "Digite um número" (CG-47) | Nada: o menu continua aberto. Emitido quando o envio está vazio ou só com o separador |
-| `Cronometro.tempo_esgotado` | "Tempo esgotado!" / "Dessa vez do começo... Ok?" (vermelho) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
+| `Cronometro.tempo_esgotado` | "Tempo esgotado!" / "Dessa vez do começo... Ok?" (mesmo visual do erro grosseiro) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
 
 O menu de chute abre com o Tab ou com o botão "Calcular área" do HUD; os dois chamam `AnswerMenu.toggle_menu()` (o botão passa pela fase, que ignora o clique depois de `_travar_jogo()`).
 
-A tela de resultado é `src/ui/ResultScreen/result_screen.tscn`: fundo cinza transparente (o mesmo do AnswerMenu) numa `CanvasLayer` de camada 4, acima do HUD, do menu e das medidas (ver [HUD.md](HUD.md#camadas-de-desenho)). Fica visível por `duracao` segundos (2,5 por padrão) e some sozinha. Os textos ficam em constantes no topo de `result_screen.gd`.
+A tela de resultado é `src/ui/ResultScreen/result_screen.tscn`, numa `CanvasLayer` de camada 4, acima do HUD, do menu e das medidas (ver [HUD.md](HUD.md#camadas-de-desenho)). Segue a opção **C — Faixa de tela inteira** do Figma ([arquivo](https://www.figma.com/design/YNWQ3GGnIpmGdkyudYHVpA), página "Telas de resultado"): uma faixa larga no centro com renda de filé (Formal Invitation) por cima e por baixo, cantos Lisbon nas pontas, ícone, título, subtítulo e chips com os detalhes. Fica visível por `duracao` segundos (2,5 por padrão) e some sozinha. Os textos ficam em constantes no topo de `result_screen.gd`.
+
+| Tela | Faixa | Renda e cantos | Fundo | Chips |
+| --- | --- | --- | --- | --- |
+| Acerto | verde `#2E9B57` | verde, cantos brancos translúcidos | cinza (o mesmo do menu) | sua resposta, "A SEGUIR: ATO N DE 3" (ou "FIM DA FASE") |
+| Resposta errada | vermelho-escuro `#9C1B24` | vermelho-escuro | cinza | sua resposta, tempo restante no envio |
+| Erro grosseiro | escura `#141A1F` | vermelho `#C8202B` | escuro | sua resposta, "VOLTANDO AO ATO 1" |
+| Tempo esgotado | escura | vermelho | escuro | tempo 00:00, "VOLTANDO AO ATO 1" |
+
+O vermelho da resposta errada é mais escuro que o do HUD para não ser confundido com o erro grosseiro. Os dados vêm da fase: o chute é `AnswerMenu.ultima_resposta`, e o tempo é `Cronometro.tempo_restante` no momento do envio.
 
 No acerto, no erro grosseiro e no tempo esgotado, a troca de cena só acontece depois que a tela some. Nesse intervalo a fase trava o Player (`input_locked`), desliga o AnswerMenu e pausa o cronômetro, para o jogador não andar, marcar pontos nem responder de novo, e para o tempo não esgotar no meio de uma troca já decidida. No acerto do último ato não há troca de cena: só o cronômetro para.
 
