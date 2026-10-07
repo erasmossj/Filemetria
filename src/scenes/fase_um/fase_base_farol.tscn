@@ -10,7 +10,7 @@
 [ext_resource type="Material" path="res://assets/textures/areia/areia.tres" id="8_areia"]
 [ext_resource type="AudioStream" uid="uid://bx1i55qavhhca" path="res://assets/audio/ambient/sea_ambience.mp3" id="9_mar"]
 [ext_resource type="AudioStream" uid="uid://dd20cv2ofi18x" path="res://assets/audio/ambient/wind_ambience.mp3" id="10_vento"]
-[ext_resource type="PackedScene" path="res://src/ui/TimerHud/timer_hud.tscn" id="11_timer"]
+[ext_resource type="PackedScene" path="res://src/ui/Hud/hud.tscn" id="11_hud"]
 
 [node name="Fase" type="Node3D"]
 script = ExtResource("1_fase")
@@ -34,7 +34,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
 
 [node name="ResultScreen" parent="." instance=ExtResource("7_result")]
 
-[node name="TimerHud" parent="." instance=ExtResource("11_timer")]
+[node name="Hud" parent="." instance=ExtResource("11_hud")]
 
 [node name="SeaAmbience" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("9_mar")

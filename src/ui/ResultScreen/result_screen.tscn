@@ -13,7 +13,7 @@ mouse_filter = 2
 script = ExtResource("1_result")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2116073920]
-layer = 2
+layer = 4
 
 [node name="Fundo" type="ColorRect" parent="CanvasLayer" unique_id=1781539354]
 anchors_preset = 15

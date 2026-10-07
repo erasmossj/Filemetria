@@ -3,6 +3,9 @@ extends Node3D
 ## Emitido ao acertar o último ato (quando não há próxima fase configurada).
 signal fase_concluida
 
+## Quantos atos a fase tem. O HUD mostra "Ato N de TOTAL_ATOS".
+const TOTAL_ATOS := 3
+
 ## Ato que o Farol exibe. O Lodo de cada ato vem dentro do .glb e o Farol liga só o do ato ativo.
 @export_range(1, 3) var ato := 1
 ## Área da casca de Lodo deste ato em m² (tabela de gabarito do CG-16).
@@ -14,6 +17,8 @@ signal fase_concluida
 ## Tempo total da fase em segundos, somando os 3 atos (CG-37). Só é lido no Ato 1,
 ## que zera o cronômetro; os outros atos continuam a contagem de onde ela parou.
 @export_range(1, 3600, 1, "suffix:s") var tempo_total := 300.0
+## Objetivo do ato em uma frase, exibido no HUD (CG-38).
+@export_multiline var objetivo := ""
 
 ## True quando o cronômetro não pode mais voltar a correr nesta cena: troca de cena
 ## já decidida ou último ato concluído. Sair da pausa do ESC não o retoma.
@@ -23,6 +28,7 @@ var _cronometro_encerrado := false
 @onready var _player = $Player
 @onready var _answer_menu = $AnswerMenu
 @onready var _result_screen = $ResultScreen
+@onready var _hud = $Hud
 
 
 func _ready() -> void:
@@ -31,6 +37,10 @@ func _ready() -> void:
 	_answer_menu.answer_correct.connect(_on_answer_correct)
 	_answer_menu.answer_retry.connect(_result_screen.mostrar_erro)
 	_answer_menu.answer_failed.connect(_on_answer_failed)
+
+	_hud.configurar(ato, TOTAL_ATOS, objetivo)
+	_hud.calcular_area_pressionado.connect(_on_hud_calcular_area_pressionado)
+	_player.ps.lines_changed.connect(_hud.mostrar_retas)
 
 	# Tempo zerado: a cena de um ato foi aberta direto pelo editor, sem passar pelo Ato 1.
 	if ato == 1 or Cronometro.tempo_restante <= 0.0:
@@ -56,6 +66,13 @@ func _on_answer_failed() -> void:
 	_travar_jogo()
 	await _result_screen.mostrar_erro_grosseiro()
 	get_tree().change_scene_to_file(primeiro_ato)
+
+
+## O botão do HUD faz o mesmo que o Tab. Depois que a fase trava o menu
+## (_travar_jogo), o clique não o abre mais.
+func _on_hud_calcular_area_pressionado() -> void:
+	if _answer_menu.can_process():
+		_answer_menu.toggle_menu()
 
 
 func _on_player_pause_toggled(paused: bool) -> void:

@@ -13,6 +13,7 @@ mouse_filter = 2
 script = ExtResource("1_bvl64")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1823149891]
+layer = 3
 
 [node name="BackgroundMenuColor" type="ColorRect" parent="CanvasLayer" unique_id=1422743902]
 anchors_preset = 15

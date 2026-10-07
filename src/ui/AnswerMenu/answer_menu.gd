@@ -105,8 +105,13 @@ func _on_answer_text_edit_text_changed() -> void:
 # de o evento chegar aqui.
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("answer_menu"):
-		_set_menu_open(!layer.visible)
+		toggle_menu()
 		get_viewport().set_input_as_handled()
+
+
+## Abre o menu fechado ou fecha o aberto. Usado pelo Tab e pelo botão do HUD.
+func toggle_menu() -> void:
+	_set_menu_open(!layer.visible)
 
 
 func _set_menu_open(open: bool) -> void:

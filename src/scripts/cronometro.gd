@@ -9,6 +9,8 @@ signal tempo_esgotado
 
 ## Segundos que faltam. Zero antes da primeira chamada de iniciar().
 var tempo_restante := 0.0
+## Tempo da fase inteira, recebido em iniciar(). O HUD usa para a fração de tempo restante.
+var tempo_total := 0.0
 
 var _rodando := false
 
@@ -24,6 +26,7 @@ func _process(delta: float) -> void:
 
 ## Zera a contagem para tempo_total segundos e começa a correr.
 func iniciar(tempo_total: float) -> void:
+	self.tempo_total = tempo_total
 	tempo_restante = tempo_total
 	_rodando = tempo_total > 0.0
 
