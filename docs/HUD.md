@@ -48,7 +48,7 @@ O menu de chute (`src/ui/AnswerMenu/answer_menu.tscn`) segue a opção **B — F
 - Rodapé com a tecla Tab (fecha) e a dica dos decimais.
 - O botão "ENVIAR" não pega o foco (`focus_mode = 0`), então o cursor continua no campo depois do clique.
 
-**Aviso de resposta inválida:** opção **B — Faixa vermelha** do mesmo arquivo. Enviar o campo vazio ou só com `,` ou `.` mostra, acima do cartão, o aviso "DIGITE UM NÚMERO" com o ícone de alerta. Ele some depois de `duracao_aviso` segundos (2 por padrão), quando o jogador volta a digitar ou quando o menu fecha. Enviar de novo reinicia a contagem, sem empilhar avisos. O aviso fica sempre no layout, só transparente, para o menu não pular quando ele aparece. O sinal `answer_invalid` continua sendo emitido, para quem mais quiser reagir (um som, por exemplo).
+**Aviso de resposta inválida:** opção **B — Faixa vermelha** do mesmo arquivo. Enviar o campo vazio ou só com `,` ou `.` mostra, acima do cartão, o aviso "DIGITE UM NÚMERO" com o ícone de alerta; enviar zero (`0`, `0,0`, `0.000…`) mostra "A ÁREA PRECISA SER MAIOR QUE 0". Os textos ficam nas constantes `AVISO_*` de `answer_menu.gd`. Ele some depois de `duracao_aviso` segundos (2 por padrão), quando o jogador volta a digitar ou quando o menu fecha. Enviar de novo reinicia a contagem, sem empilhar avisos. O aviso fica sempre no layout, só transparente, para o menu não pular quando ele aparece. O sinal `answer_invalid` continua sendo emitido, para quem mais quiser reagir (um som, por exemplo).
 
 ## Camadas de desenho
 

@@ -6,8 +6,8 @@ signal answer_correct
 signal answer_retry
 ## Emitido quando o erro passa da margem de erro grosseiro: falha, reinicia a fase (CG-37).
 signal answer_failed
-## Emitido quando o envio não é um número (campo vazio ou só com "," ou "."):
-## nada é avaliado, o menu continua aberto e mostra o aviso "Digite um número" (CG-47).
+## Emitido quando o envio não é uma área válida: campo vazio, só com "," ou "." ou zero
+## (0, 0,0, 0.000...). Nada é avaliado, o menu continua aberto e mostra o aviso (CG-47).
 signal answer_invalid
 
 enum AnswerResult { CORRECT, RETRY, FAIL }
@@ -19,6 +19,11 @@ const FUNDO_RETA := Color(VERMELHO, 0.08)
 
 const TEXTO_SEM_RETAS := "nenhuma ainda"
 const TEXTO_RETAS_OCULTAS := "+%d"
+
+const AVISO_SEM_NUMERO := "Digite um número"
+const AVISO_SEM_NUMERO_DICA := "Use só números, como 6,59 (vírgula ou ponto para decimais)."
+const AVISO_ZERO := "A área precisa ser maior que 0"
+const AVISO_ZERO_DICA := "Digite um valor acima de zero, como 6,59."
 
 const FONTE_TITULO := preload("res://assets/fonts/bebas_neue/bebas_neue_regular.ttf")
 const FONTE_TEXTO := preload("res://assets/fonts/barlow/barlow_medium.ttf")
@@ -46,6 +51,8 @@ var _aviso_exibicao := 0
 @onready var layer : CanvasLayer = $"CanvasLayer"
 ## Fica sempre no layout, só transparente (modulate.a = 0), para o menu não pular quando ele aparece.
 @onready var _aviso : Control = %Aviso
+@onready var _aviso_titulo : Label = %AvisoTitulo
+@onready var _aviso_dica : Label = %AvisoSubtitulo
 @onready var _lista_retas : HFlowContainer = %ListaRetas
 
 # Called when the node enters the scene tree for the first time.
@@ -60,11 +67,6 @@ func _analyse_answer(usr_ans : float) -> AnswerResult:
 	
 	if rel_error <= hit_margin:
 		return AnswerResult.CORRECT
-
-	# Zero está infinitamente longe do gabarito pela razão, então é sempre erro grosseiro.
-	# Só vira acerto com hit_margin = 1.0, porque o erro relativo de zero é 100%.
-	if usr_ans <= 0.0:
-		return AnswerResult.FAIL
 
 	# O erro relativo comum nunca passa de 100% para chutes abaixo do gabarito,
 	# então o erro grosseiro compara pela razão, que vale nos dois sentidos:
@@ -82,20 +84,23 @@ func _on_answer_button_pressed() -> void:
 	# e o menu continua aberto com o foco no campo para o jogador digitar o chute.
 	# O sinal de menos é descartado por _filter_number, então não existe chute negativo.
 	if usr_text.replace(",", "").replace(".", "").is_empty():
-		ans.grab_focus()
-		_mostrar_aviso()
-		answer_invalid.emit()
+		_rejeitar(AVISO_SEM_NUMERO, AVISO_SEM_NUMERO_DICA)
 		return
-	
-	# Um chute válido sempre limpa o campo e fecha o menu, seja qual for o resultado.
-	ans.clear()
-	_set_menu_open(false)
 	
 	# O campo só contém dígitos e no máximo um separador (ver _filter_number),
 	# então basta normalizar a vírgula. ",5" vira 0.5 e "5," vira 5.
-	# Zero é submetido e cai em _analyse_answer como um chute qualquer.
 	var usr_num : float = usr_text.replace(",", ".").to_float()
+	
+	# Zero, com qualquer quantidade de casas (0, 0,0, 0.0000...), não é uma área:
+	# é tratado como resposta inválida, igual ao campo vazio.
+	if usr_num <= 0.0:
+		_rejeitar(AVISO_ZERO, AVISO_ZERO_DICA)
+		return
+	
+	# Um chute válido sempre limpa o campo e fecha o menu, seja qual for o resultado.
 	ultima_resposta = usr_num
+	ans.clear()
+	_set_menu_open(false)
 	
 	if correct_ans <= 0.0:
 		push_error("AnswerMenu: correct_ans precisa ser maior que 0.")
@@ -185,11 +190,20 @@ func mostrar_retas(comprimentos: Array[float]) -> void:
 		_lista_retas.add_child(_criar_reta(i + 1, comprimentos[i]))
 
 
+## Resposta inválida: mantém o menu aberto com o foco no campo, mostra o aviso e emite answer_invalid.
+func _rejeitar(aviso: String, dica: String) -> void:
+	ans.grab_focus()
+	_mostrar_aviso(aviso, dica)
+	answer_invalid.emit()
+
+
 ## Mostra o aviso por duracao_aviso segundos. Um novo envio inválido reinicia
 ## a contagem em vez de empilhar avisos.
-func _mostrar_aviso() -> void:
+func _mostrar_aviso(aviso: String, dica: String) -> void:
 	_aviso_exibicao += 1
 	var exibicao := _aviso_exibicao
+	_aviso_titulo.text = aviso.to_upper()
+	_aviso_dica.text = dica
 	_aviso.modulate.a = 1.0
 
 	await get_tree().create_timer(duracao_aviso).timeout

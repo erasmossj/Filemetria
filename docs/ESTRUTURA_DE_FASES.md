@@ -54,7 +54,15 @@ Com as margens padrão do AnswerMenu (`hit_margin = 0.10`, `fail_margin = 1.0`):
 
 Qualquer outro valor é "Tente novamente!". O erro grosseiro compara pela razão entre chute e gabarito, e não pelo erro relativo comum: este nunca passa de 100% para chutes abaixo do gabarito, então só chutes altos seriam grosseiros.
 
-O campo não aceita sinal de menos, então não há chute negativo. O chute **0** é sempre erro grosseiro, porque a razão até o gabarito é infinita. Ele só seria acerto com `hit_margin = 1.0`, já que o erro relativo de zero é 100%. Campo vazio ou só com o separador (`,` ou `.`) não é enviado e não conta como erro: o menu continua aberto, com o texto e o foco no campo, e mostra o aviso "Digite um número" (ver [HUD.md](HUD.md#menu-de-chute-cg-47)). Um chute válido limpa o campo e fecha o menu.
+O campo não aceita sinal de menos, então não há chute negativo. Três envios são **resposta inválida**: não são avaliados, não contam como erro e deixam o menu aberto, com o texto e o foco no campo (ver [HUD.md](HUD.md#menu-de-chute-cg-47)):
+
+| Envio | Aviso |
+| --- | --- |
+| Campo vazio | "Digite um número" |
+| Só o separador (`,` ou `.`) | "Digite um número" |
+| Zero, com qualquer quantidade de casas (`0`, `0,0`, `0.0000000000000`) | "A área precisa ser maior que 0" |
+
+Qualquer valor acima de zero, por menor que seja, é avaliado normalmente (um `0,001` é erro grosseiro). Um chute válido limpa o campo e fecha o menu.
 
 ## Fluxo dos sinais do AnswerMenu
 
@@ -63,7 +71,7 @@ O campo não aceita sinal de menos, então não há chute negativo. O chute **0*
 | `answer_correct` | "Correto!" / "Você conseguiu recuperar a área com sucesso!" (faixa verde) | `change_scene_to_file(proxima_fase)`, ou emite `fase_concluida` se for o último ato |
 | `answer_retry` | "Tente novamente!" / "Quase lá: confira as medidas e calcule de novo." (faixa vermelho-escura) | Nada: o jogador tenta de novo no mesmo ato |
 | `answer_failed` | "Tente novamente..." / "Dessa vez do começo... Ok?" (faixa escura, renda vermelha) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
-| `answer_invalid` | Nenhuma: o próprio menu mostra o aviso "Digite um número" (CG-47) | Nada: o menu continua aberto. Emitido quando o envio está vazio ou só com o separador |
+| `answer_invalid` | Nenhuma: o próprio menu mostra o aviso (CG-47) | Nada: o menu continua aberto. Emitido quando o envio está vazio, só com o separador ou é zero |
 | `Cronometro.tempo_esgotado` | "Tempo esgotado!" / "Dessa vez do começo... Ok?" (mesmo visual do erro grosseiro) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
 
 O menu de chute abre com o Tab ou com o botão "Calcular área" do HUD; os dois chamam `AnswerMenu.toggle_menu()` (o botão passa pela fase, que ignora o clique depois de `_travar_jogo()`).
