@@ -49,14 +49,16 @@ func _analyse_answer(usr_ans : float) -> AnswerResult:
 func _on_answer_button_pressed() -> void:
 	var usr_text : String = ans.text
 	
-	# Enviar sempre limpa o campo e fecha o menu, seja qual for a entrada ou o resultado.
-	ans.clear()
-	_set_menu_open(false)
-	
-	# Campo vazio ou só com o separador não é número: não submete nem conta como erro.
+	# Campo vazio ou só com o separador não é número: não submete nem conta como erro,
+	# e o menu continua aberto com o foco no campo para o jogador digitar o chute.
 	# O sinal de menos é descartado por _filter_number, então não existe chute negativo.
 	if usr_text.replace(",", "").replace(".", "").is_empty():
+		ans.grab_focus()
 		return
+	
+	# Um chute válido sempre limpa o campo e fecha o menu, seja qual for o resultado.
+	ans.clear()
+	_set_menu_open(false)
 	
 	# O campo só contém dígitos e no máximo um separador (ver _filter_number),
 	# então basta normalizar a vírgula. ",5" vira 0.5 e "5," vira 5.
