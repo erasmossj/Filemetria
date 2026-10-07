@@ -5,3 +5,4 @@
 [node name="Ato3" unique_id=1559861971 instance=ExtResource("1_base")]
 ato = 3
 gabarito = 17.32
+objetivo = "Meça o trecho do corpo que o Lodo ainda cobre e descubra a área dele."

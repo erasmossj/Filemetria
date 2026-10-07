@@ -1,5 +1,8 @@
 extends Node3D
 
+## Emitido quando uma reta é fechada ou apagada. O HUD usa para listar os comprimentos (CG-19).
+signal lines_changed(lengths: Array[float])
+
 ## Cenas instanciadas pelo sistema.
 const POINT_SCENE: PackedScene = preload("res://src/entities/statics/Point/point.tscn")
 const LINE_SCENE: PackedScene = preload("res://src/entities/statics/Line/line.tscn")
@@ -46,6 +49,7 @@ func add_point(point_position: Vector3) -> void:
 
 	has_a_point = false
 	point_a = null
+	lines_changed.emit(get_line_lengths())
 
 
 ## Q: cancela a reta em andamento, apagando o ponto A.
@@ -69,10 +73,13 @@ func undo_last_line() -> void:
 ## Ctrl+E: apaga todas as retas e também a reta em andamento.
 func clear_lines() -> void:
 	cancel_line()
+	if lines.is_empty():
+		return
 
 	for record in lines:
 		_free_line(record)
 	lines.clear()
+	lines_changed.emit(get_line_lengths())
 
 
 ## Botão direito: apaga o ponto mirado e a reta a que ele pertence.
@@ -92,9 +99,18 @@ func get_last_line_length() -> float:
 	return 0.0 if lines.is_empty() else lines[-1]["length"]
 
 
+## Comprimentos das retas fechadas, em metros e na ordem de criação, com precisão completa.
+func get_line_lengths() -> Array[float]:
+	var lengths: Array[float] = []
+	for record in lines:
+		lengths.append(record["length"])
+	return lengths
+
+
 func _erase_line(index: int) -> void:
 	_free_line(lines[index])
 	lines.remove_at(index)
+	lines_changed.emit(get_line_lengths())
 
 
 func _free_line(record: Dictionary) -> void:

@@ -1,18 +1,18 @@
-[gd_resource type="StandardMaterial3D" format=3]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bvveghpyax6ec"]
 
-[ext_resource type="Texture2D" id="Color" path="./reboco_color.jpg"]
-[ext_resource type="Texture2D" id="Displacement" path="./reboco_height.jpg"]
-[ext_resource type="Texture2D" id="Roughness" path="./reboco_roughness.jpg"]
-[ext_resource type="Texture2D" id="NormalGL" path="./reboco_normal.jpg"]
+[ext_resource type="Texture2D" uid="uid://cgp36si0o40wg" path="res://assets/textures/reboco/reboco_color.jpg" id="Color"]
+[ext_resource type="Texture2D" uid="uid://bavdi61bex7i3" path="res://assets/textures/reboco/reboco_height.jpg" id="Displacement"]
+[ext_resource type="Texture2D" uid="uid://cmh3k4g4lcj1o" path="res://assets/textures/reboco/reboco_normal.jpg" id="NormalGL"]
+[ext_resource type="Texture2D" uid="uid://soasw4qy5fkx" path="res://assets/textures/reboco/reboco_roughness.jpg" id="Roughness"]
+
 [resource]
 albedo_texture = ExtResource("Color")
 roughness_texture = ExtResource("Roughness")
 roughness_texture_channel = 4
-normal_texture = ExtResource("NormalGL")
 normal_enabled = true
-heightmap_texture = ExtResource("Displacement")
+normal_texture = ExtResource("NormalGL")
 heightmap_scale = 1.0
-heightmap_enabled = false
+heightmap_texture = ExtResource("Displacement")
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 uv1_world_triplanar = true

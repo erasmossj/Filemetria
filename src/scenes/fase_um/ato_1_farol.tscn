@@ -5,3 +5,4 @@
 [node name="Ato1" unique_id=765818547 instance=ExtResource("1_base")]
 gabarito = 6.59
 proxima_fase = "uid://cjeyjiasmu3q7"
+objetivo = "Meça a face da pedra da base e descubra a área tomada pelo Lodo."

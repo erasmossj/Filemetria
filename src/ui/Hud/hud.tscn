@@ -1,0 +1,610 @@
+[gd_scene format=3 uid="uid://d0sijhup7b3hj"]
+
+[ext_resource type="Script" uid="uid://7xxbjikgt8j4" path="res://src/ui/Hud/hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://cjqow7wva0tmk" path="res://src/ui/Hud/lanterna_anel.gd" id="2_anel"]
+[ext_resource type="FontFile" uid="uid://bjpp6lqk14o56" path="res://assets/fonts/bebas_neue/bebas_neue_regular.ttf" id="3_bebas"]
+[ext_resource type="FontFile" uid="uid://c3sjenjux2ngj" path="res://assets/fonts/barlow/barlow_semibold.ttf" id="4_barlow_semibold"]
+[ext_resource type="FontFile" uid="uid://bwrpvxu32vp72" path="res://assets/fonts/barlow/barlow_bold.ttf" id="5_barlow_bold"]
+[ext_resource type="Texture2D" uid="uid://ccgepkjh66bcl" path="res://assets/sprites/target.svg" id="6_alvo"]
+[ext_resource type="Texture2D" uid="uid://cwcugbcs4usy6" path="res://assets/sprites/ruler.svg" id="7_regua"]
+[ext_resource type="Texture2D" uid="uid://g3ulno1ta4i0" path="res://assets/sprites/calculator.svg" id="8_calculadora"]
+[ext_resource type="Texture2D" uid="uid://8mvmj2x7nstb" path="res://assets/sprites/keyboard.svg" id="9_teclado"]
+[ext_resource type="Texture2D" uid="uid://b8qag6lknv8m2" path="res://assets/sprites/renda_file/graph_paper.svg" id="10_malha"]
+[ext_resource type="Texture2D" uid="uid://gvxmg4122chv" path="res://assets/sprites/renda_file/formal_invitation.svg" id="11_renda"]
+[ext_resource type="Texture2D" uid="uid://cfa31hsb5te5f" path="res://assets/sprites/renda_file/lisbon.svg" id="12_lisbon"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_faixa"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+content_margin_bottom = 3.0
+bg_color = Color(0.78431374, 0.1254902, 0.16862746, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="FontVariation" id="FontVariation_bebas"]
+base_font = ExtResource("3_bebas")
+spacing_glyph = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cartao_aba"]
+content_margin_left = 10.0
+content_margin_top = 7.0
+content_margin_right = 11.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 0.96)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip"]
+content_margin_left = 9.0
+content_margin_top = 5.0
+content_margin_right = 9.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 0.96)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lanterna"]
+bg_color = Color(1, 1, 1, 0.96)
+corner_radius_top_left = 45
+corner_radius_top_right = 45
+corner_radius_bottom_right = 45
+corner_radius_bottom_left = 45
+corner_detail = 20
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cartao_retas"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.96)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_botao"]
+content_margin_left = 13.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(0.78431374, 0.1254902, 0.16862746, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
+content_margin_left = 29.0
+content_margin_top = 24.0
+content_margin_right = 29.0
+content_margin_bottom = 24.0
+bg_color = Color(1, 1, 1, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.78431374, 0.1254902, 0.16862746, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 20
+shadow_offset = Vector2(0, 7)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_canto"]
+bg_color = Color(0.78431374, 0.1254902, 0.16862746, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Hud" type="Control" unique_id=549361445]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hud")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1598977170]
+layer = 2
+
+[node name="Escurecer" type="ColorRect" parent="CanvasLayer" unique_id=1472254523]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.45)
+
+[node name="CantoEsquerdo" type="VBoxContainer" parent="CanvasLayer" unique_id=1892009618]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 24.0
+offset_bottom = 24.0
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="Objetivo" type="VBoxContainer" parent="CanvasLayer/CantoEsquerdo" unique_id=610911556]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Faixa" type="PanelContainer" parent="CanvasLayer/CantoEsquerdo/Objetivo" unique_id=839808071]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_faixa")
+
+[node name="Conteudo" type="HBoxContainer" parent="CanvasLayer/CantoEsquerdo/Objetivo/Faixa" unique_id=655671710]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+
+[node name="Icone" type="TextureRect" parent="CanvasLayer/CantoEsquerdo/Objetivo/Faixa/Conteudo" unique_id=1202743389]
+custom_minimum_size = Vector2(11, 11)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("6_alvo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Titulo" type="Label" parent="CanvasLayer/CantoEsquerdo/Objetivo/Faixa/Conteudo" unique_id=342336492]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_bebas")
+theme_override_font_sizes/font_size = 13
+text = "OBJETIVO"
+
+[node name="Cartao" type="PanelContainer" parent="CanvasLayer/CantoEsquerdo/Objetivo" unique_id=195253339]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cartao_aba")
+
+[node name="ObjetivoTexto" type="Label" parent="CanvasLayer/CantoEsquerdo/Objetivo/Cartao" unique_id=1744658896]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(204, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.078431375, 0.101960786, 0.12156863, 1)
+theme_override_fonts/font = ExtResource("4_barlow_semibold")
+theme_override_font_sizes/font_size = 13
+text = "Meça o corpo do farol e descubra a área tomada pelo Lodo."
+autowrap_mode = 3
+
+[node name="Ato" type="PanelContainer" parent="CanvasLayer/CantoEsquerdo" unique_id=1816954382]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_chip")
+
+[node name="Conteudo" type="HBoxContainer" parent="CanvasLayer/CantoEsquerdo/Ato" unique_id=976608721]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 7
+
+[node name="AtoTexto" type="Label" parent="CanvasLayer/CantoEsquerdo/Ato/Conteudo" unique_id=1760792569]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.078431375, 0.101960786, 0.12156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_bebas")
+theme_override_font_sizes/font_size = 16
+text = "ATO 1 DE 3"
+
+[node name="Listras" type="VBoxContainer" parent="CanvasLayer/CantoEsquerdo/Ato/Conteudo" unique_id=1924065739]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Listra3" type="Panel" parent="CanvasLayer/CantoEsquerdo/Ato/Conteudo/Listras" unique_id=1019505941]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(38, 4)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Listra2" type="Panel" parent="CanvasLayer/CantoEsquerdo/Ato/Conteudo/Listras" unique_id=2078361334]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(38, 4)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Listra1" type="Panel" parent="CanvasLayer/CantoEsquerdo/Ato/Conteudo/Listras" unique_id=895612108]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(38, 4)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Lanterna" type="Control" parent="CanvasLayer" unique_id=607793151]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_top = 12.0
+offset_right = 45.0
+offset_bottom = 102.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="Disco" type="Panel" parent="CanvasLayer/Lanterna" unique_id=971932890]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lanterna")
+
+[node name="Anel" type="Control" parent="CanvasLayer/Lanterna" unique_id=894034416]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_anel")
+
+[node name="Textos" type="VBoxContainer" parent="CanvasLayer/Lanterna" unique_id=1152295081]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = -6
+alignment = 1
+
+[node name="Tempo" type="Label" parent="CanvasLayer/Lanterna/Textos" unique_id=346626387]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.078431375, 0.101960786, 0.12156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_bebas")
+theme_override_font_sizes/font_size = 32
+text = "00:00"
+horizontal_alignment = 1
+
+[node name="Legenda" type="Label" parent="CanvasLayer/Lanterna/Textos" unique_id=707849288]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.1254902, 0.16862746, 1)
+theme_override_fonts/font = ExtResource("5_barlow_bold")
+theme_override_font_sizes/font_size = 9
+text = "TEMPO"
+horizontal_alignment = 1
+
+[node name="Retas" type="VBoxContainer" parent="CanvasLayer" unique_id=1546409021]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -168.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 24.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Faixa" type="PanelContainer" parent="CanvasLayer/Retas" unique_id=1189924709]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_faixa")
+
+[node name="Conteudo" type="HBoxContainer" parent="CanvasLayer/Retas/Faixa" unique_id=717058622]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+
+[node name="Icone" type="TextureRect" parent="CanvasLayer/Retas/Faixa/Conteudo" unique_id=1421838875]
+custom_minimum_size = Vector2(11, 11)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("7_regua")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Titulo" type="Label" parent="CanvasLayer/Retas/Faixa/Conteudo" unique_id=1626873716]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_bebas")
+theme_override_font_sizes/font_size = 13
+text = "RETAS"
+
+[node name="Cartao" type="PanelContainer" parent="CanvasLayer/Retas" unique_id=263569729]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cartao_retas")
+
+[node name="ListaRetas" type="VBoxContainer" parent="CanvasLayer/Retas/Cartao" unique_id=686953159]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 1
+
+[node name="AtalhoControles" type="PanelContainer" parent="CanvasLayer" unique_id=1536946342]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = -24.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_chip")
+
+[node name="AtalhoConteudo" type="HBoxContainer" parent="CanvasLayer/AtalhoControles" unique_id=562385360]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+
+[node name="Texto" type="Label" parent="CanvasLayer/AtalhoControles/AtalhoConteudo" unique_id=2118021114]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.078431375, 0.101960786, 0.12156863, 1)
+theme_override_fonts/font = ExtResource("4_barlow_semibold")
+theme_override_font_sizes/font_size = 10
+text = "controles"
+
+[node name="BotaoCalcular" type="PanelContainer" parent="CanvasLayer" unique_id=1700043723]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_botao")
+
+[node name="BotaoConteudo" type="HBoxContainer" parent="CanvasLayer/BotaoCalcular" unique_id=1453675213]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 7
+
+[node name="Icone" type="TextureRect" parent="CanvasLayer/BotaoCalcular/BotaoConteudo" unique_id=517251849]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("8_calculadora")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Texto" type="Label" parent="CanvasLayer/BotaoCalcular/BotaoConteudo" unique_id=1309766847]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_bebas")
+theme_override_font_sizes/font_size = 19
+text = "CALCULAR ÁREA"
+
+[node name="PainelControles" type="PanelContainer" parent="CanvasLayer" unique_id=1668021640]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(456, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 18.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+
+[node name="Malha" type="TextureRect" parent="CanvasLayer/PainelControles" unique_id=1091788443]
+modulate = Color(0.78431374, 0.1254902, 0.16862746, 0.06)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_malha")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Conteudo" type="VBoxContainer" parent="CanvasLayer/PainelControles" unique_id=1086052906]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 11
+
+[node name="Cabecalho" type="HBoxContainer" parent="CanvasLayer/PainelControles/Conteudo" unique_id=426289758]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 7
+alignment = 1
+
+[node name="Icone" type="TextureRect" parent="CanvasLayer/PainelControles/Conteudo/Cabecalho" unique_id=1321540486]
+modulate = Color(0.78431374, 0.1254902, 0.16862746, 1)
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("9_teclado")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Titulo" type="Label" parent="CanvasLayer/PainelControles/Conteudo/Cabecalho" unique_id=1812402317]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.078431375, 0.101960786, 0.12156863, 1)
+theme_override_fonts/font = SubResource("FontVariation_bebas")
+theme_override_font_sizes/font_size = 26
+text = "CONTROLES"
+
+[node name="Colunas" type="HBoxContainer" parent="CanvasLayer/PainelControles/Conteudo" unique_id=1137025843]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ColunaEsquerda" type="VBoxContainer" parent="CanvasLayer/PainelControles/Conteudo/Colunas" unique_id=793522904]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 7
+
+[node name="ColunaDireita" type="VBoxContainer" parent="CanvasLayer/PainelControles/Conteudo/Colunas" unique_id=1177428939]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 7
+
+[node name="Separador" type="ColorRect" parent="CanvasLayer/PainelControles/Conteudo" unique_id=2042034179]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.78431374, 0.1254902, 0.16862746, 0.4)
+
+[node name="Rodape" type="HBoxContainer" parent="CanvasLayer/PainelControles/Conteudo" unique_id=891152933]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Ornamentos" type="Control" parent="CanvasLayer" unique_id=1281684531]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RendaTopo" type="TextureRect" parent="CanvasLayer/Ornamentos" unique_id=57082039]
+unique_name_in_owner = true
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("11_renda")
+expand_mode = 1
+stretch_mode = 1
+flip_v = true
+
+[node name="RendaBase" type="TextureRect" parent="CanvasLayer/Ornamentos" unique_id=1204050975]
+unique_name_in_owner = true
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("11_renda")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="CantoSE" type="Panel" parent="CanvasLayer/Ornamentos" unique_id=1063156713]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_canto")
+
+[node name="Lisbon" type="TextureRect" parent="CanvasLayer/Ornamentos/CantoSE" unique_id=1319275440]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_lisbon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CantoSD" type="Panel" parent="CanvasLayer/Ornamentos" unique_id=715967615]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_canto")
+
+[node name="Lisbon" type="TextureRect" parent="CanvasLayer/Ornamentos/CantoSD" unique_id=1323419725]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_lisbon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CantoIE" type="Panel" parent="CanvasLayer/Ornamentos" unique_id=1631050313]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_canto")
+
+[node name="Lisbon" type="TextureRect" parent="CanvasLayer/Ornamentos/CantoIE" unique_id=1361344351]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_lisbon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CantoID" type="Panel" parent="CanvasLayer/Ornamentos" unique_id=1125113722]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_canto")
+
+[node name="Lisbon" type="TextureRect" parent="CanvasLayer/Ornamentos/CantoID" unique_id=1852261670]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_lisbon")
+expand_mode = 1
+stretch_mode = 5

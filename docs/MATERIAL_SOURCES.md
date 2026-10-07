@@ -5,6 +5,7 @@ Todos os materiais foram baixados em 2K (JPG) do ambientCG, licença CC0 1.0 (do
 | Material | Pasta | Source | Author | License |
 |---|---|---|---|---|
 | Reboco | `assets/textures/reboco/` | [ambientCG - Plaster003](https://ambientcg.com/view?id=Plaster003) | ambientCG | CC0 1.0 |
+| Reboco vermelho | `assets/textures/reboco/reboco_vermelho.tres` | Mesmas texturas do Plaster003 com `albedo_color` vermelho `(0.78, 0.09, 0.08)`; usado nas faixas vermelhas do Farol | ambientCG | CC0 1.0 |
 | Pedra | `assets/textures/pedra/` | [ambientCG - Rock022](https://ambientcg.com/view?id=Rock022) | ambientCG | CC0 1.0 |
 | Metal limpo | `assets/textures/metal/metal_limpo*` | [ambientCG - Metal041A](https://ambientcg.com/view?id=Metal041A) | ambientCG | CC0 1.0 |
 | Metal enferrujado | `assets/textures/metal/metal_enferrujado*` | [ambientCG - Metal041B](https://ambientcg.com/view?id=Metal041B) | ambientCG | CC0 1.0 |

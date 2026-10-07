@@ -23,6 +23,7 @@ var input_locked = false
 ## True enquanto o jogo está pausado pelo ESC (cursor liberado).
 var paused_by_escape = false
 @onready var raycast : RayCast3D = $Head/Vertical/RayCast3D
+@onready var camera : Camera3D = $Head/Vertical/HeadArea/Camera
 @onready var ps = $Head/Vertical/PointSystem
 
 func _ready() -> void:
@@ -37,6 +38,10 @@ func _ready() -> void:
 	
 	## Torna o raycast vísivel na camada do Lodo.
 	raycast.set_collision_mask_value(2, true)
+	
+	## Sem limite de distância para marcar pontos: a mira alcança tudo o que a câmera enxerga.
+	## Sobrescreve o target_position da cena.
+	raycast.target_position = Vector3(0, 0, -camera.far)
 
 func _input(event: InputEvent) -> void:
 	if input_locked:

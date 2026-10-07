@@ -36,7 +36,20 @@ Este documento complementa o [ARQUITETURA.md](ARQUITETURA.md), que já cobre est
 ## Física e colisões
 
 - Nomear as **camadas de física** (Project Settings → Layer Names → 3D Physics) em vez de deixar como "Layer 1", "Layer 2" — isso já documenta o propósito de cada camada para quem abrir o projeto depois.
-- Definir layers/masks pensando em categorias (`world`, `player`, `enemies`, `interactables`, `hitbox`, `hurtbox`) e manter essa lista atualizada neste documento conforme for crescendo.
+- Definir layers/masks pensando em categorias e manter a lista abaixo atualizada conforme for crescendo.
+- O motor de física é o **Jolt** (`physics/3d/physics_engine`). Ele não aceita escala não uniforme em formas como cilindros: para mudar o tamanho de um colisor, mudar o shape, não a escala do nó (ver a reta em [SISTEMA_DE_PONTOS.md](SISTEMA_DE_PONTOS.md#line-e-point)).
+
+Camadas em uso hoje:
+
+| Camada | Nome no projeto | Quem está nela | Quem enxerga |
+| --- | --- | --- | --- |
+| 1 | Mundo | Chão (`Ground`), corpo de colisão `Farol` do `.glb`, `Area3D` de pontos e retas (camada padrão) | Player (colisão), raio da mira, oclusão dos rótulos das medidas |
+| 2 | Cascas de Lodo | `StaticBody3D` das cascas de Lodo, aplicada por `farol.gd` (`CAMADA_CASCAS`) | Raio da mira (ligada no `_ready` do Player), oclusão dos rótulos (`OCLUSAO_MASK`) |
+| 3 | Player | `CharacterBody3D` do Player (`collision_layer = 4` no `.tscn`) | — |
+
+Os nomes estão em Project Settings → Layer Names → 3D Physics (seção `[layer_names]` do `project.godot`) e aparecem no inspetor de qualquer `collision_layer`/`collision_mask`. Camada nova entra lá e nesta tabela.
+
+No `.tscn`, `collision_layer` e `collision_mask` são máscaras de bits: o valor 4 é a camada 3, não a 4. No código, preferir `set_collision_layer_value(camada, true)`, que recebe o número da camada.
 
 ## Input
 
@@ -45,7 +58,8 @@ Este documento complementa o [ARQUITETURA.md](ARQUITETURA.md), que já cobre est
 
 ## Autoloads / Singletons
 
-- Autoloads (Project Settings → Autoload) só para estado ou serviços realmente globais (ex.: gerenciador de cena, estado de save, áudio global). Ficam em `src/scripts/`, já coberto na arquitetura.
+- Autoloads (Project Settings → Autoload) só para estado ou serviços realmente globais (ex.: gerenciador de cena, estado de save, áudio global). Autoloads só de script ficam em `src/scripts/`; autoloads que são cena ficam em `src/scenes/managers/`.
+- Autoloads atuais: `Cronometro` (`src/scripts/cronometro.gd`, tempo da fase entre atos) e `MusicManager` (`src/scenes/managers/music_manager.tscn`, música de fundo no bus `Music`).
 - Evitar transformar autoload em "bag" de utilidades genéricas sem relação — cada autoload deve ter uma responsabilidade clara.
 
 ## UI
@@ -65,6 +79,18 @@ Este documento complementa o [ARQUITETURA.md](ARQUITETURA.md), que já cobre est
 ## Nomenclatura de arquivos de documentação
 
 - Arquivos `.md` dentro de `docs/` em **MAIÚSCULO_COM_UNDERLINE** (ex.: `ARQUITETURA.md`, `CONVENCOES_E_BOAS_PRATICAS.md`). Sem espaços, sem acentos, sem hífen.
+
+## Créditos de assets
+
+- Todo asset de terceiros entra no arquivo de fontes da categoria (`ICON_SOURCES`, `FONT_SOURCES`, `MATERIAL_SOURCES`, `AUDIO_SOURCES`, `CREDITS_MUSIC`) **no mesmo commit** que adiciona o arquivo, com link, autor e licença.
+- Licenças que exigem atribuição (CC BY, por exemplo) também vão para [CREDITOS.md](CREDITOS.md), a lista usada nos créditos do jogo e no relatório.
+- Comentários de licença dentro do arquivo (como o `@license` dos SVGs do Lucide) são mantidos.
+
+## Convenção de commits e PRs
+
+- Mensagens em português, com prefixo de tipo e verbo na 3ª pessoa: `feat: adiciona o HUD da fase...`, `fix: ...`, `docs: ...`, `chore: ...`. O corpo explica o que muda e por quê.
+- PRs vão para `dev`, com título `CG-[código]: descrição` (ex.: `CG-37: cronômetro da fase e derrota por tempo`). A `prod` recebe só o que já passou pela `dev`.
+- A descrição do PR traz um resumo, as mudanças por área, os pontos de atenção e um roteiro de teste. Quando o PR depende de outro ainda aberto, ele aponta para a branch do outro e diz isso no topo.
 
 ## Convenção de branches
 

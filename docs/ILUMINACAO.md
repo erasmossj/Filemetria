@@ -23,7 +23,7 @@ Cena reutilizável: `src/entities/environment/sunset_lighting/sunset_lighting.ts
 | Parâmetro | Valor | Motivo |
 |---|---|---|
 | Tonemap | ACES, `exposure 0.9`, `white 6.0` | Com Filmic 1.0 as faces brancas do farol estouravam (~0,8% da tela em branco puro) e a cena ficava lavada. ACES dá mais contraste e segura os altos; a exposição menor compensa o ganho de contraste dele |
-| SSAO | `radius 3`, `intensity 3`, `power 1.5`, `light_affect 0.2` | Escurece o contato dos blocos e do farol com o chão (o farol tem ~49 m, então um raio pequeno some). `light_affect` baixo deixa o AO aparecer também no lado iluminado sem sujar as faces |
+| SSAO | `radius 3`, `intensity 3`, `power 1.5`, `light_affect 0.2` | Escurece o contato dos blocos e do farol com o chão (o farol tem 11 m de altura e o pedestal ~2,5 m, e nessa escala um raio pequeno some). `light_affect` baixo deixa o AO aparecer também no lado iluminado sem sujar as faces |
 | Névoa | Exponencial, `density 0.002`, `sky_affect 0` | Só uma leve névoa de distância para separar os planos. Não custa nada de fps (medido) e não toca o céu; a 60 m ela cobre ~11% da cor |
 
 Resultado no sandbox: nenhum pixel estourado nas três vistas de teste (antes, até 0,84%) e nenhuma área preta nova além do contorno dos proxies de Lodo.
@@ -43,4 +43,4 @@ Se o desempenho apertar numa fase, o SSAO é o primeiro a desligar. A névoa pod
 
 ## Lodo do Esquecimento
 
-Validado com três proxies (albedo `0.07`, roughness `0.2`) no sandbox, ao sol, na sombra do farol e contra a luz: o contorno de todas as regiões continua legível. Quando o material real do CG-16 entrar, trocar os proxies pelas cascas e repetir a checagem. Se alguma região virar borrão, subir primeiro o albedo do material (evitar abaixo de ~0.05) antes de mexer nesta luz.
+Validado com três proxies (albedo `0.07`, roughness `0.2`) no sandbox `test_sunset_lighting.tscn`, ao sol, na sombra do farol e contra a luz: o contorno de todas as regiões continua legível. As cascas reais (`Lodo_Ato1/2/3`) já vêm dentro do `.glb` do Farol (ver [ESTRUTURA_DE_FASES.md](ESTRUTURA_DE_FASES.md)), com o material escuro provisório do modelo; os proxies continuam só no sandbox. Quando o material definitivo do Lodo entrar (CG-39), repetir a checagem com as cascas. Se alguma região virar borrão, subir primeiro o albedo do material (evitar abaixo de ~0.05) antes de mexer nesta luz.
