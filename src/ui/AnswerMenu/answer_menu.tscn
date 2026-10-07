@@ -206,7 +206,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.9)
 theme_override_fonts/font = ExtResource("3_barlow_semibold")
 theme_override_font_sizes/font_size = 12
-text = "Use só números, como 6,59 (vírgula ou ponto para decimais)."
+text = "Use só números, com vírgula ou ponto para os decimais."
 
 [node name="Menu" type="VBoxContainer" parent="CanvasLayer/MenuHolder" unique_id=509067893]
 layout_mode = 2

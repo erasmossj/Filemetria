@@ -21,9 +21,10 @@ const TEXTO_SEM_RETAS := "nenhuma ainda"
 const TEXTO_RETAS_OCULTAS := "+%d"
 
 const AVISO_SEM_NUMERO := "Digite um número"
-const AVISO_SEM_NUMERO_DICA := "Use só números, como 6,59 (vírgula ou ponto para decimais)."
+## As dicas não trazem número de exemplo: um valor qualquer poderia coincidir com um gabarito.
+const AVISO_SEM_NUMERO_DICA := "Use só números, com vírgula ou ponto para os decimais."
 const AVISO_ZERO := "A área precisa ser maior que 0"
-const AVISO_ZERO_DICA := "Digite um valor acima de zero, como 6,59."
+const AVISO_ZERO_DICA := "Digite uma área válida, maior que zero."
 
 const FONTE_TITULO := preload("res://assets/fonts/bebas_neue/bebas_neue_regular.ttf")
 const FONTE_TEXTO := preload("res://assets/fonts/barlow/barlow_medium.ttf")
