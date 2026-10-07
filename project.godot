@@ -140,6 +140,12 @@ show_controls={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Mundo"
+3d_physics/layer_2="Cascas de Lodo"
+3d_physics/layer_3="Player"
+
 [physics]
 
 common/physics_jitter_fix=0.0

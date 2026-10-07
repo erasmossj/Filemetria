@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dhok0vnq03id3" path="res://src/scripts/point_system.gd" id="3_muk8e"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
+height = 1.45
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yf5fn"]
 radius = 0.4
@@ -14,13 +15,13 @@ collision_layer = 4
 script = ExtResource("1_4m8ck")
 
 [node name="CollisionPlayer" type="CollisionShape3D" parent="." unique_id=1880344323]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.725, 0)
 shape = SubResource("CapsuleShape3D_g4v7s")
 
 [node name="Head" type="Node3D" parent="." unique_id=34031514]
 
 [node name="Vertical" type="Node3D" parent="Head" unique_id=84466540]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
 
 [node name="HeadArea" type="Area3D" parent="Head/Vertical" unique_id=2054375106]
 

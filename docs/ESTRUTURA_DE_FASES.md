@@ -5,7 +5,7 @@ Cada ato da fase do Farol é uma cena própria em `src/scenes/fase_um/`. Acertar
 ```
 src/scenes/fase_um/
 ├── fase_farol.gd          # script da raiz: exports do ato e troca de cena
-├── fase_base_farol.tscn   # cenário, Farol, Player, SpawnManager, AnswerMenu e ResultScreen
+├── fase_base_farol.tscn   # luz, chão, Farol, Player, SpawnManager, AnswerMenu, ResultScreen, Hud e sons
 ├── ato_1_farol.tscn       # herdada da base: ato = 1, próxima = ato_2 (cena principal do projeto)
 ├── ato_2_farol.tscn       # herdada da base: ato = 2, próxima = ato_3
 └── ato_3_farol.tscn       # herdada da base: ato = 3, sem próxima (conclui a fase)
@@ -54,16 +54,38 @@ Com as margens padrão do AnswerMenu (`hit_margin = 0.10`, `fail_margin = 1.0`):
 
 Qualquer outro valor é "Tente novamente!". O erro grosseiro compara pela razão entre chute e gabarito, e não pelo erro relativo comum: este nunca passa de 100% para chutes abaixo do gabarito, então só chutes altos seriam grosseiros.
 
+O campo não aceita sinal de menos, então não há chute negativo. Três envios são **resposta inválida**: não são avaliados, não contam como erro e deixam o menu aberto, com o texto e o foco no campo (ver [HUD.md](HUD.md#menu-de-chute-cg-47)):
+
+| Envio | Aviso |
+| --- | --- |
+| Campo vazio | "Digite um número" |
+| Só o separador (`,` ou `.`) | "Digite um número" |
+| Zero, com qualquer quantidade de casas (`0`, `0,0`, `0.0000000000000`) | "A área precisa ser maior que 0" |
+
+Qualquer valor acima de zero, por menor que seja, é avaliado normalmente (um `0,001` é erro grosseiro). Um chute válido limpa o campo e fecha o menu.
+
 ## Fluxo dos sinais do AnswerMenu
 
 | Sinal | Tela de resultado | O que a fase faz depois |
 | --- | --- | --- |
-| `answer_correct` | "Correto!" / "Você conseguiu recuperar a área com sucesso!" (verde) | `change_scene_to_file(proxima_fase)`, ou emite `fase_concluida` se for o último ato |
-| `answer_retry` | "Tente novamente!" (vermelho) | Nada: o jogador tenta de novo no mesmo ato |
-| `answer_failed` | "Tente novamente..." / "Dessa vez do começo... Ok?" (vermelho) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
-| `Cronometro.tempo_esgotado` | "Tempo esgotado!" / "Dessa vez do começo... Ok?" (vermelho) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
+| `answer_correct` | "Correto!" / "Você conseguiu recuperar a área com sucesso!" (faixa verde) | `change_scene_to_file(proxima_fase)`, ou emite `fase_concluida` se for o último ato |
+| `answer_retry` | "Tente novamente!" / "Quase lá: confira as medidas e calcule de novo." (faixa vermelho-escura) | Nada: o jogador tenta de novo no mesmo ato |
+| `answer_failed` | "Tente novamente..." / "Dessa vez do começo... Ok?" (faixa escura, renda vermelha) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
+| `answer_invalid` | Nenhuma: o próprio menu mostra o aviso (CG-47) | Nada: o menu continua aberto. Emitido quando o envio está vazio, só com o separador ou é zero |
+| `Cronometro.tempo_esgotado` | "Tempo esgotado!" / "Dessa vez do começo... Ok?" (mesmo visual do erro grosseiro) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
 
-A tela de resultado é `src/ui/ResultScreen/result_screen.tscn`: fundo cinza transparente (o mesmo do AnswerMenu) numa `CanvasLayer` de camada 4, acima do HUD, do menu e das medidas (ver [HUD.md](HUD.md#camadas-de-desenho)). Fica visível por `duracao` segundos (2,5 por padrão) e some sozinha. Os textos ficam em constantes no topo de `result_screen.gd`.
+O menu de chute abre com o Tab ou com o botão "Calcular área" do HUD; os dois chamam `AnswerMenu.toggle_menu()` (o botão passa pela fase, que ignora o clique depois de `_travar_jogo()`).
+
+A tela de resultado é `src/ui/ResultScreen/result_screen.tscn`, numa `CanvasLayer` de camada 4, acima do HUD, do menu e das medidas (ver [HUD.md](HUD.md#camadas-de-desenho)). Segue a opção **C — Faixa de tela inteira** do Figma ([arquivo](https://www.figma.com/design/YNWQ3GGnIpmGdkyudYHVpA), página "Telas de resultado"): uma faixa larga no centro com renda de filé (Formal Invitation) por cima e por baixo, cantos Lisbon nas pontas, ícone, título, subtítulo e chips com os detalhes. Fica visível por `duracao` segundos (2,5 por padrão) e some sozinha. Os textos ficam em constantes no topo de `result_screen.gd`.
+
+| Tela | Faixa | Renda e cantos | Fundo | Chips |
+| --- | --- | --- | --- | --- |
+| Acerto | verde `#2E9B57` | verde, cantos brancos translúcidos | cinza (o mesmo do menu) | sua resposta, "A SEGUIR: ATO N DE 3" (ou "FIM DA FASE") |
+| Resposta errada | vermelho-escuro `#9C1B24` | vermelho-escuro | cinza | sua resposta, tempo restante no envio |
+| Erro grosseiro | escura `#141A1F` | vermelho `#C8202B` | escuro | sua resposta, "VOLTANDO AO ATO 1" |
+| Tempo esgotado | escura | vermelho | escuro | tempo 00:00, "VOLTANDO AO ATO 1" |
+
+O vermelho da resposta errada é mais escuro que o do HUD para não ser confundido com o erro grosseiro. Os dados vêm da fase: o chute é `AnswerMenu.ultima_resposta`, e o tempo é `Cronometro.tempo_restante` no momento do envio.
 
 No acerto, no erro grosseiro e no tempo esgotado, a troca de cena só acontece depois que a tela some. Nesse intervalo a fase trava o Player (`input_locked`), desliga o AnswerMenu e pausa o cronômetro, para o jogador não andar, marcar pontos nem responder de novo, e para o tempo não esgotar no meio de uma troca já decidida. No acerto do último ato não há troca de cena: só o cronômetro para.
 
@@ -74,7 +96,7 @@ O tempo corre direto pelos 3 atos. Como cada ato é uma cena própria, o tempo r
 - **Ato 1** chama `Cronometro.iniciar(tempo_total)`: zera a contagem. Toda derrota volta para o Ato 1, então reiniciar a fase sempre reinicia o tempo.
 - **Atos 2 e 3** chamam `Cronometro.continuar()`, que retoma de onde o ato anterior pausou. Se a cena de um desses atos for aberta direto pelo editor, o cronômetro está zerado e é iniciado com o `tempo_total` daquela cena.
 - **Tempo esgotado:** o autoload emite `tempo_esgotado` e a fase mostra a tela "Tempo esgotado!" antes de voltar ao Ato 1.
-- **Pausa com ESC:** o ESC (ação `pause`) já liberava o cursor. Agora o Player também emite `pause_toggled(paused)`, e a fase pausa o cronômetro ou o retoma de onde parou. Abrir e fechar o menu de resposta durante a pausa recaptura o cursor, então fechar o menu também encerra a pausa e o tempo volta a correr.
+- **Pausa com ESC:** o ESC (ação `pause`) libera o cursor e faz o Player emitir `pause_toggled(paused)`; a fase pausa o cronômetro ou o retoma de onde parou. Abrir e fechar o menu de resposta durante a pausa recaptura o cursor, então fechar o menu também encerra a pausa e o tempo volta a correr.
 - **Cronômetro encerrado:** depois de uma troca de cena já decidida ou do acerto do último ato, sair da pausa não retoma o tempo.
 
 O tempo aparece na lanterna do HUD (`src/ui/Hud/hud.tscn`, ver [HUD.md](HUD.md)), em `mm:ss` e com um anel de tempo restante. O tempo é arredondado para cima, então a contagem começa em 05:00 e só mostra 00:00 quando acaba. `Cronometro.iniciar()` também grava `tempo_total`, que o anel usa como volta inteira.
@@ -97,4 +119,6 @@ O CG-36 pedia a troca de ato "sem recarregar a cena". A troca de cena foi escolh
 - **Reinício recarrega a cena:** o CG-37 pede que o reinício não recarregue a cena inteira. Ele segue a decisão do CG-36 e troca de cena para o Ato 1, que zera cronômetro, retas, medidas e Lodo de uma vez.
 - **Pausa só do tempo:** o ESC para o cronômetro, mas não o jogo. Com o cursor liberado, o Player ainda anda e marca pontos com clique, então dá para medir com o tempo parado.
 - **Nós com nome fixo:** `fase_farol.gd` procura `$Farol`, `$Player`, `$AnswerMenu`, `$ResultScreen` e `$Hud` na raiz. Renomear esses nós na base quebra o `_ready`.
-- **`fase_concluida` sem ouvinte:** ainda não há tela de fim de fase. O sinal existe para quem for implementá-la.
+- **`fase_concluida` sem ouvinte:** ainda não há tela de fim de fase. O sinal existe para quem for implementá-la. Por enquanto, o acerto do último ato mostra a tela de acerto com o chip "FIM DA FASE".
+- **Dados das telas de resultado:** as funções `mostrar_*` de `result_screen.gd` recebem o chute, o próximo ato e o tempo como parâmetros. A tela não lê o AnswerMenu nem o Cronometro; quem junta os dados é `fase_farol.gd`.
+- **Sem gabarito em exemplos:** 6,59, 27,72 e 17,32 são as respostas dos atos. Textos de aviso, dicas e mockups não devem usar número de exemplo, para não entregar a resposta.
