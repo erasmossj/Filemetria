@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dets33swp31in"]
+
+[ext_resource type="Script" uid="uid://bi3axdtj2n4uc" path="res://src/entities/statics/Line/line.gd" id="1_oa4lp"]
+[ext_resource type="Shader" uid="uid://s0ur4g6h7k60" path="res://src/shaders/glow/glow_mask.gdshader" id="2_mask"]
+[ext_resource type="Shader" uid="uid://c5tbalj5im3c3" path="res://src/shaders/glow/glow_outline.gdshader" id="3_outline"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glow_outline"]
+render_priority = 127
+shader = ExtResource("3_outline")
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width_px = 2.0
+shader_parameter/use_mesh_normal = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glow_mask"]
+render_priority = 126
+next_pass = SubResource("ShaderMaterial_glow_outline")
+shader = ExtResource("2_mask")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pg2yv"]
+next_pass = SubResource("ShaderMaterial_glow_mask")
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g4v7s"]
+material = SubResource("StandardMaterial3D_pg2yv")
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g4v7s"]
+height = 0.2
+radius = 0.02
+
+[node name="Line" type="Node3D" unique_id=1528512375]
+script = ExtResource("1_oa4lp")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1434714032]
+
+[node name="LineMesh" type="MeshInstance3D" parent="Area3D" unique_id=552565907]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_g4v7s")
+
+[node name="LineCollision" type="CollisionShape3D" parent="Area3D" unique_id=1750069419]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_g4v7s")

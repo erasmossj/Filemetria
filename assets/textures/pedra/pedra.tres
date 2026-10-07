@@ -1,0 +1,22 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://n8pwka4j7230"]
+
+[ext_resource type="Texture2D" uid="uid://44d4url0fkj0" path="res://assets/textures/pedra/pedra_ao.jpg" id="AmbientOcclusion"]
+[ext_resource type="Texture2D" uid="uid://jvcrjfo0o3he" path="res://assets/textures/pedra/pedra_color.jpg" id="Color"]
+[ext_resource type="Texture2D" uid="uid://buvu5qkbgc5e" path="res://assets/textures/pedra/pedra_height.jpg" id="Displacement"]
+[ext_resource type="Texture2D" uid="uid://bd1v2wsc8j2c8" path="res://assets/textures/pedra/pedra_normal.jpg" id="NormalGL"]
+[ext_resource type="Texture2D" uid="uid://b04rys4sardrd" path="res://assets/textures/pedra/pedra_roughness.jpg" id="Roughness"]
+
+[resource]
+albedo_texture = ExtResource("Color")
+roughness_texture = ExtResource("Roughness")
+roughness_texture_channel = 4
+normal_enabled = true
+normal_texture = ExtResource("NormalGL")
+ao_enabled = true
+ao_texture = ExtResource("AmbientOcclusion")
+ao_texture_channel = 4
+heightmap_scale = 1.0
+heightmap_texture = ExtResource("Displacement")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true

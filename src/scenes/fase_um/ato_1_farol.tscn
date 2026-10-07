@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c0o36thse02tt"]
+
+[ext_resource type="PackedScene" path="res://src/scenes/fase_um/fase_base_farol.tscn" id="1_base"]
+
+[node name="Ato1" unique_id=765818547 instance=ExtResource("1_base")]
+gabarito = 6.59
+proxima_fase = "uid://cjeyjiasmu3q7"
+objetivo = "Meça a face da pedra da base e descubra a área tomada pelo Lodo."

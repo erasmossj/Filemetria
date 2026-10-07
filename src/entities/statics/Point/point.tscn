@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bdq0jw6v20lgp"]
+
+[ext_resource type="Script" uid="uid://hm3gsav17mss" path="res://src/entities/statics/Point/point.gd" id="1_point"]
+[ext_resource type="Shader" uid="uid://s0ur4g6h7k60" path="res://src/shaders/glow/glow_mask.gdshader" id="2_mask"]
+[ext_resource type="Shader" uid="uid://c5tbalj5im3c3" path="res://src/shaders/glow/glow_outline.gdshader" id="3_outline"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glow_outline"]
+render_priority = 127
+shader = ExtResource("3_outline")
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width_px = 2.0
+shader_parameter/use_mesh_normal = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glow_mask"]
+render_priority = 126
+next_pass = SubResource("ShaderMaterial_glow_outline")
+shader = ExtResource("2_mask")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n0vow"]
+next_pass = SubResource("ShaderMaterial_glow_mask")
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_g4v7s"]
+material = SubResource("StandardMaterial3D_n0vow")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
+radius = 0.05
+
+[node name="Point" type="Node3D" unique_id=692527759 groups=["Iteráveis"]]
+script = ExtResource("1_point")
+
+[node name="PointArea" type="Area3D" parent="." unique_id=678931742]
+
+[node name="PointMesh" type="MeshInstance3D" parent="PointArea" unique_id=2080388848]
+mesh = SubResource("SphereMesh_g4v7s")
+
+[node name="PointCollision" type="CollisionShape3D" parent="PointArea" unique_id=2068160445]
+shape = SubResource("SphereShape3D_g4v7s")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1482093571]
+
+[node name="LabelGroup" type="CanvasGroup" parent="HUD" unique_id=1093755182]
+
+[node name="PointLabel" type="Label" parent="HUD/LabelGroup" unique_id=1793181440]
+visible = false
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
