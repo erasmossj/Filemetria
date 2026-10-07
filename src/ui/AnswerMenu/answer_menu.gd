@@ -6,6 +6,9 @@ signal answer_correct
 signal answer_retry
 ## Emitido quando o erro passa da margem de erro grosseiro: falha, reinicia a fase (CG-37).
 signal answer_failed
+## Emitido quando o envio não é um número (campo vazio ou só com "," ou "."):
+## nada é avaliado e o menu continua aberto. Ainda sem aviso na tela (CG-47).
+signal answer_invalid
 
 enum AnswerResult { CORRECT, RETRY, FAIL }
 
@@ -54,6 +57,7 @@ func _on_answer_button_pressed() -> void:
 	# O sinal de menos é descartado por _filter_number, então não existe chute negativo.
 	if usr_text.replace(",", "").replace(".", "").is_empty():
 		ans.grab_focus()
+		answer_invalid.emit()
 		return
 	
 	# Um chute válido sempre limpa o campo e fecha o menu, seja qual for o resultado.

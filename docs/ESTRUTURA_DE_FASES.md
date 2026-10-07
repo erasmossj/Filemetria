@@ -63,6 +63,7 @@ O campo não aceita sinal de menos, então não há chute negativo. O chute **0*
 | `answer_correct` | "Correto!" / "Você conseguiu recuperar a área com sucesso!" (verde) | `change_scene_to_file(proxima_fase)`, ou emite `fase_concluida` se for o último ato |
 | `answer_retry` | "Tente novamente!" (vermelho) | Nada: o jogador tenta de novo no mesmo ato |
 | `answer_failed` | "Tente novamente..." / "Dessa vez do começo... Ok?" (vermelho) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
+| `answer_invalid` | Nenhuma por enquanto (aviso previsto na CG-47) | Nada: o menu continua aberto. Emitido quando o envio está vazio ou só com o separador |
 | `Cronometro.tempo_esgotado` | "Tempo esgotado!" / "Dessa vez do começo... Ok?" (vermelho) | `change_scene_to_file(primeiro_ato)`: reinicia a fase do Ato 1 |
 
 O menu de chute abre com o Tab ou com o botão "Calcular área" do HUD; os dois chamam `AnswerMenu.toggle_menu()` (o botão passa pela fase, que ignora o clique depois de `_travar_jogo()`).
