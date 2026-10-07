@@ -95,7 +95,7 @@ Cada item de `lines` guarda a reta, seus dois pontos e o comprimento:
 
 **`get_line_lengths()`** — devolve os comprimentos de todas as retas fechadas, em ordem de criação e com precisão completa.
 
-**Sinal `lines_changed(lengths)`** — emitido com `get_line_lengths()` sempre que uma reta é fechada (`add_point`) ou apagada (`undo_last_line`, `remove_point`, `clear_lines`). Cancelar a reta em andamento não emite. A fase liga esse sinal ao HUD, que lista as retas (ver [HUD.md](HUD.md)).
+**Sinal `lines_changed(lengths)`** — emitido com `get_line_lengths()` sempre que uma reta é fechada (`add_point`) ou apagada (`undo_last_line`, `remove_point`, `clear_lines`). Cancelar a reta em andamento não emite. A fase liga esse sinal ao HUD e ao menu de chute, que listam as retas (ver [HUD.md](HUD.md)).
 
 **`get_last_line_length()`** — devolve o comprimento da última reta fechada, em metros (0 se não houver). O label do ponto B não usa esta função (recebe o texto direto em `add_point`); ela fica para quem precisar do valor fora do PointSystem. O comprimento de qualquer reta também está em `lines[i]["length"]`.
 

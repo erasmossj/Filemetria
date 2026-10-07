@@ -35,12 +35,13 @@ func _ready() -> void:
 	_farol.ato = ato
 	_answer_menu.correct_ans = gabarito
 	_answer_menu.answer_correct.connect(_on_answer_correct)
-	_answer_menu.answer_retry.connect(_result_screen.mostrar_erro)
+	_answer_menu.answer_retry.connect(_on_answer_retry)
 	_answer_menu.answer_failed.connect(_on_answer_failed)
 
 	_hud.configurar(ato, TOTAL_ATOS, objetivo)
 	_hud.calcular_area_pressionado.connect(_on_hud_calcular_area_pressionado)
 	_player.ps.lines_changed.connect(_hud.mostrar_retas)
+	_player.ps.lines_changed.connect(_answer_menu.mostrar_retas)
 
 	# Tempo zerado: a cena de um ato foi aberta direto pelo editor, sem passar pelo Ato 1.
 	if ato == 1 or Cronometro.tempo_restante <= 0.0:
@@ -54,17 +55,22 @@ func _ready() -> void:
 func _on_answer_correct() -> void:
 	if proxima_fase.is_empty():
 		_encerrar_cronometro()
-		_result_screen.mostrar_acerto()
+		_result_screen.mostrar_acerto(_answer_menu.ultima_resposta, ato + 1, TOTAL_ATOS)
 		fase_concluida.emit()
 		return
 	_travar_jogo()
-	await _result_screen.mostrar_acerto()
+	await _result_screen.mostrar_acerto(_answer_menu.ultima_resposta, ato + 1, TOTAL_ATOS)
 	get_tree().change_scene_to_file(proxima_fase)
+
+
+## O jogo continua: a tela só mostra o chute e o tempo que restava ao enviar.
+func _on_answer_retry() -> void:
+	_result_screen.mostrar_erro(_answer_menu.ultima_resposta, Cronometro.tempo_restante)
 
 
 func _on_answer_failed() -> void:
 	_travar_jogo()
-	await _result_screen.mostrar_erro_grosseiro()
+	await _result_screen.mostrar_erro_grosseiro(_answer_menu.ultima_resposta)
 	get_tree().change_scene_to_file(primeiro_ato)
 
 

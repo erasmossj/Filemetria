@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bcllowkvbuyq0"]
 
-[ext_resource type="PackedScene" path="res://src/entities/environment/sunset_lighting/sunset_lighting.tscn" id="1_ie0oj"]
+[ext_resource type="PackedScene" uid="uid://drpr67gjmlqyu" path="res://src/entities/environment/sunset_lighting/sunset_lighting.tscn" id="1_ie0oj"]
 [ext_resource type="PackedScene" uid="uid://cwwwebeco2qyb" path="res://src/ui/AnswerMenu/answer_menu.tscn" id="2_7ot0a"]
 [ext_resource type="PackedScene" uid="uid://cxhaf7js1wsci" path="res://src/entities/environment/SpawnManager/spawn_manager.tscn" id="2_q3cru"]
 [ext_resource type="PackedScene" uid="uid://djd0eqbol5gmn" path="res://src/entities/statics/Farol/farol.tscn" id="3_7ot0a"]

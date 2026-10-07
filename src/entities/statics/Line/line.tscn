@@ -9,6 +9,7 @@ render_priority = 127
 shader = ExtResource("3_outline")
 shader_parameter/glow_color = Color(1, 1, 1, 1)
 shader_parameter/outline_width_px = 2.0
+shader_parameter/use_mesh_normal = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_glow_mask"]
 render_priority = 126

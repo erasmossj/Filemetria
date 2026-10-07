@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bdq0jw6v20lgp"]
 
-[ext_resource type="Script" path="res://src/entities/statics/Point/point.gd" id="1_point"]
+[ext_resource type="Script" uid="uid://hm3gsav17mss" path="res://src/entities/statics/Point/point.gd" id="1_point"]
 [ext_resource type="Shader" uid="uid://s0ur4g6h7k60" path="res://src/shaders/glow/glow_mask.gdshader" id="2_mask"]
 [ext_resource type="Shader" uid="uid://c5tbalj5im3c3" path="res://src/shaders/glow/glow_outline.gdshader" id="3_outline"]
 

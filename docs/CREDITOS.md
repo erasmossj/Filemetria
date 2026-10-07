@@ -27,7 +27,7 @@ Estes assets usam licenças que **exigem** atribuição. O texto abaixo precisa 
 
 | Categoria | Assets | Autor | Licença | Detalhe |
 | --- | --- | --- | --- | --- |
-| Ícones | target, ruler, calculator, keyboard, move, mouse-pointer-click, mouse | Lucide Contributors | ISC | [ICON_SOURCES.md](ICON_SOURCES.md) |
+| Ícones | target, ruler, calculator, keyboard, move, mouse-pointer-click, mouse, circle-alert, circle-check, rotate-ccw, undo-2 | Lucide Contributors | ISC | [ICON_SOURCES.md](ICON_SOURCES.md) |
 | Padrões de filé | Lisbon, Formal Invitation, Graph Paper | Steve Schoger (Hero Patterns) | CC BY 4.0 | [ICON_SOURCES.md](ICON_SOURCES.md) |
 | Mira | `CrossHair.svg` | SVG Repo | Open License | [ICON_SOURCES.md](ICON_SOURCES.md#mira) |
 | Fontes | Bebas Neue | Dharma Type | SIL OFL 1.1 | [FONT_SOURCES.md](FONT_SOURCES.md) |
