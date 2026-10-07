@@ -14,6 +14,14 @@
 | Clique | `assets/sprites/mouse_pointer_click.svg` | Controle "marcar ponto" | [Lucide - mouse-pointer-click](https://lucide.dev/icons/mouse-pointer-click) (lucide-static v1.52.0) | Lucide Contributors | ISC |
 | Mouse | `assets/sprites/mouse.svg` | Controle "apagar ponto" | [Lucide - mouse](https://lucide.dev/icons/mouse) (lucide-static v1.52.0) | Lucide Contributors | ISC |
 
+## Mira
+
+| Ícone | Arquivo | Uso | Source | Author | License |
+|---|---|---|---|---|---|
+| Mira | `assets/sprites/CrossHair.svg` | `Sprite3D` da mira em `player.tscn` | [SVG Repo](https://www.svgrepo.com) | SVG Repo | Open License (licença aberta do SVG Repo) |
+
+O comentário "Uploaded to: SVG Repo" do arquivo original foi mantido.
+
 ## Padrões de renda filé
 
 Padrões do Hero Patterns em `assets/sprites/renda_file/`, extraídos do pacote npm `hero-patterns` 2.1.0 (MIT) com a cor trocada para branco. A licença dos desenhos é **CC BY 4.0: exige atribuição** a Steve Schoger nos créditos do jogo e do relatório.

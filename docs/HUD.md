@@ -36,7 +36,7 @@ Com `tempo_restante <= limite_urgente` (30 s por padrão, export do HUD), a lant
 
 ## Painel de controles (F1)
 
-A ação `show_controls` (F1) mostra o painel **enquanto estiver pressionada**. O painel escurece o cenário, mas fica por baixo do resto do HUD, então o tempo continua visível. O jogo não pausa. As linhas do painel ficam nas constantes `CONTROLES_ESQUERDA` e `CONTROLES_DIREITA` de `hud.gd`. Se uma tecla mudar no Input Map, atualize essas constantes.
+A ação `show_controls` (F1) mostra o painel **enquanto estiver pressionada**. O painel escurece o cenário, mas fica por baixo do resto do HUD, então o tempo continua visível. O jogo não pausa. As linhas do painel ficam nas constantes `CONTROLES_ESQUERDA` e `CONTROLES_DIREITA` de `hud.gd`. Se uma tecla mudar no Input Map, atualize essas constantes e o [CONTROLES.md](CONTROLES.md).
 
 ## Camadas de desenho
 
