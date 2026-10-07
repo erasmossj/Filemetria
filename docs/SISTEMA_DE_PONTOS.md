@@ -18,18 +18,18 @@ A lista completa de teclas está em [CONTROLES.md](CONTROLES.md).
 
 ```mermaid
 flowchart LR
-    Player["<b>Player</b><br/>player.gd<br/>lê input e raycast"]
-    RayCast["<b>RayCast3D</b><br/>filho de Head/Vertical<br/>até o far da câmera, para −Z (a mira)"]
-    PointSystem["<b>PointSystem</b><br/>point_system.gd, no Player<br/>guarda o A pendente<br/>e a lista de retas"]
-    SpawnManager["<b>SpawnManager</b><br/>spawn_manager.gd, na cena<br/>cria e remove entidades"]
-    Point["<b>Point</b><br/>point.gd + point.tscn<br/>esfera de raio 0,05<br/>+ medida na tela"]
-    Line["<b>Line</b><br/>line.gd + line.tscn<br/>cilindro deitado no eixo Z"]
+	Player["<b>Player</b><br/>player.gd<br/>lê input e raycast"]
+	RayCast["<b>RayCast3D</b><br/>filho de Head/Vertical<br/>até o far da câmera, para −Z (a mira)"]
+	PointSystem["<b>PointSystem</b><br/>point_system.gd, no Player<br/>guarda o A pendente<br/>e a lista de retas"]
+	SpawnManager["<b>SpawnManager</b><br/>spawn_manager.gd, na cena<br/>cria e remove entidades"]
+	Point["<b>Point</b><br/>point.gd + point.tscn<br/>esfera de raio 0,05<br/>+ medida na tela"]
+	Line["<b>Line</b><br/>line.gd + line.tscn<br/>cilindro deitado no eixo Z"]
 
-    Player -- "1. force_raycast_update<br/>get_collider" --> RayCast
-    Player -- "2. add_point / remove_point<br/>cancel_line / undo_last_line<br/>clear_lines" --> PointSystem
-    PointSystem -- "3. spawn_entity<br/>remove_entity" --> SpawnManager
-    SpawnManager -- "4" --> Point
-    SpawnManager -- "5. look_at + set_length" --> Line
+	Player -- "1. force_raycast_update<br/>get_collider" --> RayCast
+	Player -- "2. add_point / remove_point<br/>cancel_line / undo_last_line<br/>clear_lines" --> PointSystem
+	PointSystem -- "3. spawn_entity<br/>remove_entity" --> SpawnManager
+	SpawnManager -- "4" --> Point
+	SpawnManager -- "5. look_at + set_length" --> Line
 ```
 
 Pontos e retas são filhos da cena atual, não do SpawnManager. O único estado do sistema fica no PointSystem.
@@ -81,6 +81,8 @@ Cada item de `lines` guarda a reta, seus dois pontos e o comprimento:
 
 - Sem A pendente: cria o ponto, guarda como A e liga `has_a_point`.
 - Com A pendente: calcula o comprimento L entre A e B. Se L ≤ `MIN_LINE_LENGTH` (B em cima de A), ignora o clique e A continua esperando. Senão, cria o ponto B, escreve a medida no label dele (`HUD/LabelGroup/PointLabel`, formato `"%.2fm"`, ex.: `2.35m`), cria a reta no ponto médio M, adiciona o registro ao fim de `lines` e zera o estado de reta em andamento.
+
+Cada criação confirmada toca `interaction.mp3` pelo autoload `SFXManager`: uma vez ao ancorar A e uma vez ao fechar a reta válida em B. O retorno de L ≤ `MIN_LINE_LENGTH` ocorre antes do áudio. Cliques ignorados pelo Player e operações de cancelamento ou remoção não tocam. O som não usa `lines_changed`, pois esse sinal também é emitido ao apagar retas. Ver [EFEITOS_SONOROS.md](EFEITOS_SONOROS.md).
 
 **`cancel_line()`** — Q. Se houver A pendente, apaga o ponto e zera `has_a_point` e `point_a`. Sem A, não faz nada.
 
@@ -147,8 +149,8 @@ A estrutura de `line.tscn`:
 ```text
 Line (Node3D, line.gd)
 └── Area3D
-    ├── LineMesh (MeshInstance3D, CylinderMesh, raio 0,02)          rotação X = 90°
-    └── LineCollision (CollisionShape3D, CylinderShape3D, raio 0,02)  rotação X = 90°
+	├── LineMesh (MeshInstance3D, CylinderMesh, raio 0,02)          rotação X = 90°
+	└── LineCollision (CollisionShape3D, CylinderShape3D, raio 0,02)  rotação X = 90°
 ```
 
 - **Rotação de 90° em X:** o cilindro do Godot é comprido no eixo Y. Girando os filhos, o comprimento fica no Z do nó `Line`, o eixo que o `look_at` aponta.
@@ -165,8 +167,8 @@ Point (Node3D, point.gd, grupo Iteráveis)
 │   ├── PointMesh (MeshInstance3D, SphereMesh, raio 0,05, vermelha)
 │   └── PointCollision (CollisionShape3D, SphereShape3D, raio 0,05)
 └── HUD (CanvasLayer, camada 1)
-    └── LabelGroup (CanvasGroup)
-        └── PointLabel (Label, fonte 20, contorno preto de 6, começa sem texto)
+	└── LabelGroup (CanvasGroup)
+		└── PointLabel (Label, fonte 20, contorno preto de 6, começa sem texto)
 ```
 
 ### Label da medida

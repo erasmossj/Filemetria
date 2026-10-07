@@ -21,7 +21,7 @@ Qualquer mudança comum aos atos (iluminação, posição do player, chão) é f
 | `gabarito` | float | Área da casca de Lodo do ato em m². Repassado para `AnswerMenu.correct_ans` |
 | `proxima_fase` | caminho `.tscn` | Cena carregada no acerto. Vazio: emite `fase_concluida` |
 | `primeiro_ato` | caminho `.tscn` | Cena carregada no erro grosseiro e no tempo esgotado. Padrão: `ato_1_farol.tscn` |
-| `tempo_total` | float (segundos) | Tempo da fase somando os 3 atos. Padrão: 300 (5 minutos). Só o Ato 1 lê esse valor, ao zerar o cronômetro |
+| `tempo_total` | float (segundos) | Tempo da fase somando os 3 atos. Padrão: 600 (10 minutos). O Ato 1 lê esse valor ao iniciar a tentativa; atos abertos diretamente também o usam se o cronômetro estiver zerado |
 | `objetivo` | texto | Objetivo do ato em uma frase, exibido no HUD (CG-38) |
 
 Os caminhos usam `@export_file` (texto) e não `PackedScene`. Um export `PackedScene` carrega a cena apontada junto, e uma cadeia que volta para o início (ato 3 → menu → ato 1) viraria referência circular.
@@ -76,6 +76,8 @@ Qualquer valor acima de zero, por menor que seja, é avaliado normalmente (um `0
 
 O menu de chute abre com o Tab ou com o botão "Calcular área" do HUD; os dois chamam `AnswerMenu.toggle_menu()` (o botão passa pela fase, que ignora o clique depois de `_travar_jogo()`).
 
+Os handlers da fase tocam `correct.mp3` em `answer_correct` e `wrong.mp3` em `answer_retry` ou `answer_failed`, uma vez por sinal, junto do resultado visual. `answer_invalid` e `tempo_esgotado` não tocam som de resposta errada. Abrir o menu toca `interaction.mp3`; fechá-lo não toca. Ver [EFEITOS_SONOROS.md](EFEITOS_SONOROS.md).
+
 A tela de resultado é `src/ui/ResultScreen/result_screen.tscn`, numa `CanvasLayer` de camada 4, acima do HUD, do menu e das medidas (ver [HUD.md](HUD.md#camadas-de-desenho)). Segue a opção **C — Faixa de tela inteira** do Figma ([arquivo](https://www.figma.com/design/YNWQ3GGnIpmGdkyudYHVpA), página "Telas de resultado"): uma faixa larga no centro com renda de filé (Formal Invitation) por cima e por baixo, cantos Lisbon nas pontas, ícone, título, subtítulo e chips com os detalhes. Fica visível por `duracao` segundos (2,5 por padrão) e some sozinha. Os textos ficam em constantes no topo de `result_screen.gd`.
 
 | Tela | Faixa | Renda e cantos | Fundo | Chips |
@@ -91,7 +93,7 @@ No acerto, no erro grosseiro e no tempo esgotado, a troca de cena só acontece d
 
 ## Cronômetro (CG-37)
 
-O tempo corre direto pelos 3 atos. Como cada ato é uma cena própria, o tempo restante fica no autoload `Cronometro` (`src/scripts/cronometro.gd`), que sobrevive ao `change_scene_to_file`.
+O tempo padrão é de **10 minutos (600 segundos)** para a fase inteira, compartilhado pelos 3 atos. Como cada ato é uma cena própria, o tempo restante fica no autoload `Cronometro` (`src/scripts/cronometro.gd`), que sobrevive ao `change_scene_to_file`.
 
 - **Ato 1** chama `Cronometro.iniciar(tempo_total)`: zera a contagem. Toda derrota volta para o Ato 1, então reiniciar a fase sempre reinicia o tempo.
 - **Atos 2 e 3** chamam `Cronometro.continuar()`, que retoma de onde o ato anterior pausou. Se a cena de um desses atos for aberta direto pelo editor, o cronômetro está zerado e é iniciado com o `tempo_total` daquela cena.
@@ -99,7 +101,9 @@ O tempo corre direto pelos 3 atos. Como cada ato é uma cena própria, o tempo r
 - **Pausa com ESC:** o ESC (ação `pause`) libera o cursor e faz o Player emitir `pause_toggled(paused)`; a fase pausa o cronômetro ou o retoma de onde parou. Abrir e fechar o menu de resposta durante a pausa recaptura o cursor, então fechar o menu também encerra a pausa e o tempo volta a correr.
 - **Cronômetro encerrado:** depois de uma troca de cena já decidida ou do acerto do último ato, sair da pausa não retoma o tempo.
 
-O tempo aparece na lanterna do HUD (`src/ui/Hud/hud.tscn`, ver [HUD.md](HUD.md)), em `mm:ss` e com um anel de tempo restante. O tempo é arredondado para cima, então a contagem começa em 05:00 e só mostra 00:00 quando acaba. `Cronometro.iniciar()` também grava `tempo_total`, que o anel usa como volta inteira.
+O tempo aparece na lanterna do HUD (`src/ui/Hud/hud.tscn`, ver [HUD.md](HUD.md)), em `mm:ss` e com um anel de tempo restante. O tempo é arredondado para cima, então a contagem começa em 10:00 e só mostra 00:00 quando acaba. `Cronometro.iniciar()` também grava `tempo_total`, que o anel usa como volta inteira.
+
+O alerta sonoro permanece em **30 segundos**, junto da urgência visual do HUD. `Cronometro.alertar_tempo_urgente()` emite `tempo_urgente` uma única vez por tentativa, e o `SFXManager` toca `time_warning.mp3`. A trava `_alerta_urgente_emitido` sobrevive às trocas de ato e só é resetada por `iniciar()`, nunca por `pausar()` ou `continuar()`. Ver [EFEITOS_SONOROS.md](EFEITOS_SONOROS.md#alerta-único-entre-os-atos).
 
 ## Por que uma cena por ato
 

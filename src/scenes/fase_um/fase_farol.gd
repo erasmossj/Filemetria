@@ -16,7 +16,7 @@ const TOTAL_ATOS := 3
 @export_file("*.tscn") var primeiro_ato := "uid://c0o36thse02tt"  # ato_1_farol.tscn
 ## Tempo total da fase em segundos, somando os 3 atos (CG-37). Só é lido no Ato 1,
 ## que zera o cronômetro; os outros atos continuam a contagem de onde ela parou.
-@export_range(1, 3600, 1, "suffix:s") var tempo_total := 300.0
+@export_range(1, 3600, 1, "suffix:s") var tempo_total := 600.0
 ## Objetivo do ato em uma frase, exibido no HUD (CG-38).
 @export_multiline var objetivo := ""
 
@@ -53,6 +53,7 @@ func _ready() -> void:
 
 
 func _on_answer_correct() -> void:
+	SFXManager.play(SFXManager.CORRECT)
 	if proxima_fase.is_empty():
 		_encerrar_cronometro()
 		_result_screen.mostrar_acerto(_answer_menu.ultima_resposta, ato + 1, TOTAL_ATOS)
@@ -65,10 +66,12 @@ func _on_answer_correct() -> void:
 
 ## O jogo continua: a tela só mostra o chute e o tempo que restava ao enviar.
 func _on_answer_retry() -> void:
+	SFXManager.play(SFXManager.WRONG)
 	_result_screen.mostrar_erro(_answer_menu.ultima_resposta, Cronometro.tempo_restante)
 
 
 func _on_answer_failed() -> void:
+	SFXManager.play(SFXManager.WRONG)
 	_travar_jogo()
 	await _result_screen.mostrar_erro_grosseiro(_answer_menu.ultima_resposta)
 	get_tree().change_scene_to_file(primeiro_ato)

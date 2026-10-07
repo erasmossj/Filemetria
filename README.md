@@ -6,7 +6,7 @@ Projeto da disciplina de Computação Gráfica, período 2026.2, ministrada pelo
 
 *Filemetria* é um jogo 3D ambientado em Alagoas, no qual o jogador restaura monumentos tomados pelo **Lodo do Esquecimento**, uma matéria escura que simboliza o apagamento da memória cultural. Para isso, ele mede os monumentos, estima a área afetada e calcula quanto de renda filé será necessário para cobri-la. A proposta une patrimônio cultural alagoano, geometria e Computação Gráfica.
 
-A primeira fase é o **Farol da Ponta Verde**, em três atos. Em cada ato o jogador traça retas sobre o Lodo, anota os comprimentos e chuta a área total antes que o tempo acabe.
+A primeira fase é o **Farol da Ponta Verde**, em três atos, com **10 minutos compartilhados pela fase inteira**. Em cada ato o jogador traça retas sobre o Lodo, anota os comprimentos e chuta a área total antes que o tempo acabe. Efeitos sonoros acompanham as interações e respostas válidas; um alerta toca uma única vez por tentativa ao entrar nos 30 segundos finais.
 
 ### Objetivo da modelagem
 
@@ -57,6 +57,7 @@ A documentação do projeto está na pasta [`docs/`](docs).
 - [`ESTRUTURA_DE_FASES.md`](docs/ESTRUTURA_DE_FASES.md) — uma cena por ato, gabarito das áreas, menu de chute, respostas inválidas, telas de resultado e cronômetro.
 - [`SISTEMA_DE_PONTOS.md`](docs/SISTEMA_DE_PONTOS.md) — como o PointSystem e o SpawnManager criam, ligam e apagam pontos e retas.
 - [`HUD.md`](docs/HUD.md) — elementos do HUD da fase, menu de chute e aviso de resposta inválida, de onde vêm os dados e camadas de desenho.
+- [`EFEITOS_SONOROS.md`](docs/EFEITOS_SONOROS.md) — eventos de gameplay, SFXManager, bus SFX, alerta único entre atos e roteiro de teste (CG-25).
 - [`CONTROLES.md`](docs/CONTROLES.md) — ações do Input Map e onde cada uma é lida.
 - [`TRANSFORMACOES.md`](docs/TRANSFORMACOES.md) — translação, rotação e escala no código, com as matrizes (requisito AB1, CG-22).
 

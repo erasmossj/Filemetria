@@ -28,6 +28,7 @@ func add_point(point_position: Vector3) -> void:
 		point_a = sp.spawn_entity(POINT_SCENE, point_position)
 		point_a_position = point_position
 		has_a_point = true
+		SFXManager.play(SFXManager.INTERACTION)
 		return
 
 	## Comprimento em metros (1 unidade = 1 metro).
@@ -49,6 +50,7 @@ func add_point(point_position: Vector3) -> void:
 
 	has_a_point = false
 	point_a = null
+	SFXManager.play(SFXManager.INTERACTION)
 	lines_changed.emit(get_line_lengths())
 
 
