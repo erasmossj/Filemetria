@@ -13,6 +13,7 @@
 | Mover | `assets/sprites/move.svg` | Controle "olhar (mouse)" | [Lucide - move](https://lucide.dev/icons/move) (lucide-static v1.52.0) | Lucide Contributors | ISC |
 | Clique | `assets/sprites/mouse_pointer_click.svg` | Controle "marcar ponto" | [Lucide - mouse-pointer-click](https://lucide.dev/icons/mouse-pointer-click) (lucide-static v1.52.0) | Lucide Contributors | ISC |
 | Mouse | `assets/sprites/mouse.svg` | Controle "apagar ponto" | [Lucide - mouse](https://lucide.dev/icons/mouse) (lucide-static v1.52.0) | Lucide Contributors | ISC |
+| Alerta | `assets/sprites/circle_alert.svg` | Aviso "Digite um número" do menu de chute | [Lucide - circle-alert](https://lucide.dev/icons/circle-alert) (lucide-static v1.52.0) | Lucide Contributors | ISC |
 
 ## Mira
 

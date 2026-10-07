@@ -41,6 +41,7 @@ func _ready() -> void:
 	_hud.configurar(ato, TOTAL_ATOS, objetivo)
 	_hud.calcular_area_pressionado.connect(_on_hud_calcular_area_pressionado)
 	_player.ps.lines_changed.connect(_hud.mostrar_retas)
+	_player.ps.lines_changed.connect(_answer_menu.mostrar_retas)
 
 	# Tempo zerado: a cena de um ato foi aberta direto pelo editor, sem passar pelo Ato 1.
 	if ato == 1 or Cronometro.tempo_restante <= 0.0:

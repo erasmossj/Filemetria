@@ -1,6 +1,139 @@
 [gd_scene format=3 uid="uid://cwwwebeco2qyb"]
 
 [ext_resource type="Script" uid="uid://ble6vmois65si" path="res://src/ui/AnswerMenu/answer_menu.gd" id="1_bvl64"]
+[ext_resource type="FontFile" path="res://assets/fonts/bebas_neue/bebas_neue_regular.ttf" id="2_bebas"]
+[ext_resource type="FontFile" path="res://assets/fonts/barlow/barlow_semibold.ttf" id="3_barlow_semibold"]
+[ext_resource type="FontFile" path="res://assets/fonts/barlow/barlow_bold.ttf" id="4_barlow_bold"]
+[ext_resource type="Texture2D" path="res://assets/sprites/calculator.svg" id="5_calculadora"]
+[ext_resource type="Texture2D" path="res://assets/sprites/circle_alert.svg" id="6_alerta"]
+
+[sub_resource type="FontVariation" id="FontVariation_bebas"]
+base_font = ExtResource("2_bebas")
+spacing_glyph = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aviso"]
+content_margin_left = 14.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0.78431374, 0.1254902, 0.16862746, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_faixa"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 12.0
+content_margin_bottom = 4.0
+bg_color = Color(0.78431374, 0.1254902, 0.16862746, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cartao"]
+content_margin_left = 17.0
+content_margin_top = 14.0
+content_margin_right = 17.0
+content_margin_bottom = 14.0
+bg_color = Color(1, 1, 1, 0.96)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_campo"]
+content_margin_left = 12.0
+content_margin_top = 4.0
+content_margin_right = 12.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.078431375, 0.101960786, 0.12156863, 0.25)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_campo_foco"]
+content_margin_left = 12.0
+content_margin_top = 4.0
+content_margin_right = 12.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.78431374, 0.1254902, 0.16862746, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_enviar"]
+content_margin_left = 17.0
+content_margin_top = 10.0
+content_margin_right = 17.0
+content_margin_bottom = 10.0
+bg_color = Color(0.78431374, 0.1254902, 0.16862746, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_enviar_hover"]
+content_margin_left = 17.0
+content_margin_top = 10.0
+content_margin_right = 17.0
+content_margin_bottom = 10.0
+bg_color = Color(0.85882354, 0.22745098, 0.26666668, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_foco"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tecla"]
+content_margin_left = 6.0
+content_margin_top = 1.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.078431375, 0.101960786, 0.12156863, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="AnswerMenu" type="Control" unique_id=352973012]
 layout_mode = 3
@@ -29,25 +162,178 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -100.0
-offset_right = 100.0
-offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 14
 
-[node name="AnswerTextEdit" type="TextEdit" parent="CanvasLayer/MenuHolder" unique_id=2034087623]
-custom_minimum_size = Vector2(0, 150)
+[node name="Aviso" type="PanelContainer" parent="CanvasLayer/MenuHolder"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aviso")
+
+[node name="AvisoConteudo" type="HBoxContainer" parent="CanvasLayer/MenuHolder/Aviso"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 11
+
+[node name="Icone" type="TextureRect" parent="CanvasLayer/MenuHolder/Aviso/AvisoConteudo"]
+custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 12
-placeholder_text = "Insira a área total coberta pelo Lodo do Esquecimento..."
-wrap_mode = 1
-autowrap_mode = 2
+mouse_filter = 2
+texture = ExtResource("6_alerta")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="AnswerButton" type="Button" parent="CanvasLayer/MenuHolder" unique_id=295931137]
+[node name="AvisoTextos" type="VBoxContainer" parent="CanvasLayer/MenuHolder/Aviso/AvisoConteudo"]
 layout_mode = 2
-text = "Enviar"
+mouse_filter = 2
+theme_override_constants/separation = 0
 
-[connection signal="pressed" from="CanvasLayer/MenuHolder/AnswerButton" to="." method="_on_answer_button_pressed"]
-[connection signal="text_changed" from="CanvasLayer/MenuHolder/AnswerTextEdit" to="." method="_on_answer_text_edit_text_changed"]
+[node name="AvisoTitulo" type="Label" parent="CanvasLayer/MenuHolder/Aviso/AvisoConteudo/AvisoTextos"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_bebas")
+theme_override_font_sizes/font_size = 23
+text = "DIGITE UM NÚMERO"
+
+[node name="AvisoSubtitulo" type="Label" parent="CanvasLayer/MenuHolder/Aviso/AvisoConteudo/AvisoTextos"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.9)
+theme_override_fonts/font = ExtResource("3_barlow_semibold")
+theme_override_font_sizes/font_size = 12
+text = "Use só números, como 6,59 (vírgula ou ponto para decimais)."
+
+[node name="Menu" type="VBoxContainer" parent="CanvasLayer/MenuHolder"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Faixa" type="PanelContainer" parent="CanvasLayer/MenuHolder/Menu"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_faixa")
+
+[node name="Conteudo" type="HBoxContainer" parent="CanvasLayer/MenuHolder/Menu/Faixa"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="Icone" type="TextureRect" parent="CanvasLayer/MenuHolder/Menu/Faixa/Conteudo"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("5_calculadora")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Titulo" type="Label" parent="CanvasLayer/MenuHolder/Menu/Faixa/Conteudo"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_bebas")
+theme_override_font_sizes/font_size = 18
+text = "SUA RESPOSTA"
+
+[node name="Cartao" type="PanelContainer" parent="CanvasLayer/MenuHolder/Menu"]
+custom_minimum_size = Vector2(432, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cartao")
+
+[node name="Conteudo" type="VBoxContainer" parent="CanvasLayer/MenuHolder/Menu/Cartao"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Pergunta" type="Label" parent="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.078431375, 0.101960786, 0.12156863, 1)
+theme_override_fonts/font = ExtResource("3_barlow_semibold")
+theme_override_font_sizes/font_size = 16
+text = "Área total coberta pelo Lodo, em m²:"
+
+[node name="Entrada" type="HBoxContainer" parent="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AnswerTextEdit" type="TextEdit" parent="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo/Entrada" unique_id=2034087623]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.078431375, 0.101960786, 0.12156863, 1)
+theme_override_colors/font_placeholder_color = Color(0.078431375, 0.101960786, 0.12156863, 0.3)
+theme_override_colors/caret_color = Color(0.78431374, 0.1254902, 0.16862746, 1)
+theme_override_colors/selection_color = Color(0.78431374, 0.1254902, 0.16862746, 0.25)
+theme_override_fonts/font = SubResource("FontVariation_bebas")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_campo")
+theme_override_styles/focus = SubResource("StyleBoxFlat_campo_foco")
+placeholder_text = "0,00"
+caret_blink = true
+
+[node name="AnswerButton" type="Button" parent="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo/Entrada" unique_id=295931137]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_bebas")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_enviar")
+theme_override_styles/hover = SubResource("StyleBoxFlat_enviar_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_enviar_hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_foco")
+text = "ENVIAR"
+
+[node name="Retas" type="HBoxContainer" parent="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="RetasTitulo" type="Label" parent="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo/Retas"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.78431374, 0.1254902, 0.16862746, 1)
+theme_override_fonts/font = SubResource("FontVariation_bebas")
+theme_override_font_sizes/font_size = 13
+text = "SUAS RETAS"
+
+[node name="ListaRetas" type="HFlowContainer" parent="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo/Retas"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 4
+
+[node name="Rodape" type="HBoxContainer" parent="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="Tecla" type="PanelContainer" parent="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo/Rodape"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tecla")
+
+[node name="Texto" type="Label" parent="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo/Rodape/Tecla"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_barlow_bold")
+theme_override_font_sizes/font_size = 10
+text = "TAB"
+horizontal_alignment = 1
+
+[node name="Dica" type="Label" parent="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo/Rodape"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.078431375, 0.101960786, 0.12156863, 0.65)
+theme_override_fonts/font = ExtResource("3_barlow_semibold")
+theme_override_font_sizes/font_size = 12
+text = "fechar  ·  vírgula ou ponto para decimais"
+
+[connection signal="pressed" from="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo/Entrada/AnswerButton" to="." method="_on_answer_button_pressed"]
+[connection signal="text_changed" from="CanvasLayer/MenuHolder/Menu/Cartao/Conteudo/Entrada/AnswerTextEdit" to="." method="_on_answer_text_edit_text_changed"]
