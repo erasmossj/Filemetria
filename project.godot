@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 MusicManager="*uid://4do3y8g7n3g2"
 Cronometro="*res://src/scripts/cronometro.gd"
+SFXManager="*res://src/scripts/sfx_manager.gd"
 
 [display]
 

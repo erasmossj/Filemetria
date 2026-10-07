@@ -8,7 +8,7 @@ Filemetria/
 ├── .gitattributes             # normaliza fim de linha para LF
 ├── .gitignore                 # raiz
 ├── project.godot              # raiz (obrigatório — define o projeto)
-├── default_bus_layout.tres    # buses de áudio (Master e Music)
+├── default_bus_layout.tres    # buses de áudio (Master, Music e SFX)
 ├── icon.svg                   # raiz por padrão
 ├── icon.svg.import            # anda sempre colado ao recurso
 ├── docs/                      # documentação (lista no README)
@@ -17,7 +17,7 @@ Filemetria/
 │   ├── textures/              # texturas e materiais (.tres), uma pasta por material
 │   ├── sprites/               # imagens 2D: ícones SVG do HUD e a mira
 │   │   └── renda_file/        # padrões de renda filé do HUD
-│   ├── audio/                 # ambient/ (sons de fundo) e music/
+│   ├── audio/                 # ambient/ (sons de fundo), music/ e sfx/ (efeitos de gameplay)
 │   ├── fonts/                 # fontes, uma pasta por família com o OFL.txt
 │   └── refs/                  # fotos de referência da modelagem (fora do build)
 └── src/
@@ -26,7 +26,7 @@ Filemetria/
     │   ├── fase_um/           # fase do Farol: cena base + uma cena por ato
     │   ├── managers/          # cenas de autoload (MusicManager)
     │   └── sandbox/           # cenas de teste manual (não entram no export)
-    ├── scripts/               # scripts genéricos e autoloads (.gd)
+    ├── scripts/               # scripts genéricos e autoloads (.gd): Cronometro e SFXManager
     ├── shaders/               # shaders reutilizáveis (.gdshader): glow/
     ├── tiles/                 # tilemaps (vazia por enquanto)
     └── ui/                    # interface: Hud, AnswerMenu, ResultScreen
@@ -40,6 +40,10 @@ Filemetria/
 - Scripts genéricos/reutilizáveis (autoloads, helpers, singletons) vão em `src/scripts/`. Autoloads que são cena vão em `src/scenes/managers/`.
 - Nomes de arquivos e pastas em `snake_case`; nomes de classes em `PascalCase`. **Exceção existente:** várias pastas de cena usam o nome do nó raiz em `PascalCase` (`entities/statics/Farol/`, `entities/environment/SpawnManager/`, `ui/Hud/`, `ui/AnswerMenu/`), enquanto outras seguem a regra (`entities/player/`, `entities/environment/sunset_lighting/`). Pastas novas seguem a regra; renomear as antigas exige fazer pelo editor do Godot, para ele atualizar as referências.
 - Documentação em `docs/`, com nomes em `MAIÚSCULO_COM_UNDERLINE` (ver [CONVENCOES_E_BOAS_PRATICAS.md](CONVENCOES_E_BOAS_PRATICAS.md#nomenclatura-de-arquivos-de-documentação)).
+
+## Autoloads e áudio
+
+O áudio global usa `MusicManager` para música e `SFXManager` para os quatro efeitos de gameplay, em buses separados. O estado do alerta urgente fica no `Cronometro`, que preserva a tentativa entre atos; os players do `SFXManager` também sobrevivem às trocas de cena. O tempo padrão é de 600 segundos para a fase inteira. Ver [EFEITOS_SONOROS.md](EFEITOS_SONOROS.md) e [ESTRUTURA_DE_FASES.md](ESTRUTURA_DE_FASES.md#cronômetro-cg-37).
 
 ## Arquivos gerados pelo Godot — onde ficam
 

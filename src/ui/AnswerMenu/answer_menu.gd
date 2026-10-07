@@ -162,10 +162,13 @@ func toggle_menu() -> void:
 
 
 func _set_menu_open(open: bool) -> void:
+	var abrindo := open and not layer.visible
 	layer.visible = open
 	_esconder_aviso()
 	if open:
 		ans.grab_focus()
+		if abrindo:
+			SFXManager.play(SFXManager.INTERACTION)
 	else:
 		ans.release_focus()
 	

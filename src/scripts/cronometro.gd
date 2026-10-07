@@ -2,10 +2,12 @@ extends Node
 
 ## Cronômetro da fase (CG-37). É autoload porque cada ato é uma cena própria e
 ## change_scene_to_file destruiria o tempo restante na troca de ato.
-## Quem inicia, pausa e retoma é a fase (fase_farol.gd); o HUD só lê tempo_restante.
+## Quem inicia, pausa e retoma é a fase (fase_farol.gd); o HUD lê o tempo e solicita o alerta urgente.
 
 ## Emitido uma vez quando a contagem chega a zero.
 signal tempo_esgotado
+## Emitido uma vez por tentativa quando o HUD entra na faixa urgente.
+signal tempo_urgente
 
 ## Segundos que faltam. Zero antes da primeira chamada de iniciar().
 var tempo_restante := 0.0
@@ -13,6 +15,7 @@ var tempo_restante := 0.0
 var tempo_total := 0.0
 
 var _rodando := false
+var _alerta_urgente_emitido := false
 
 
 func _process(delta: float) -> void:
@@ -28,6 +31,7 @@ func _process(delta: float) -> void:
 func iniciar(tempo_total: float) -> void:
 	self.tempo_total = tempo_total
 	tempo_restante = tempo_total
+	_alerta_urgente_emitido = false
 	_rodando = tempo_total > 0.0
 
 
@@ -38,3 +42,11 @@ func continuar() -> void:
 
 func pausar() -> void:
 	_rodando = false
+
+
+## O HUD detecta a urgência; a trava fica aqui para sobreviver à troca de ato.
+func alertar_tempo_urgente() -> void:
+	if _alerta_urgente_emitido:
+		return
+	_alerta_urgente_emitido = true
+	tempo_urgente.emit()

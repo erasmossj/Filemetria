@@ -35,11 +35,17 @@ flowchart LR
 
 Com `tempo_restante <= limite_urgente` (30 s por padrão, export do HUD), a lanterna "acende": o disco fica vermelho com brilho, o anel fica branco e pisca (`piscadas_por_segundo`), e a legenda troca de "TEMPO" para "CORRA!".
 
+Ao entrar nesse estado, `_aplicar_urgencia(true)` também chama `Cronometro.alertar_tempo_urgente()`. O cronômetro emite `tempo_urgente` uma única vez por tentativa e o `SFXManager` toca `time_warning.mp3`. A trava fica no autoload, pois o HUD é recriado em cada ato: entrar nos Atos 2 e 3 já com 30 segundos ou menos não repete um alerta disparado antes. `iniciar()` reseta a trava; pausar e continuar preservam seu estado. Ver [EFEITOS_SONOROS.md](EFEITOS_SONOROS.md).
+
+O tempo inicial padrão é **10:00**, compartilhado pelos três atos. O limite urgente continua em 30 segundos.
+
 ## Painel de controles (F1)
 
 A ação `show_controls` (F1) mostra o painel **enquanto estiver pressionada**. O painel escurece o cenário, mas fica por baixo do resto do HUD, então o tempo continua visível. O jogo não pausa. As linhas do painel ficam nas constantes `CONTROLES_ESQUERDA` e `CONTROLES_DIREITA` de `hud.gd`. Se uma tecla mudar no Input Map, atualize essas constantes e o [CONTROLES.md](CONTROLES.md).
 
 ## Menu de chute (CG-47)
+
+O menu toca `interaction.mp3` somente ao passar de fechado para aberto em `_set_menu_open()`. O mesmo caminho atende Tab e botão do HUD; fechar ou pedir abertura de um menu já aberto não toca.
 
 O menu de chute (`src/ui/AnswerMenu/answer_menu.tscn`) segue a opção **B — Faixa + cartão** do Figma ([arquivo](https://www.figma.com/design/YNWQ3GGnIpmGdkyudYHVpA), "Tela de envio — Opção B"), no mesmo padrão do cartão de Objetivo:
 
@@ -48,7 +54,7 @@ O menu de chute (`src/ui/AnswerMenu/answer_menu.tscn`) segue a opção **B — F
 - Rodapé com a tecla Tab (fecha) e a dica dos decimais.
 - O botão "ENVIAR" não pega o foco (`focus_mode = 0`), então o cursor continua no campo depois do clique.
 
-**Aviso de resposta inválida:** opção **B — Faixa vermelha** do mesmo arquivo. Enviar o campo vazio ou só com `,` ou `.` mostra, acima do cartão, o aviso "DIGITE UM NÚMERO" com o ícone de alerta; enviar zero (`0`, `0,0`, `0.000…`) mostra "A ÁREA PRECISA SER MAIOR QUE 0". Os textos ficam nas constantes `AVISO_*` de `answer_menu.gd`. Ele some depois de `duracao_aviso` segundos (2 por padrão), quando o jogador volta a digitar ou quando o menu fecha. Enviar de novo reinicia a contagem, sem empilhar avisos. O aviso fica sempre no layout, só transparente, para o menu não pular quando ele aparece. O sinal `answer_invalid` continua sendo emitido, para quem mais quiser reagir (um som, por exemplo).
+**Aviso de resposta inválida:** opção **B — Faixa vermelha** do mesmo arquivo. Enviar o campo vazio ou só com `,` ou `.` mostra, acima do cartão, o aviso "DIGITE UM NÚMERO" com o ícone de alerta; enviar zero (`0`, `0,0`, `0.000…`) mostra "A ÁREA PRECISA SER MAIOR QUE 0". Os textos ficam nas constantes `AVISO_*` de `answer_menu.gd`. Ele some depois de `duracao_aviso` segundos (2 por padrão), quando o jogador volta a digitar ou quando o menu fecha. Enviar de novo reinicia a contagem, sem empilhar avisos. O aviso fica sempre no layout, só transparente, para o menu não pular quando ele aparece. O sinal `answer_invalid` continua sendo emitido; na CG-25 ele não toca efeito sonoro e não é tratado como chute errado.
 
 ## Camadas de desenho
 

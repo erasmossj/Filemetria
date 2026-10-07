@@ -131,7 +131,7 @@ func _process(_delta: float) -> void:
 		var fase := Time.get_ticks_msec() / 1000.0 * TAU * piscadas_por_segundo
 		_anel.modulate.a = 0.6 + 0.4 * cos(fase)
 
-	# Arredonda para cima: 05:00 no início e 00:00 só quando o tempo acaba.
+	# Arredonda para cima: 10:00 no início e 00:00 só quando o tempo acaba.
 	var segundos := ceili(restante)
 	if segundos == _segundos_exibidos:
 		return
@@ -180,6 +180,7 @@ func _aplicar_urgencia(urgente: bool) -> void:
 	_estilo_lanterna.shadow_size = 16 if urgente else 8
 	_estilo_lanterna.shadow_offset = Vector2.ZERO if urgente else Vector2(0, 4)
 	if urgente:
+		Cronometro.alertar_tempo_urgente()
 		_anel.definir_cores(Color(1, 1, 1, 0.25), Color.WHITE)
 	else:
 		_anel.definir_cores(Color(VERMELHO, 0.18), VERMELHO)

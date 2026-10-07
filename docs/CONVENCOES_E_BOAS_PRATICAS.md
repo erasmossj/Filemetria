@@ -59,7 +59,7 @@ No `.tscn`, `collision_layer` e `collision_mask` são máscaras de bits: o valor
 ## Autoloads / Singletons
 
 - Autoloads (Project Settings → Autoload) só para estado ou serviços realmente globais (ex.: gerenciador de cena, estado de save, áudio global). Autoloads só de script ficam em `src/scripts/`; autoloads que são cena ficam em `src/scenes/managers/`.
-- Autoloads atuais: `Cronometro` (`src/scripts/cronometro.gd`, tempo da fase entre atos) e `MusicManager` (`src/scenes/managers/music_manager.tscn`, música de fundo no bus `Music`).
+- Autoloads atuais: `Cronometro` (`src/scripts/cronometro.gd`, tempo e trava do alerta urgente entre atos), `MusicManager` (`src/scenes/managers/music_manager.tscn`, música de fundo no bus `Music`) e `SFXManager` (`src/scripts/sfx_manager.gd`, efeitos de gameplay no bus `SFX`). Ver [EFEITOS_SONOROS.md](EFEITOS_SONOROS.md).
 - Evitar transformar autoload em "bag" de utilidades genéricas sem relação — cada autoload deve ter uma responsabilidade clara.
 
 ## UI
