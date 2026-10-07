@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://drpr67gjmlqyu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sunset"]
 sky_top_color = Color(0.32, 0.45, 0.66, 1)
@@ -26,13 +26,9 @@ tonemap_white = 6.0
 ssao_enabled = true
 ssao_radius = 3.0
 ssao_intensity = 3.0
-ssao_power = 1.5
-ssao_detail = 0.5
 ssao_light_affect = 0.2
 fog_enabled = true
-fog_mode = 0
 fog_light_color = Color(0.78, 0.7, 0.66, 1)
-fog_light_energy = 1.0
 fog_sun_scatter = 0.15
 fog_density = 0.002
 fog_sky_affect = 0.0
@@ -45,16 +41,12 @@ environment = SubResource("Environment_sunset")
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=1313130003]
 transform = Transform3D(-0.5, 0.2961981, -0.8137977, 0, 0.9396926, 0.3420201, 0.8660254, 0.1710101, -0.4698463, 0, 20, 0)
 light_color = Color(1, 0.76, 0.54, 1)
-light_energy = 1.0
-light_indirect_energy = 1.0
 light_specular = 0.6
 shadow_enabled = true
 shadow_bias = 0.04
 shadow_normal_bias = 1.5
 shadow_blur = 1.2
-directional_shadow_mode = 2
 directional_shadow_split_1 = 0.08
-directional_shadow_split_2 = 0.2
 directional_shadow_split_3 = 0.45
 directional_shadow_blend_splits = true
 directional_shadow_fade_start = 0.85

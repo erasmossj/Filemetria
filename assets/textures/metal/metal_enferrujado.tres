@@ -1,22 +1,21 @@
-[gd_resource type="StandardMaterial3D" format=3]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cqga0koj35t57"]
 
-[ext_resource type="Texture2D" id="Color" path="./metal_enferrujado_color.jpg"]
-[ext_resource type="Texture2D" id="Metalness" path="./metal_enferrujado_metalness.jpg"]
-[ext_resource type="Texture2D" id="Displacement" path="./metal_enferrujado_height.jpg"]
-[ext_resource type="Texture2D" id="Roughness" path="./metal_enferrujado_roughness.jpg"]
-[ext_resource type="Texture2D" id="NormalGL" path="./metal_enferrujado_normal.jpg"]
+[ext_resource type="Texture2D" uid="uid://cgaai1qjew3sl" path="res://assets/textures/metal/metal_enferrujado_color.jpg" id="Color"]
+[ext_resource type="Texture2D" uid="uid://defe8rhus7wqx" path="res://assets/textures/metal/metal_enferrujado_height.jpg" id="Displacement"]
+[ext_resource type="Texture2D" uid="uid://dlhtbofh7tjqw" path="res://assets/textures/metal/metal_enferrujado_metalness.jpg" id="Metalness"]
+[ext_resource type="Texture2D" uid="uid://dfk6hff062ucd" path="res://assets/textures/metal/metal_enferrujado_normal.jpg" id="NormalGL"]
+[ext_resource type="Texture2D" uid="uid://o56vf2rbvn3k" path="res://assets/textures/metal/metal_enferrujado_roughness.jpg" id="Roughness"]
+
 [resource]
 albedo_texture = ExtResource("Color")
-metallic_texture = ExtResource("Metalness")
 metallic = 1.0
+metallic_texture = ExtResource("Metalness")
 metallic_texture_channel = 4
 roughness_texture = ExtResource("Roughness")
 roughness_texture_channel = 4
-normal_texture = ExtResource("NormalGL")
 normal_enabled = true
-heightmap_texture = ExtResource("Displacement")
+normal_texture = ExtResource("NormalGL")
 heightmap_scale = 1.0
-heightmap_enabled = false
-uv1_scale = Vector3(1, 1, 1)
+heightmap_texture = ExtResource("Displacement")
 uv1_triplanar = true
 uv1_world_triplanar = true

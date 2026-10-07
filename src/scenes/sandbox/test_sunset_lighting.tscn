@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://2s47k6xsv0a6"]
 
-[ext_resource type="PackedScene" path="res://src/entities/environment/sunset_lighting/sunset_lighting.tscn" id="1_light"]
+[ext_resource type="PackedScene" uid="uid://drpr67gjmlqyu" path="res://src/entities/environment/sunset_lighting/sunset_lighting.tscn" id="1_light"]
 [ext_resource type="PackedScene" uid="uid://dmupmkqof1scs" path="res://src/entities/player/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://cgdgdebpiwuug" path="res://assets/models/modelo_farol/farol_ponta_verde.blend" id="3_farol"]
 [ext_resource type="Material" path="res://assets/textures/reboco/reboco.tres" id="4_reboco"]
@@ -14,7 +14,6 @@
 top_radius = 3.431
 bottom_radius = 3.458
 height = 2.42
-radial_segments = 64
 rings = 1
 cap_top = false
 cap_bottom = false
@@ -23,7 +22,6 @@ cap_bottom = false
 top_radius = 3.376
 bottom_radius = 3.404
 height = 2.42
-radial_segments = 64
 rings = 1
 cap_top = false
 cap_bottom = false
@@ -32,7 +30,6 @@ cap_bottom = false
 top_radius = 3.322
 bottom_radius = 3.35
 height = 2.42
-radial_segments = 64
 rings = 1
 cap_top = false
 cap_bottom = false
@@ -53,125 +50,106 @@ material = ExtResource("9_areia")
 [node name="Farol" parent="." unique_id=1313131004 instance=ExtResource("3_farol")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -12)
 
-[node name="LodoProxyAto1" type="CSGBox3D" parent="." unique_id=1313131005]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.6, -4)
-size = Vector3(3, 0.2, 2)
-material = SubResource("StandardMaterial3D_lodo_proxy")
-
-[node name="LodoProxyAto2" type="CSGCylinder3D" parent="." unique_id=1313131006]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -4)
-radius = 1.5
-height = 0.2
-material = SubResource("StandardMaterial3D_lodo_proxy")
-
-[node name="LodoProxyAto3" type="CSGBox3D" parent="." unique_id=1313131007]
-transform = Transform3D(0.866, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866, 6, 0.6, -4)
-size = Vector3(2.5, 0.2, 3.5)
-material = SubResource("StandardMaterial3D_lodo_proxy")
-
-[node name="Player" parent="." unique_id=1313131008 instance=ExtResource("2_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 6)
-
-[node name="Base_concreto" parent="Farol" index="0"]
+[node name="Base_concreto" parent="Farol" index="0" unique_id=1823606565]
 surface_material_override/0 = ExtResource("5_pedra")
 
-[node name="Base_concreto_001" parent="Farol" index="1"]
+[node name="Base_concreto_001" parent="Farol" index="1" unique_id=1472378210]
 surface_material_override/0 = ExtResource("5_pedra")
 
-[node name="Base_concreto_002" parent="Farol" index="2"]
+[node name="Base_concreto_002" parent="Farol" index="2" unique_id=1854964038]
 surface_material_override/0 = ExtResource("5_pedra")
 
-[node name="Base_concreto_003" parent="Farol" index="3"]
+[node name="Base_concreto_003" parent="Farol" index="3" unique_id=1242483683]
 surface_material_override/0 = ExtResource("5_pedra")
 
-[node name="Base_concreto_004" parent="Farol" index="4"]
+[node name="Base_concreto_004" parent="Farol" index="4" unique_id=524196639]
 surface_material_override/0 = ExtResource("5_pedra")
 
-[node name="Cilindro" parent="Farol" index="5"]
+[node name="Cilindro" parent="Farol" index="5" unique_id=883838125]
 surface_material_override/0 = ExtResource("4_reboco")
 
-[node name="Cilindro_001" parent="Farol" index="6"]
+[node name="Cilindro_001" parent="Farol" index="6" unique_id=1455372451]
 surface_material_override/0 = ExtResource("4_reboco")
 
-[node name="Cilindro_002" parent="Farol" index="7"]
+[node name="Cilindro_002" parent="Farol" index="7" unique_id=2072373150]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_003" parent="Farol" index="8"]
+[node name="Cilindro_003" parent="Farol" index="8" unique_id=1984477752]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_004" parent="Farol" index="9"]
+[node name="Cilindro_004" parent="Farol" index="9" unique_id=503291743]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_005" parent="Farol" index="10"]
+[node name="Cilindro_005" parent="Farol" index="10" unique_id=1562381825]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_006" parent="Farol" index="11"]
+[node name="Cilindro_006" parent="Farol" index="11" unique_id=1417567304]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_007" parent="Farol" index="12"]
+[node name="Cilindro_007" parent="Farol" index="12" unique_id=2056412557]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_008" parent="Farol" index="13"]
+[node name="Cilindro_008" parent="Farol" index="13" unique_id=931894937]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_009" parent="Farol" index="14"]
+[node name="Cilindro_009" parent="Farol" index="14" unique_id=1429230830]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_010" parent="Farol" index="5"]
+[node name="Cilindro_010" parent="Farol" index="15" unique_id=1053934713]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_011" parent="Farol" index="5"]
+[node name="Cilindro_011" parent="Farol" index="16" unique_id=1005105947]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_012" parent="Farol" index="6"]
+[node name="Cilindro_012" parent="Farol" index="17" unique_id=1792049200]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_013" parent="Farol" index="7"]
+[node name="Cilindro_013" parent="Farol" index="18" unique_id=922111724]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_014" parent="Farol" index="19"]
+[node name="Cilindro_014" parent="Farol" index="19" unique_id=2123450412]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cilindro_015" parent="Farol" index="20"]
+[node name="Cilindro_015" parent="Farol" index="20" unique_id=1703278732]
 surface_material_override/0 = ExtResource("7_metal_enferrujado")
 
-[node name="Cone" parent="Farol" index="21"]
+[node name="Cone" parent="Farol" index="21" unique_id=333060536]
 surface_material_override/0 = ExtResource("6_metal_limpo")
 
-[node name="Corpo_Farol" parent="Farol" index="22"]
+[node name="Corpo_Farol" parent="Farol" index="22" unique_id=514255282]
 surface_material_override/0 = ExtResource("4_reboco")
 
-[node name="Cubo" parent="Farol" index="23"]
+[node name="Cubo" parent="Farol" index="23" unique_id=621198329]
 surface_material_override/0 = ExtResource("4_reboco")
 
-[node name="Cubo_001" parent="Farol" index="24"]
+[node name="Cubo_001" parent="Farol" index="24" unique_id=1868343606]
 surface_material_override/0 = ExtResource("4_reboco")
 
-[node name="Cubo_002" parent="Farol" index="5"]
+[node name="Cubo_002" parent="Farol" index="25" unique_id=50759938]
 surface_material_override/0 = ExtResource("4_reboco")
 
-[node name="Cubo_003" parent="Farol" index="5"]
+[node name="Cubo_003" parent="Farol" index="26" unique_id=2089898639]
 surface_material_override/0 = ExtResource("4_reboco")
 
-[node name="Cubo_004" parent="Farol" index="6"]
+[node name="Cubo_004" parent="Farol" index="27" unique_id=892939070]
 surface_material_override/0 = ExtResource("4_reboco")
 
-[node name="Cubo_005" parent="Farol" index="7"]
+[node name="Cubo_005" parent="Farol" index="28" unique_id=1471091819]
 surface_material_override/0 = ExtResource("4_reboco")
 
-[node name="Cubo_006" parent="Farol" index="29"]
+[node name="Cubo_006" parent="Farol" index="29" unique_id=1310389308]
 surface_material_override/0 = ExtResource("4_reboco")
 
-[node name="Cubo_007" parent="Farol" index="30"]
+[node name="Cubo_007" parent="Farol" index="30" unique_id=1690594709]
 surface_material_override/0 = ExtResource("4_reboco")
 
-[node name="Cubo_008" parent="Farol" index="31"]
+[node name="Cubo_008" parent="Farol" index="31" unique_id=31604356]
 surface_material_override/0 = ExtResource("4_reboco")
 
-[node name="Esfera UV" parent="Farol" index="32"]
+[node name="Esfera UV" parent="Farol" index="32" unique_id=505961930]
 surface_material_override/0 = ExtResource("6_metal_limpo")
 
-[node name="Esfera UV_001" parent="Farol" index="33"]
+[node name="Esfera UV_001" parent="Farol" index="33" unique_id=1888237405]
 surface_material_override/0 = ExtResource("6_metal_limpo")
 
 [node name="FaixasVermelhas" type="Node3D" parent="Farol" unique_id=1313131009]
@@ -205,5 +183,24 @@ surface_material_override/0 = ExtResource("8_reboco_vermelho")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.76, 0)
 mesh = SubResource("CylinderMesh_faixa_3")
 surface_material_override/0 = ExtResource("8_reboco_vermelho")
+
+[node name="LodoProxyAto1" type="CSGBox3D" parent="." unique_id=1313131005]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.6, -4)
+size = Vector3(3, 0.2, 2)
+material = SubResource("StandardMaterial3D_lodo_proxy")
+
+[node name="LodoProxyAto2" type="CSGCylinder3D" parent="." unique_id=1313131006]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -4)
+radius = 1.5
+height = 0.2
+material = SubResource("StandardMaterial3D_lodo_proxy")
+
+[node name="LodoProxyAto3" type="CSGBox3D" parent="." unique_id=1313131007]
+transform = Transform3D(0.866, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866, 6, 0.6, -4)
+size = Vector3(2.5, 0.2, 3.5)
+material = SubResource("StandardMaterial3D_lodo_proxy")
+
+[node name="Player" parent="." unique_id=1313131008 instance=ExtResource("2_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 6)
 
 [editable path="Farol"]
