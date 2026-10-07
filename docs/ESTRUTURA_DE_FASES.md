@@ -119,4 +119,6 @@ O CG-36 pedia a troca de ato "sem recarregar a cena". A troca de cena foi escolh
 - **Reinício recarrega a cena:** o CG-37 pede que o reinício não recarregue a cena inteira. Ele segue a decisão do CG-36 e troca de cena para o Ato 1, que zera cronômetro, retas, medidas e Lodo de uma vez.
 - **Pausa só do tempo:** o ESC para o cronômetro, mas não o jogo. Com o cursor liberado, o Player ainda anda e marca pontos com clique, então dá para medir com o tempo parado.
 - **Nós com nome fixo:** `fase_farol.gd` procura `$Farol`, `$Player`, `$AnswerMenu`, `$ResultScreen` e `$Hud` na raiz. Renomear esses nós na base quebra o `_ready`.
-- **`fase_concluida` sem ouvinte:** ainda não há tela de fim de fase. O sinal existe para quem for implementá-la.
+- **`fase_concluida` sem ouvinte:** ainda não há tela de fim de fase. O sinal existe para quem for implementá-la. Por enquanto, o acerto do último ato mostra a tela de acerto com o chip "FIM DA FASE".
+- **Dados das telas de resultado:** as funções `mostrar_*` de `result_screen.gd` recebem o chute, o próximo ato e o tempo como parâmetros. A tela não lê o AnswerMenu nem o Cronometro; quem junta os dados é `fase_farol.gd`.
+- **Sem gabarito em exemplos:** 6,59, 27,72 e 17,32 são as respostas dos atos. Textos de aviso, dicas e mockups não devem usar número de exemplo, para não entregar a resposta.
