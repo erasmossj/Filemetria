@@ -32,6 +32,11 @@ func _analyse_answer(usr_ans : float) -> AnswerResult:
 	if rel_error <= hit_margin:
 		return AnswerResult.CORRECT
 
+	# Zero está infinitamente longe do gabarito pela razão, então é sempre erro grosseiro.
+	# Só vira acerto com hit_margin = 1.0, porque o erro relativo de zero é 100%.
+	if usr_ans <= 0.0:
+		return AnswerResult.FAIL
+
 	# O erro relativo comum nunca passa de 100% para chutes abaixo do gabarito,
 	# então o erro grosseiro compara pela razão, que vale nos dois sentidos:
 	# com fail_margin = 1.0, é grosseiro chutar mais que o dobro ou menos que a metade.
@@ -48,16 +53,15 @@ func _on_answer_button_pressed() -> void:
 	ans.clear()
 	_set_menu_open(false)
 	
-	if usr_text.is_empty():
+	# Campo vazio ou só com o separador não é número: não submete nem conta como erro.
+	# O sinal de menos é descartado por _filter_number, então não existe chute negativo.
+	if usr_text.replace(",", "").replace(".", "").is_empty():
 		return
 	
 	# O campo só contém dígitos e no máximo um separador (ver _filter_number),
 	# então basta normalizar a vírgula. ",5" vira 0.5 e "5," vira 5.
+	# Zero é submetido e cai em _analyse_answer como um chute qualquer.
 	var usr_num : float = usr_text.replace(",", ".").to_float()
-	
-	# Zero (ou só o separador) é entrada inválida: não submete nem conta como erro
-	if usr_num <= 0.0:
-		return
 	
 	if correct_ans <= 0.0:
 		push_error("AnswerMenu: correct_ans precisa ser maior que 0.")
